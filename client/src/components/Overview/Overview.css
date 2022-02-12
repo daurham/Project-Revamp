@@ -1,0 +1,5 @@
+@import '../App.css';
+
+:root .title {
+  font: var( --title);
+};

@@ -1,6 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
+import Overview from './Overview/Overview';
+import RelatedItems from './RelatedItems/RelatedItems';
+import QuestAnswers from './QuestAnswers/QuestAnswers';
+import RatingsReviews from './RatingsReviews/RatingsReviews';
 // import styles from './App.css';
+
+export const DataContext = React.createContext();
 
 function App() {
   const [products, setProducts] = useState();
@@ -35,10 +41,21 @@ function App() {
     getReviews();
     getQuestions();
     getCart();
-  });
+  }, []);
+
+  const value = useMemo(() => ({
+    products, setProducts, reviews, setReviews, questions, setQuestions, cart, setCart,
+  }), [products, reviews, questions, cart]);
+
+  console.log(products);
 
   return (
-    <div>Hello</div>
+    <DataContext.Provider value={value}>
+      <Overview />
+      <RelatedItems />
+      <QuestAnswers />
+      <RatingsReviews />
+    </DataContext.Provider>
   );
 }
 
