@@ -1,10 +1,10 @@
 import React from 'react';
 
-function QuestAnswers() {
+function RelatedItems() {
   return (
     <>
     </>
   );
 }
 
-export default QuestAnswers;
+export default RelatedItems;
