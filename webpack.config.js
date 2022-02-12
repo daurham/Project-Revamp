@@ -10,14 +10,6 @@ module.exports = {
     filename: 'bundle.js',
     path: DIST_DIR,
   },
-  devServer: {
-    static: {
-      directory: DIST_DIR,
-    },
-    port: 3000,
-    open: true,
-    liveReload: true,
-  },
   module: {
     rules: [
       {
