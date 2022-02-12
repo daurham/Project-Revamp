@@ -1,61 +1,39 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import axios from 'axios';
+import React from 'react';
 import Overview from './Overview/Overview';
 import RelatedItems from './RelatedItems/RelatedItems';
 import QuestAnswers from './QuestAnswers/QuestAnswers';
 import RatingsReviews from './RatingsReviews/RatingsReviews';
+import DataProvider from './DataProvider';
 // import styles from './App.css';
 
-export const DataContext = React.createContext();
-
 function App() {
-  const [products, setProducts] = useState();
-  const [reviews, setReviews] = useState();
-  const [questions, setQuestions] = useState();
-  const [cart, setCart] = useState();
+  // -- commenting out below functions for possible later use: --
+  // const [reviews, setReviews] = useState();
+  // const [questions, setQuestions] = useState();
+  // const [cart, setCart] = useState();
 
-  let params;
+  // function getReviews() {
+  //   axios.get('/reviews', params)
+  //     .then((result) => setReviews(result.data));
+  // }
 
-  function getProducts() {
-    axios.get('/products', params)
-      .then((result) => setProducts(result.data));
-  }
+  // function getQuestions() {
+  //   axios.get('/questions', params)
+  //     .then((result) => setQuestions(result.data));
+  // }
 
-  function getReviews() {
-    axios.get('/reviews', params)
-      .then((result) => setReviews(result.data));
-  }
-
-  function getQuestions() {
-    axios.get('/questions', params)
-      .then((result) => setQuestions(result.data));
-  }
-
-  function getCart() {
-    axios.get('/user-cart', params)
-      .then((result) => setCart(result.data));
-  }
-
-  useEffect(() => {
-    getProducts();
-    getReviews();
-    getQuestions();
-    getCart();
-  }, []);
-
-  const value = useMemo(() => ({
-    products, setProducts, reviews, setReviews, questions, setQuestions, cart, setCart,
-  }), [products, reviews, questions, cart]);
-
-  console.log(products);
+  // function getCart() {
+  //   axios.get('/user-cart', params)
+  //     .then((result) => setCart(result.data));
+  // }
 
   return (
-    <DataContext.Provider value={value}>
+    <DataProvider>
       <Overview />
       <RelatedItems />
       <QuestAnswers />
       <RatingsReviews />
-    </DataContext.Provider>
+    </DataProvider>
   );
 }
 
