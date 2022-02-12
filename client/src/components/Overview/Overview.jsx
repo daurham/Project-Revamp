@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { DataContext } from '../App';
 // import css from './Overview.css';
 import appcss from '../App.css';
 
 function Overview() {
+  const { products } = useContext(DataContext);
+  console.log(products);
   return (
     <>
       <p className={appcss.title}>Title</p>
