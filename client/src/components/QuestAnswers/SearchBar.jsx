@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useData } from '../DataProvider';
 
-function SearchBar({ sendFilteredResult }) {
+function SearchBar({ sendFilteredResults }) {
   // use the entire questions array as a base to filter through.
   const { questions } = useData();
 
@@ -13,7 +13,7 @@ function SearchBar({ sendFilteredResult }) {
     const searchResults = questions.filter((q) => {
       // logic
     });
-    sendFilteredResult(searchResults);
+    sendFilteredResults(searchResults);
     // send results back up to the QuestionList Component
   }
 

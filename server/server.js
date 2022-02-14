@@ -10,9 +10,10 @@ const DIST_DIR = path.join(__dirname, '../client/dist');
 app.use(express.static(DIST_DIR));
 
 const headers = { Authorization };
-const config = { headers };
+// const config = { headers };
 
 app.get('/products/:id', (req, res) => {
+  const config = { headers };
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products/${req.params.id}`, config)
     .then((result) => { res.send(result.data); });
 });
@@ -22,10 +23,21 @@ app.get('/products/:id', (req, res) => {
 //     .then((result) => { res.send(result.data); });
 // });
 
-// app.get('/questions', (req, res) => {
-//   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions', params)
-//     .then((result) => { res.send(result.data); });
-// });
+// Questions / Answers
+app.get('/questions/:id', (req, res) => {
+  const config = { headers };
+  config.params = { product_id: req.params.id, page: 1, count: 5 };
+  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions', config)
+    .then((result) => { res.send(result.data); })
+    .catch((err) => { res.status(500).send(err); });
+});
+
+app.get('/answers/:id', (req, res) => {
+  const config = { headers };
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${req.params.id}/answers/?page=1&count=5`, config)
+    .then((result) => { res.send(result.data); })
+    .catch((err) => { res.status(500).send(err); });
+});
 
 // app.get('/user-cart', (req, res) => {
 //   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/cart', params)
