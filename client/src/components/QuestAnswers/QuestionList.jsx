@@ -3,7 +3,7 @@ import Question from './Question';
 import QuestionModal from './QuestionModal';
 import { useData } from '../DataProvider';
 
-function QuestionList() {
+function QuestionList({ filteredList }) {
   const { product } = useData();
   const { getQuestions } = useData();
 
@@ -13,7 +13,11 @@ function QuestionList() {
   // load more Questions if the btn is clicked and invoking this fn.
   function loadMoreQuestions(e) {
     e.preventDefault();
-    // input logic
+    // maybe over iter and pass 2 at a time per click.
+    [...filteredList].map((Q) => (
+      <div>{Q}</div>
+    ));
+    // logic
   }
 
   return (
@@ -30,7 +34,7 @@ function QuestionList() {
         <div className="question-list-btm-btn">
           <button
             type="button"
-            onClick={() => { loadMoreQuestions(); }}
+            onClick={loadMoreQuestions}
           >
             Load More Questions
           </button>

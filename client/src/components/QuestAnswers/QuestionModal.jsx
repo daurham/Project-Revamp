@@ -30,7 +30,7 @@ function QuestionModal() {
       <button
         type="button"
         className="question-list-btm-btn"
-        onClick={() => { launchModal(); }}
+        onClick={launchModal}
       >
         Ask a Question
       </button>
