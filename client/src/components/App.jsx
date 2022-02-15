@@ -3,7 +3,8 @@ import Overview from './Overview/Overview';
 import RelatedItems from './RelatedItems/RelatedItems';
 import QuestAnswers from './QuestAnswers/QuestAnswers';
 import RatingsReviews from './RatingsReviews/RatingsReviews';
-import DataProvider from './DataProvider';
+import DataProvider from './Context/DataProvider';
+import OverviewProvider from './Context/OverviewProvider';
 // import styles from './App.css';
 
 function App() {
@@ -29,8 +30,10 @@ function App() {
 
   return (
     <DataProvider>
-      <Overview />
-      <RelatedItems />
+      <OverviewProvider>
+        <Overview />
+        <RelatedItems />
+      </OverviewProvider>
       <QuestAnswers />
       <RatingsReviews />
     </DataProvider>
