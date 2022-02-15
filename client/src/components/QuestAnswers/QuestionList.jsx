@@ -1,36 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Question from './Question';
 import QuestionModal from './QuestionModal';
-import { useData } from '../DataProvider';
+// import styles from './QuestAnswer';
 
-function QuestionList({ filteredList }) {
-  const { product } = useData();
-  const { getQuestions } = useData();
+function QuestionList(questionData) {
+  const [loadLimit, updateLoadLimit] = useState(2);
+  const { unfilteredQuestions } = questionData;
+  const { userFilteredResults } = questionData;
+  const questions = [];
 
-  // look into how this function works / what info is on the product properties.
-  const questions = getQuestions(product);
+  if (userFilteredResults) {
+    questions.push(...userFilteredResults);
+  } else {
+    questions.push(...unfilteredQuestions);
+  }
+
+  // only allow 2 elements at a time.
+  const filteredList = [];
+  for (let i = 0; i < loadLimit; i += 1) {
+    if (questions[i]) {
+      filteredList.push(questions[i]);
+    }
+  }
 
   // load more Questions if the btn is clicked and invoking this fn.
   function loadMoreQuestions(e) {
     e.preventDefault();
-    // maybe over iter and pass 2 at a time per click.
-    [...filteredList].map((Q) => (
-      <div>{Q}</div>
-    ));
-    // logic
+    updateLoadLimit(() => loadLimit + 2);
   }
-
+  const styles = {
+    border: 'solid 2px orange',
+    width: '50%',
+  };
   return (
     <div>
-      {questions.map((currQuestion) => (
-        // only load 2. May need to use a function instead due to linter...
-        // look into finding an id since I cant increment an arbitrary number.
-        // Assuming the array I create on line 11 gives me an array of Q objects.
-        <Question question={currQuestion.question} key={currQuestion.id} />
+      {filteredList.map((question) => (
+        <div
+          className="question-div"
+          style={styles}
+          key={question.question_id}
+        >
+          {question.question_body}
+          <Question
+            data={question.question_body}
+          />
+        </div>
       ))}
-
       <span>
-
         <div className="question-list-btm-btn">
           <button
             type="button"
