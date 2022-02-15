@@ -1,6 +1,6 @@
 import React from 'react';
 // import custom hook created on line 9 of DataProvider
-import { useData } from '../DataProvider';
+import { useData } from '../Context/DataProvider';
 
 function RelatedItems() {
   // deconstruct the context object passed into value, DataProvider line 29
