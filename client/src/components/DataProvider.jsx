@@ -14,27 +14,23 @@ function DataProvider({ children }) {
   // setting state to one random product, id: 40344
   const [productId, setProductId] = useState(null);
 
-  function getProductId() {
-    axios.get('/products')
-      .then((result) => {
-        const { data } = result;
-        const { id } = data[0];
-        setProductId(id);
-      });
-  }
-
-  function changeID(id) {
+  function updateID(id) {
     setProductId(id);
   }
 
   // useEffect to get single product after first render only
   useEffect(() => (
-    getProductId()
+    axios.get('/products')
+      .then((result) => {
+        const { data } = result;
+        const { id } = data[0];
+        setProductId(id);
+      })
   ), []);
 
   // setting items to pass into context provider
   const value = useMemo(() => ({
-    productId, getProductId, changeID,
+    productId, updateID,
   }), [productId]);
 
   return (
