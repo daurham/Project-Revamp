@@ -15,7 +15,8 @@ const config = { headers };
 // returns all products
 app.get('/products', (req, res) => {
   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products', config)
-    .then((result) => { res.send(result.data); });
+    .then((result) => { res.send(result.data); })
+    .catch(() => { res.sendStatus(500); });
 });
 
 // returns product level information for a specific product id
@@ -49,7 +50,7 @@ app.get('/products/:id/relatedinfo', (req, res) => {
 app.get('/products/:id/styles', (req, res) => {
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products/${req.params.id}/styles`, config)
     .then((result) => { res.send(result.data); })
-    .catch(() => res.sendStatus(500));
+    .catch(() => { res.sendStatus(500); });
 });
 
 // app.get('/reviews', (req, res) => {
