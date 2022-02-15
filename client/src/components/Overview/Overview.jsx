@@ -1,17 +1,34 @@
-import React from 'react';
-// import css from './Overview.css';
-import appcss from '../App.css';
+import React, {
+  useState, useEffect,
+} from 'react';
+// import custom hook created on line 9 of DataProvider
+import axios from 'axios';
+import { useData } from '../DataProvider';
 
 function Overview() {
+  const { productId } = useData();
+  // console.log('g prodID', productId)
+
+  const [prodDetails, setProdDetails] = useState({});
+
+  // function getProduct() {
+
+  // }
+
+  useEffect(() => {
+  //   getProduct();
+    axios.get(`/products/${productId}`)
+      .then((result) => {
+        // const { data } = result;
+        console.log('result.data', result.data)
+        setProdDetails(result.data);
+      });
+  }, [productId]);
+
   return (
-    <>
-      <p className={appcss.title}>Title</p>
-      <p className={appcss.sub_title}>Sub Title</p>
-      <p className={appcss.para_title}>para title</p>
-      <p className={appcss.para_md}>para md</p>
-      <p className={appcss.para_sm}>para sm</p>
-      <p>Default</p>
-    </>
+    <div>
+      {prodDetails.name}
+    </div>
   );
 }
 

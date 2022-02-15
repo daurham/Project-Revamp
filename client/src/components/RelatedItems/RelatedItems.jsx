@@ -1,18 +1,28 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 // import custom hook created on line 9 of DataProvider
 import { useData } from '../DataProvider';
 
 function RelatedItems() {
-  // deconstruct the context object passed into value, DataProvider line 29
   const { productId } = useData();
-  const { getProductId } = useData();
-  // use these two items below in render:
-  // notice that we are accessing a property ".name" of the product object. only render a property,
-  // otherwise you'll get an error. only using below example as proof of concept.
+  const { updateID } = useData();
+  const [relatedItemsInfo, setRelatedItemsInfo] = useState([]);
+
+  useEffect(() => (
+    axios.get(`/products/${productId}/related`)
+      .then((result1) => {
+        console.log('res1', result1.data);
+        result1.data.forEach((item) => {
+          console.log(item);
+          axios.get(`/products/${item}/relatedinfo`)
+            .then((result2) => setRelatedItemsInfo((prevItems) => prevItems.concat(result2.data)));
+        });
+      })
+  ), [productId]);
+
   return (
     <div>
       Display Product Name:&nbsp;
-      {productId}
       <button type="button" onClick={() => getProductId()}> Get Another Product Name </button>
     </div>
   );
