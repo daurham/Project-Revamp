@@ -12,28 +12,26 @@ export function useData() {
 // eslint error here: specifying propTypes. we need another module, i'm thinking ignore for now?
 function DataProvider({ children }) {
   // setting state to one random product, id: 40344
-  const [product, setProduct] = useState();
+  const [productId, setProductId] = useState(null);
 
-  // Network Requests
-  function getProduct(productID) {
-    axios.get(`/products/${productID}`)
-      .then((result) => {
-        // console.log('product: ', result.data);
-        // console.log('product: ', product.id);
-        setProduct(result.data);
-      })
-      .catch((err) => console.log(err));
+  function updateID(id) {
+    setProductId(id);
   }
 
   // useEffect to get single product after first render only
   useEffect(() => (
-    getProduct(40345)
+    axios.get('/products')
+      .then((result) => {
+        const { data } = result;
+        const { id } = data[0];
+        setProductId(id);
+      })
   ), []);
 
   // setting items to pass into context provider
   const value = useMemo(() => ({
-    product, getProduct,
-  }), [product]);
+    productId, updateID,
+  }), [productId]);
 
   return product ? (
     // passing context value to all children within app.jsx

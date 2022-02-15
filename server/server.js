@@ -12,10 +12,23 @@ app.use(express.static(DIST_DIR));
 const headers = { Authorization };
 const config = { headers };
 
+// returns all products
+app.get('/products', (req, res) => {
+  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products', config)
+    .then((result) => { res.send(result.data); });
+});
+
+// returns product level information for a specific product id
 app.get('/products/:id', (req, res) => {
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products/${req.params.id}`, config)
     .then((result) => { res.send(result.data); })
     .catch((err) => { res.send(err); });
+});
+
+// returns all the styles available for the given product
+app.get('/products/:id', (req, res) => {
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products/${req.params.id}/styles`, config)
+    .then((result) => { res.send(result.data); });
 });
 
 // app.get('/reviews', (req, res) => {
