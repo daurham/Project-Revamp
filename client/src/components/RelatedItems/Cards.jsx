@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import AddOutfit from '../SharedComponents/AddOutfit';
+import { useData } from '../SharedContexts/DataProvider';
 import RemoveOutfit from './RemoveOutfit';
 
 function Cards(props) {
   const { item } = props;
   const { view } = props;
-  const [relatedView, setRelatedView] = useState(view);
+  const { setProductId } = useData();
+  const [relatedView] = useState(view);
 
   let render;
   if (relatedView) {
@@ -27,13 +29,15 @@ function Cards(props) {
   }
   return (
     <>
-      <div>beg of card</div>
       {render}
-      <div>{item.category}</div>
-      <div>{item.name}</div>
-      <div>{item.default_price}</div>
-      <img src={item.thumbnail} alt="item" />
-      <div>end of card</div>
+      <div role="presentation" onClick={() => setProductId(item.id)}>
+        <div>beg of card</div>
+        <div>{item.category}</div>
+        <div>{item.name}</div>
+        <div>{item.default_price}</div>
+        <img src={item.thumbnail} alt="item" />
+        <div>end of card</div>
+      </div>
     </>
   );
 }

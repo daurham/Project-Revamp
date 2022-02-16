@@ -15,6 +15,7 @@ function DataProvider({ children }) {
   const [productId, setProductId] = useState(null);
 
   function updateID(id) {
+    console.log('updateid hit');
     setProductId(id);
   }
 
@@ -30,7 +31,7 @@ function DataProvider({ children }) {
 
   // setting items to pass into context provider
   const value = useMemo(() => ({
-    productId, updateID,
+    productId, setProductId, updateID,
   }), [productId]);
 
   return (

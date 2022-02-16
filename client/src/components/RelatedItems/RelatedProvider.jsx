@@ -17,15 +17,17 @@ function RelatedProvider({ children }) {
     localStorage.items ? JSON.parse(localStorage.items) : {},
   );
 
-  useEffect(() => (
+  useEffect(() => {
     axios.get(`/products/${productId}/related`)
       .then((result1) => {
         result1.data.forEach((item) => {
           axios.get(`/products/${item}/relatedinfo`)
-            .then((result2) => setRelatedItemsInfo((prevItems) => prevItems.concat(result2.data)));
+          // .then((result2) => setRelatedItemsInfo((prevItems) => prevItems.concat(result2.data)));
+            .then((result2) => setRelatedItemsInfo((prevItems) => [...prevItems, ...result2.data]));
         });
-      })
-  ), [productId]);
+      });
+    return () => (setRelatedItemsInfo([]));
+  }, [productId]);
 
   const value = useMemo(() => ({
     relatedItemsInfo, localData, setLocalData,
