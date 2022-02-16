@@ -27,8 +27,8 @@ function StarsRating() {
     isMounted.current = true;
   }
 
-  useEffect(() => {
-  }, [productId], [isMounted]);
+  // useEffect(() => {
+  // }, [productId], [isMounted]);
 
   console.log(average)
 

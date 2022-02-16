@@ -8,35 +8,20 @@ import OverviewProvider from './Context/OverviewProvider';
 // import styles from './App.css';
 
 function App() {
-  // -- commenting out below functions for possible later use: --
-  // const [reviews, setReviews] = useState();
-  // const [questions, setQuestions] = useState();
-  // const [cart, setCart] = useState();
-
-  // function getReviews() {
-  //   axios.get('/reviews', params)
-  //     .then((result) => setReviews(result.data));
-  // }
-
-  // function getQuestions() {
-  //   axios.get('/questions', params)
-  //     .then((result) => setQuestions(result.data));
-  // }
-
-  // function getCart() {
-  //   axios.get('/user-cart', params)
-  //     .then((result) => setCart(result.data));
-  // }
-
+  // const { productId } = useData();
   return (
-    <DataProvider>
-      <OverviewProvider>
-        {/* <Overview /> */}
-        <RelatedItems />
-      </OverviewProvider>
-      <QuestAnswers />
-      <RatingsReviews />
-    </DataProvider>
+    <>
+
+      <DataProvider>
+        <OverviewProvider>
+          {/* <Overview /> */}
+          <RelatedItems />
+        </OverviewProvider>
+        <QuestAnswers />
+        <RatingsReviews />
+      </DataProvider>
+
+    </>
   );
 }
 
