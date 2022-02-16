@@ -23,9 +23,10 @@ function OverviewProvider({ children }) {
 
     axios.get(`/products/${productId}/styles`)
       .then((result2) => {
-        result2.data.results.forEach((item) => {
-          setProdStyles((prevItems) => prevItems.concat(item));
-        });
+        // result2.data.results.forEach((item) => {
+        //   setProdStyles((prevItems) => prevItems.concat(item));
+        // });
+        setProdStyles(result2.data.results);
       });
   }, [productId]);
 
