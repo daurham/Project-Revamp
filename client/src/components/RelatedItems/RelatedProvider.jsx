@@ -2,7 +2,7 @@ import React, {
   useState, useMemo, useContext, useEffect,
 } from 'react';
 import axios from 'axios';
-import { useData } from '../DataProvider';
+import { useData } from '../SharedContexts/DataProvider';
 
 const RelatedContext = React.createContext();
 
@@ -13,6 +13,7 @@ export function useRelated() {
 function RelatedProvider({ children }) {
   const { productId } = useData();
   const [relatedItemsInfo, setRelatedItemsInfo] = useState([]);
+  const [localData, setLocalData] = useState([]);
 
   useEffect(() => (
     axios.get(`/products/${productId}/related`)
@@ -25,7 +26,7 @@ function RelatedProvider({ children }) {
   ), [productId]);
 
   const value = useMemo(() => ({
-    productId, relatedItemsInfo,
+    relatedItemsInfo,
   }), [relatedItemsInfo]);
 
   return (
