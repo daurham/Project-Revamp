@@ -1,5 +1,19 @@
-.question-div {
-  border: solid black 2px;
-  color: white;
+
+.question_div {
+  border: solid 2px rgb(238, 238, 238);
+  width: 75%;
+  border: solid black 6px;
   /* border-bottom:; */
 }
+
+.q_list_div {
+  border: solid 2px rgb(238, 238, 238);
+  width: 75%;
+};
+
+.border {
+  border-bottom: solid 1px rgb(129, 88, 88);
+  color:aqua;
+  background-color: aqua;
+  font:100
+};

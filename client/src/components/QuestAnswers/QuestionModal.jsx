@@ -3,6 +3,7 @@ import { useData } from '../DataProvider';
 
 function QuestionModal() {
   // look into creating a modal
+  // use this modal for the questions and answers.
 
   // ideally, context is needed to know which product will recieve a post request
 
@@ -26,15 +27,13 @@ function QuestionModal() {
   // rerender the question to the list in the selected filtered order
 
   return (
-    <div>
-      <button
-        type="button"
-        className="question-list-btm-btn"
-        onClick={launchModal}
-      >
-        Ask a Question
-      </button>
-    </div>
+    <button
+      type="button"
+      className="question-list-btm-btn"
+      onClick={launchModal}
+    >
+      Ask a Question
+    </button>
   );
 }
 

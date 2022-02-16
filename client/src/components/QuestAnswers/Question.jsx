@@ -3,44 +3,87 @@ import axios from 'axios';
 import Answer from './Answer';
 import { useData } from '../DataProvider';
 
-// if allowed, pass the current Quesstion data in and use
 function Question({ currentQuestion }) {
-  // map over the availible answers and only post 2.
+  /* TEST:
+    Describe: 'My Question component renders all the question data'
+    Test: 'CurrentQuestion prop length should match a get request of the question'
+  */
 
-  // look into how this fn works and what properties I can use to extract the
-  // current products, current Questions Answers.
+  const { question_id } = currentQuestion;
+  const [questionId, setQuestionId] = useState(question_id);
+  const [answers, setAnswers] = useState();
+  const [loadLimit, updateLoadLimit] = useState(2);
+  const filteredList = [];
+  const { question_body } = currentQuestion;
+  const { questionBody } = currentQuestion;
 
-  // const [answers, setAnswers] = useState();
+  // console.log(questionBody);
 
-  // function getAnswers(currentQuestion.id) {
-  //   axios.get(`/answers/${currentQuestion.id}`)
-  //     .then((result) => {
-  //       console.log('answers: ', result.data);
-  //       setAnswers(result.data);
-  //     });
-  // }
-
-  // create a function tied to a button, that when invoked, maps over-
-  // another two answers for this question.
-
-  function loadMoreAnswers(e) {
-    e.preventDefault();
-    // input logic
+  function getAnswers(id) {
+    axios.get(`/answers/${id}`)
+      .then((result) => {
+        setAnswers(result.data.results);
+      });
   }
 
-  // only load 2.
-  // let id = 0; // cant increment in airbnb. fix me later.
-  return (
+  if (!answers) {
+    getAnswers(questionId);
+  }
+
+  if (answers) {
+    for (let i = 0; i < loadLimit; i += 1) {
+      if (answers[i]) {
+        filteredList.push(answers[i]);
+      }
+    }
+  }
+  // useEffect(() => {
+  //   setQuestionId();
+  // }, [questionId]);
+
+  // function filterAnswers(data, filter = null) {
+  //   if (filter === 'helpful') {
+  //     arrayOfAnswers.push(...getHelpfulAnswers(data)); // create the fn
+  //   } else {
+  //     // if the filter isnt truthy,
+  //     arrayOfAnswers.push(...Object.keys(data));
+  //   }
+  // }
+
+  function loadMoreAnswers() {
+    // e.preventDefault();
+    updateLoadLimit(() => loadLimit + 2);
+  }
+  function launchModal() {
+    console.log('launched modal');
+  }
+
+  console.log('Q - Current LoadLimit: ', loadLimit);
+  return !answers ? null : (
     <div>
-      {/* {answers.map((currAnswer) => ( */}
-      {/* <Answer currentAnswer={currAnswer} /> */}
-      {/* ))} */}
+      <span>
+        Question-
+        {question_body}
+        {filteredList.map((currAnswer) => (
+          <Answer
+            currentAnswer={currAnswer}
+            key={currAnswer.answer_id}
+          />
+        ))}
+      </span>
+      <br />
       <span>
         <button
           type="button"
           onClick={() => { loadMoreAnswers(); }}
         >
           Load More Answers
+        </button>
+        <button
+          type="button"
+          onClick={() => { launchModal(); }}
+        >
+          Answer this Question
         </button>
       </span>
     </div>

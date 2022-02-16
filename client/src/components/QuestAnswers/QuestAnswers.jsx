@@ -3,67 +3,45 @@ import axios from 'axios';
 import SearchBar from './SearchBar';
 import QuestionList from './QuestionList';
 import { useData } from '../DataProvider';
+import css from './QuestAnswers.css';
 
 function QuestAnswers() {
-  const { product } = useData();
-  const { getProduct } = useData();
+  /* TEST:
+  Describe: 'should be working with the current products data'
+  Test: 'after rendering, my question state should be equal to a fresh get request'
+*/
+  const { productId } = useData();
   const [questions, setQuestions] = useState();
-  const [rendered, setRendered] = useState(false);
-
-  // console.log(product);
-  // getProduct(40344);
-  // console.log('getP fn:', getProduct);
-  // console.log('prod:', product);
+  const [userSpecifiedResults, setUserSpecifiedResults] = useState([]);
 
   function getQuestions(productID) {
-    axios.get(`/questions/${productID.id}`)
+    axios.get(`/questions/${productID}`)
       .then((result) => {
-        console.log('questions: ', result.data);
         setQuestions(result.data.results);
       })
       .catch((err) => console.log(err));
   }
 
-  if (questions) {
-    console.log(questions);
-  }
-  if (!rendered) {
-    if (typeof product === 'object') {
-    // if (typeof product === 'number') {
-      console.log(product);
-      getQuestions(product);
-      setRendered(true);
-    }
-  }
+  useEffect(() => {
+    getQuestions(productId);
+  }, [productId, userSpecifiedResults]); // should auto update when id changes.
 
-  // useEffect(() => {
-  //   // getQuestions(questions);
-  // }, []); // filling it in with questions and removing it will break.
-
-  // const [userSpecifiedResults, setUserSpecifiedResults] = useState([]);
-
-  // useEffect(() => {
-  // }, [questions]);
   const userFilteredResults = [];
   function getFilteredResults(results) {
-    console.log('inside Invoked from Search:', results);
+    // console.log('inside Invoked from Search:', results);
     userFilteredResults.push(...results); // array from searchBar input field
   }
-  console.log('search bar: ', userFilteredResults);
-
-  const styles = {
-    border: 'solid 2px orange',
-    width: '50%',
-  };
+  // console.log('search bar Filt: ', userFilteredResults);
+  // console.log('search bar Spec: ', userSpecifiedResults);
 
   return !questions ? null : (
     <div
-      className="QuestAnswer-Component"
-      style={styles}
+      className={css.question_div}
     >
       <div><p>Questions and Answers</p></div>
       <SearchBar
         sendFilteredResults={() => { getFilteredResults(); }}
+        setUserSpecifiedResults={() => { setUserSpecifiedResults(); }}
         questions={questions}
       />
       <QuestionList

@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 
 function SearchBar(questionData) {
+/* TEST:
+  Describe: 'My SearchBar component should capture the user input data'
+  Test: 'input state should match the string "TesTinG"'
+*/
+
   // console.log(questionData);
   const { questions } = questionData;
   const { sendFilteredResults } = questionData;
+  const { setUserSpecifiedResults } = questionData;
   // use the entire questions array as a base to filter through.
 
   // research into useState and hooks. Not using corrently.
@@ -20,6 +26,7 @@ function SearchBar(questionData) {
       // logic
     });
     console.log(searchResults);
+    setUserSpecifiedResults(searchResults);
     sendFilteredResults(searchResults);
     // send results back up to the QuestionList Component
   }
@@ -32,13 +39,12 @@ function SearchBar(questionData) {
   if (input.length > 2) {
     filterQuestions(input);
   }
-  const styles = {
-    borderBottom: 'solid 2px orange',
-  };
+  // const styles = {
+  //   borderBottom: 'solid 2px orange',
+  // };
+  // style={styles}
   return (
-    <div
-      style={styles}
-    >
+    <div>
       <form>
         <input
           type="text"
