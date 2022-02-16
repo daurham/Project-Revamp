@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const DataContext = React.createContext();
 
-// setting custom hook for the context created
+// setting custom hook for the context created.
 export function useData() {
   return useContext(DataContext);
 }
