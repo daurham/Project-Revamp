@@ -5,18 +5,14 @@ import { useRelated } from './RelatedProvider';
 function Carousel(props) {
   const { view } = props;
   const { header } = props;
-  const { relatedItemsInfo } = useRelated();
+  const { relatedItemsInfo, localData } = useRelated();
   const [relatedView, setRelatedView] = useState(view);
-  const [localItems, setLocalItems] = useState(
-    localStorage.items ? JSON.parse(localStorage.items) : {},
-  );
-  const [bools, setBools] = useState(true);
-  function refreshLocalItems(item) {
-    console.log('refresh local items', localStorage.items);
-    setBools(!bools);
-    // JSON.parse(localStorage.items)
-    setLocalItems(item);
-  }
+
+  // function refreshLocalItems(item) {
+  //   console.log('refresh local items', localStorage.items);
+  //   // JSON.parse(localStorage.items)
+  //   setLocalItems(item);
+  // }
 
   // let render;
   // if (relatedView) {
@@ -59,26 +55,34 @@ function Carousel(props) {
     <>
       <div>{ header }</div>
       {relatedView ? (
-      <>
-        <div>Here begins related view map</div>
-        {relatedItemsInfo.map((eachItem) =>
-          (<Cards item={eachItem} key={eachItem.id} refresh={() => refreshLocalItems()} view setItems={setLocalItems}/>))}
-        <div>Here ends related view map</div>
-      </>
-    ) : (
-      <>
-        <div>Hello Outfits</div>
-        {Object.entries(localItems).map(([key, eachItem]) =>
-        {
-          console.log('trigger me', eachItem);
-          return (<Cards bools={bools} view={false}
-          item={eachItem}
-          refresh={() => refreshLocalItems()} setItems={setLocalItems}/>)
-        })
-        }
-        <div>Bye outfits</div>
-      </>
-    )}
+        <>
+          <div>Here begins related view map</div>
+          {relatedItemsInfo.map((eachItem) => (
+            <Cards
+              view
+              item={eachItem}
+              key={eachItem.id}
+            />
+          ))}
+          <div>Here ends related view map</div>
+          <br />
+          <br />
+          <br />
+          <br />
+        </>
+      ) : (
+        <>
+          <div>Hello Outfits</div>
+          {Object.values(localData).map((eachItem) => (
+            <Cards
+              view={false}
+              item={eachItem}
+              key={eachItem.id}
+            />
+          ))}
+          <div>Bye outfits</div>
+        </>
+      )}
     </>
   );
 }

@@ -5,8 +5,6 @@ import RemoveOutfit from './RemoveOutfit';
 function Cards(props) {
   const { item } = props;
   const { view } = props;
-  const { refresh } = props;
-  const { setItems } = props;
   const [relatedView, setRelatedView] = useState(view);
 
   let render;
@@ -15,7 +13,7 @@ function Cards(props) {
       <>
         <div>I am </div>
         <div>related</div>
-        <AddOutfit item={item} refresh={refresh} setItems={setItems} />
+        <AddOutfit item={item} />
       </>
     );
   } else {
@@ -23,7 +21,7 @@ function Cards(props) {
       <>
         <div>I am </div>
         <div>outfit</div>
-        <RemoveOutfit item={item} refresh={refresh} setItems={setItems} />
+        <RemoveOutfit item={item} />
       </>
     );
   }

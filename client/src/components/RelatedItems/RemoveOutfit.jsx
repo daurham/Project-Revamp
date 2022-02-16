@@ -1,17 +1,15 @@
 import React from 'react';
+import { useRelated } from './RelatedProvider';
 
 function RemoveOutfit(props) {
   const { item } = props;
-  const { refresh } = props;
-  const { setItems } = props;
+  const { setLocalData } = useRelated();
 
   function removeItem() {
     const storage = JSON.parse(localStorage.items);
     delete storage[item.id];
     localStorage.setItem('items', JSON.stringify(storage));
-    const l = JSON.parse(localStorage.items);
-    // refresh(l);
-    setItems(l);
+    setLocalData(JSON.parse(localStorage.items));
   }
 
   return (

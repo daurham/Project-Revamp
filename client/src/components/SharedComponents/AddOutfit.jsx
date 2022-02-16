@@ -1,9 +1,9 @@
 import React from 'react';
+import { useRelated } from '../RelatedItems/RelatedProvider';
 
 function AddOutfit(props) {
   const { item } = props;
-  const { refresh } = props;
-  const { setItems } = props;
+  const { setLocalData } = useRelated();
 
   function onButtonClick() {
     let storage;
@@ -14,10 +14,7 @@ function AddOutfit(props) {
     }
     storage[item.id] = item;
     localStorage.setItem('items', JSON.stringify(storage));
-    console.log('add item', localStorage.items);
-    const l = JSON.parse(localStorage.items);
-    // refresh(l);
-    setItems(l);
+    setLocalData(JSON.parse(localStorage.items));
   }
 
   return (
