@@ -1,5 +1,5 @@
 import React from 'react';
-import Overview from './Overview/Overview';
+// import Overview from './Overview/Overview';
 import RelatedItems from './RelatedItems/RelatedItems';
 import QuestAnswers from './QuestAnswers/QuestAnswers';
 import RatingsReviews from './RatingsReviews/RatingsReviews';
@@ -31,7 +31,7 @@ function App() {
   return (
     <DataProvider>
       <OverviewProvider>
-        <Overview />
+        {/* <Overview /> */}
         <RelatedItems />
       </OverviewProvider>
       <QuestAnswers />
