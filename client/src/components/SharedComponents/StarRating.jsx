@@ -6,9 +6,10 @@ import { useRatingData } from '../RatingsReviews/RatingProvider';
 function StarsRating() {
   const { productId } = useData();
   const { reviews, getReviews } = useRatingData()
-  console.log('reviews',reviews.results)
+  console.log('reviews', reviews.results)
 
   const [average, setAverage] = useState(0)
+  const [percentage, setPercentage] = useState(0)
   const isMounted = useRef(false);
 
   if (isMounted.current) {
@@ -18,37 +19,31 @@ function StarsRating() {
     console.log(mapped)
     const sum = mapped.reduce((a, b) => (a + b))
     const avg = sum / mapped.length;
+    let percent = Math.round((avg / 5) * 100)
+    console.log(percent)
+
+    setPercentage(percent)
     setAverage(avg)
-
-
 
     isMounted.current = false;
   } else {
     isMounted.current = true;
   }
+  console.log('average',average, 'percentage', percentage)
 
-  useEffect(() => {
-  }, [productId], [isMounted]);
-
-  console.log(average)
+  const styleStar = {
+    width: `"${percentage}%"`
+  }
 
   return (
-    <div>
-      {/* <button type="button" onClick={() => getReviews(productId)}> Reviews</button> */}
+    <>
+      <button type="button" onClick={() => getReviews(productId)}> Reviews</button>
       <h1>{average}</h1>
-      <fieldset className={css.rate}>
-        <input type="radio" id="rating10" name="rating" value="5" /><label htmlFor="rating10" title="5 stars"></label>
-        <input type="radio" id="rating9" name="rating" value="4.5" /><label className={css.half} htmlFor="rating9" title="4 1/2 stars"></label>
-        <input type="radio" id="rating8" name="rating" value="4" /><label htmlFor="rating8" title="4 stars"></label>
-        <input type="radio" id="rating7" name="rating" value="3.5" /><label className={css.half} htmlFor="rating7" title="3 1/2 stars"></label>
-        <input type="radio" id="rating6" name="rating" value="3" /><label htmlFor="rating6" title="3 stars"></label>
-        <input type="radio" id="rating5" name="rating" value="2.5" /><label className={css.half} htmlFor="rating5" title="2 1/2 stars"></label>
-        <input type="radio" id="rating4" name="rating" value="2" /><label htmlFor="rating4" title="2 stars"></label>
-        <input type="radio" id="rating3" name="rating" value="1.5" /><label className={css.half} htmlFor="rating3" title="1 1/2 stars"></label>
-        <input type="radio" id="rating2" name="rating" value="1" /><label htmlFor="rating2" title="1 star"></label>
-        <input type="radio" id="rating1" name="rating" value="0.5" /><label className={css.half} htmlFor="rating1" title="1/2 star"></label>
-      </fieldset>
-    </div>
+      <div className={css.star_ratings_css}>
+        <div className={css.star_ratings_css_top} style={styleStar}><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <div className={css.star_ratings_css_bottom}><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      </div>
+    </>
   )
 }
 
