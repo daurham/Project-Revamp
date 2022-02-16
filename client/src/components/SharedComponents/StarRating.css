@@ -27,6 +27,18 @@ body {
   content: "\f005 ";
 }
 
+/* #rate:after {
+  font-family: FontAwesome;
+  content: "\f005";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20%;
+  overflow: hidden;
+  color: #f80;
+} */
+
+
 .rate .half:before {
   content: "\f089 ";
   position: absolute;
