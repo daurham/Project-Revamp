@@ -1,0 +1,27 @@
+.container {
+  display: grid;
+  grid-auto-flow: dense;
+  grid-auto-rows: minmax(130px, 1fr);
+  grid-gap: 13px;
+  grid-template-columns: 3fr 7fr;
+  max-width: 1000px;
+}
+
+.box_one {
+  grid-column: 1/ span 1;
+  grid-row: span 4;
+  min-width: 150px;
+  background-color: rgba(175, 175, 233, 0.801);
+  padding: 5px;
+}
+
+.box_two {
+  grid-column: 2/ span 4;
+  grid-row: span 2;
+  background-color: rgba(243, 243, 62, 0.507);
+}
+.box_three {
+  grid-column: 2/ span 4;
+  grid-row: span 2;
+  background-color: rgba(216, 191, 216, 0.644);
+}
