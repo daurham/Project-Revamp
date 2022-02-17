@@ -81,7 +81,7 @@ function Question({ currentQuestion }) {
       postMade(true); // may not need
       console.log(body);
       axios.post(`/answers/${question_id}`, body)
-        .then(() => console.log('posted!'))
+        .then(() => console.log('Answer posted!'))
         .catch((err) => console.log(err));
     } else {
       alert('Please fill in the form to submit a post.');

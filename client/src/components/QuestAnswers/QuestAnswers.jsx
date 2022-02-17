@@ -15,20 +15,21 @@ function QuestAnswers() {
   const { updateID } = useData();
   const [questions, setQuestions] = useState();
   const [userSpecifiedResults, setUserSpecifiedResults] = useState([]);
-  console.log(productId);
+
+  // console.log('QA global productId', productId);
   function getQuestions() {
     axios.get(`/questions/${productId}`)
       .then((result) => {
-        console.log('QA GET prodId', productId, 'QA results:', result.data.results);
-        setQuestions(result.data);
+        // console.log('QA GET prodId', productId, 'QA results:', result.data.results);
+        setQuestions(result.data.results);
       })
       .catch((err) => console.log(err));
   }
 
   useEffect(() => {
-    console.log('should be populated?:', productId);
+    // console.log('should be populated?:', productId);
     getQuestions(productId);
-  }, [productId, userSpecifiedResults]); // should auto update when id changes.
+  }, [productId]); // should auto update when id changes.
 
   const userFilteredResults = [];
   function getFilteredResults(results) {
@@ -37,12 +38,17 @@ function QuestAnswers() {
   }
   // console.log('search bar Filt: ', userFilteredResults);
   // console.log('search bar Spec: ', userSpecifiedResults);
-  console.log(questions);
-  return (!questions || questions.results.length === 0) ? <div>Loading...</div> : (
+  // console.log(questions);
+
+  if (questions) {
+    // console.log('if truthy data: ', questions);
+  }
+
+  return !questions ? <div>Loading...</div> : (
     <div
       className={css.question_div}
     >
-      <button style={{ backgroundColor: 'orange' }} type="button" onClick={() => updateID()}> Get Another Product ID {productId} </button>
+      <button style={{ backgroundColor: 'orange' }} type="button" onClick={updateID}> Get Another Product ID {productId} </button>
       <div><p>Questions and Answers</p></div>
       <SearchBar
         sendFilteredResults={() => { getFilteredResults(); }}
@@ -50,8 +56,8 @@ function QuestAnswers() {
         questions={questions}
       />
       <QuestionList
-        unfilteredQuestions={questions}
-        userFilteredResults={userFilteredResults.length ? userFilteredResults : null}
+        unfilteredAPIQuestions={questions}
+        userFilteredSearchResults={userFilteredResults.length ? userFilteredResults : null}
       />
     </div>
   );

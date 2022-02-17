@@ -16,8 +16,8 @@ function QuestionList(questionData) {
 
   const questions = [];
   const { productId } = useData();
-  const { unfilteredQuestions } = questionData;
-  const { userFilteredResults } = questionData;
+  const { unfilteredAPIQuestions } = questionData;
+  const { userFilteredSearchResults } = questionData;
   const [loadLimit, updateLoadLimit] = useState(2);
   const [post, postMade] = useState(false);
   const [modal, setModal] = useState(false);
@@ -26,11 +26,22 @@ function QuestionList(questionData) {
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [attachment, setAttachment] = useState();
+  let noResults = false;
 
-  if (userFilteredResults) {
-    questions.push(...userFilteredResults);
-  } else {
-    questions.push(...unfilteredQuestions);
+  // console.log('QAList Prop data: ', unfilteredAPIQuestions, userFilteredSearchResults);
+
+  if (unfilteredAPIQuestions) {
+    if (unfilteredAPIQuestions.length === 0) {
+      noResults = true;
+    } else {
+      questions.push(...unfilteredAPIQuestions);
+    }
+  } else if (userFilteredSearchResults) {
+    if (userFilteredSearchResults.length === 0) {
+      noResults = true;
+    } else {
+      questions.push(...userFilteredSearchResults);
+    }
   }
 
   // only allow 2 elements at a time.
@@ -72,14 +83,14 @@ function QuestionList(questionData) {
         product_id: productId,
       };
       postMade(true);
+      console.log(body);
       axios.post(`/questions/${productId}`, body)
-        .then(() => console.log('posted!'))
+        .then(() => console.log('Question posted!'))
         .catch((err) => console.log(err));
     } else {
       alert('Please fill in the form to submit a post.');
     }
   }
-
 
   useEffect(() => {
     updateLoadLimit(2); // restores the limit after each item selected
@@ -87,9 +98,8 @@ function QuestionList(questionData) {
 
   return (
     <div>
-      {filteredList.map((question) => (
+      {noResults ? (<div>No Questions!</div>) : filteredList.map((question) => (
         <div
-          // className={css.q_list_div}
           key={question.question_id}
         >
           <Question
