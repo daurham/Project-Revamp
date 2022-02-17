@@ -23,8 +23,11 @@ function RatingProvider({ children }) {
   }
 
   useEffect(() => {
-    getReviews(productId)
-  }, []);
+    if (reviews.length === 0) {
+      getReviews(productId)
+    }
+
+  }, [productId]);
 
   const value = useMemo(() => ({
     reviews, getReviews

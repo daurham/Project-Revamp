@@ -6,7 +6,6 @@ import { useRatingData } from '../RatingsReviews/RatingProvider';
 function StarsRating() {
   const { productId } = useData();
   const { reviews, getReviews } = useRatingData()
-  // console.log('reviews', reviews.results)
 
   const [average, setAverage] = useState(0)
   const [percentage, setPercentage] = useState(0)
