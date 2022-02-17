@@ -15,16 +15,18 @@ function QuestAnswers() {
   const { updateID } = useData();
   const [questions, setQuestions] = useState();
   const [userSpecifiedResults, setUserSpecifiedResults] = useState([]);
-
-  function getQuestions(productID) {
-    axios.get(`/questions/${productID}`)
+  console.log(productId);
+  function getQuestions() {
+    axios.get(`/questions/${productId}`)
       .then((result) => {
-        setQuestions(result.data.results);
+        console.log('QA GET prodId', productId, 'QA results:', result.data.results);
+        setQuestions(result.data);
       })
       .catch((err) => console.log(err));
   }
 
   useEffect(() => {
+    console.log('should be populated?:', productId);
     getQuestions(productId);
   }, [productId, userSpecifiedResults]); // should auto update when id changes.
 
@@ -35,8 +37,8 @@ function QuestAnswers() {
   }
   // console.log('search bar Filt: ', userFilteredResults);
   // console.log('search bar Spec: ', userSpecifiedResults);
-
-  return !questions ? <div>Loading...</div> : (
+  console.log(questions);
+  return (!questions || questions.results.length === 0) ? <div>Loading...</div> : (
     <div
       className={css.question_div}
     >

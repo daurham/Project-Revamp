@@ -20,7 +20,7 @@ function DataProvider({ children }) {
     axios.get('/products')
       .then((result) => {
         const { data } = result;
-        console.log('data: ', result);
+        console.log('data provider get: ', result);
         const { id } = data[0];
         setProductId(id);
       })
@@ -30,7 +30,8 @@ function DataProvider({ children }) {
     productId, updateID,
   }), [productId]);
 
-  return !productId ? null :(
+  console.log('data provider:', productId);
+  return !productId ? null : (
     <DataContext.Provider value={value}>
       {children}
     </DataContext.Provider>

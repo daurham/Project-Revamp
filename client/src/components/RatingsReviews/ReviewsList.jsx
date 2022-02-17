@@ -3,7 +3,7 @@ import css from '../App.css';
 import cssReviews from './Reviews.css';
 
 function ReviewsList({review}) {
-  console.log(review)
+  // console.log(review)
   return (
     <div className={cssReviews.container}>
       <h2 className={css.sub_title}>{review.summary}</h2>
