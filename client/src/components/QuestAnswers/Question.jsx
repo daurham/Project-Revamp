@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Answer from './Answer';
 import Modal from './Modal';
-import { useData } from '../DataProvider';
+import { useData } from '../Context/DataProvider';
 import qacss from './QuestAnswers.css';
 import appcss from '../App.css';
 import modalcss from './modal.css';

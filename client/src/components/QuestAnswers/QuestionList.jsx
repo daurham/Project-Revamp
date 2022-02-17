@@ -3,7 +3,7 @@ import axios from 'axios';
 import Question from './Question';
 import Modal from './Modal';
 
-import { useData } from '../DataProvider';
+import { useData } from '../Context/DataProvider';
 import qacss from './QuestAnswers.css';
 import modalcss from './modal.css';
 // import styles from './QuestAnswer';

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import SearchBar from './SearchBar';
 import QuestionList from './QuestionList';
-import { useData } from '../DataProvider';
+import { useData } from '../Context/DataProvider';
 import css from './QuestAnswers.css';
 
 function QuestAnswers() {
@@ -12,6 +12,7 @@ function QuestAnswers() {
 */
 
   const { productId } = useData();
+  const { updateID } = useData();
   const [questions, setQuestions] = useState();
   const [userSpecifiedResults, setUserSpecifiedResults] = useState([]);
 
@@ -39,6 +40,7 @@ function QuestAnswers() {
     <div
       className={css.question_div}
     >
+      <button style={{ backgroundColor: 'orange' }} type="button" onClick={() => updateID()}> Get Another Product ID {productId} </button>
       <div><p>Questions and Answers</p></div>
       <SearchBar
         sendFilteredResults={() => { getFilteredResults(); }}
