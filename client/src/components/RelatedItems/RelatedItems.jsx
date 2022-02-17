@@ -13,7 +13,7 @@ function RelatedItems() {
     <div>
       {/* Display Product Name:&nbsp;
       {productId}
-      <button type="button" data-testid="getProduct-button" onClick={() => getProductId()}> Get Another Product Name </button>
+      <button type="button" data-testid="getProduct-button" onClick={() => getProductId()}> Get Another Product Name </button>*/}
     </div>
   );
 }
