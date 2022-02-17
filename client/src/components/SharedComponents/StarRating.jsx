@@ -6,7 +6,7 @@ import { useRatingData } from '../RatingsReviews/RatingProvider';
 function StarsRating() {
   const { productId } = useData();
   const { reviews, getReviews } = useRatingData()
-  console.log('reviews', reviews.results)
+  // console.log('reviews', reviews.results)
 
   const [average, setAverage] = useState(0)
   const [percentage, setPercentage] = useState(0)
@@ -16,11 +16,9 @@ function StarsRating() {
     let mapped = reviews.results.map((item) => {
       return item.rating
     })
-    console.log(mapped)
     const sum = mapped.reduce((a, b) => (a + b))
     const avg = sum / mapped.length;
     let percent = Math.round((avg / 5) * 100)
-    console.log(percent)
 
     setPercentage(percent)
     setAverage(avg)
@@ -29,7 +27,7 @@ function StarsRating() {
   } else {
     isMounted.current = true;
   }
-  console.log('average',average, 'percentage', percentage)
+  // console.log('average',average, 'percentage', percentage)
 
   const styleStar = {
     width: `${percentage}%`
