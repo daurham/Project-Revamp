@@ -6,14 +6,12 @@ import RatingsReviews from './RatingsReviews/RatingsReviews';
 import DataProvider, { useData } from './Context/DataProvider';
 import OverviewProvider from './Context/OverviewProvider';
 
-// import styles from './App.css';
-
 function App() {
-  const { productId } = useData();
+  // const { productId } = useData();
 
   return (
     <>
-      {productId ? (
+      {/* {productId ? ( */}
         <DataProvider>
           <OverviewProvider>
             {/* <Overview /> */}
@@ -22,7 +20,7 @@ function App() {
           <QuestAnswers />
           <RatingsReviews />
         </DataProvider>
-      ) : (<div>loading</div>)}
+     {/* ) : (<div>loading</div>)} */}
     </>
   );
 }

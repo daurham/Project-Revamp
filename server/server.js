@@ -34,7 +34,6 @@ app.get('/products/:id/styles', (req, res) => {
 });
 
 app.get('/reviews', (req, res) => {
-  console.log(req.query)
   const reviewConfig = {
     params: req.query,
     headers
