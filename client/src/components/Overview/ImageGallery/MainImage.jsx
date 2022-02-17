@@ -9,7 +9,7 @@ import imgcss from './MainImage.css';
 
 function MainImage(props) {
   console.log('props', props.style)
-  const [currentImage, setCurrentImage] = useState(props.style.photo[0]);
+  const [currentImage, setCurrentImage] = useState(props.style);
 
   useEffect(() => {
     setCurrentImage();
