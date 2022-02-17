@@ -18,6 +18,7 @@ function RatingProvider({ children }) {
 
   function getReviews(productId) {
     const query_params = {product_id: productId}
+
     axios.get('/reviews', {params: query_params})
     .then((response) => setReviews(response.data));
   }

@@ -12,7 +12,6 @@ function StarsRating() {
   const isMounted = useRef(false);
 
   if (isMounted.current) {
-    console.log('reviews',reviews)
     let mapped = reviews.results.map((item) => {
       return item.rating
     })
@@ -27,7 +26,8 @@ function StarsRating() {
   } else {
     isMounted.current = true;
   }
-  // console.log('average',average, 'percentage', percentage)
+
+  useEffect(()=> {}, [percentage])
 
   const styleStar = {
     width: `${percentage}%`

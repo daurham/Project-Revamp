@@ -9,7 +9,7 @@ function Reviews() {
   const { productId } = useData()
   const { reviews, getReviews } = useRatingData()
 
-  console.log(reviews,productId)
+  // console.log(reviews,productId)
 
   return reviews.length !== 0 ? (
     <div>
