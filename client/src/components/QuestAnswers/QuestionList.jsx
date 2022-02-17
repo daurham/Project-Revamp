@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Question from './Question';
-import Modal from './Modal';
+import Modal from '../SharedComponents/Modal';
 
 import { useData } from '../Context/DataProvider';
 import qacss from './QuestAnswers.css';
-import modalcss from './modal.css';
+import modalcss from '../SharedComponents/Modal.css';
 // import styles from './QuestAnswer';
 
 function QuestionList(questionData) {

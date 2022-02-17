@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-// import { useData } from '../DataProvider';
-import modalcss from './modal.css';
+import modalcss from './Modal.css';
 
 function QuestionModal({
   show,

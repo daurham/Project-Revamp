@@ -11,9 +11,7 @@ function RelatedItems() {
   // otherwise you'll get an error. only using below example as proof of concept.
   return (
     <div>
-      Display Product Name:&nbsp;
-      {productId}
-      <button type="button" onClick={() => updateID()}> Get Another Product Name </button>
+      Related Items
     </div>
   );
 }
