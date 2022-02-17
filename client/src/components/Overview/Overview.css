@@ -1,5 +1,8 @@
 @import '../App.css';
 
-:root .title {
-  font: var( --title);
+.imggallery {
+  background-color: grey;
+  height: 500px;
+  width: 50%;
+  display: flex;
 };

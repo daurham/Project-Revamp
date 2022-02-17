@@ -1,6 +1,6 @@
 import React from 'react';
 // import custom hook created on line 9 of DataProvider
-import { useData } from '../DataProvider';
+import { useData } from '../Context/DataProvider';
 
 function RelatedItems() {
   // deconstruct the context object passed into value, DataProvider line 29
@@ -11,9 +11,9 @@ function RelatedItems() {
   // otherwise you'll get an error. only using below example as proof of concept.
   return (
     <div>
-      Display Product Name:&nbsp;
+      {/* Display Product Name:&nbsp;
       {productId}
-      <button type="button" onClick={() => updateID()}> Get Another Product Name </button>
+      <button type="button" onClick={() => getProductId()}> Get Another Product Name </button> */}
     </div>
   );
 }
