@@ -1,17 +1,22 @@
-.container {
+.containerDiv {
   display: grid;
   grid-auto-flow: dense;
   grid-auto-rows: minmax(130px, 1fr);
   grid-gap: 13px;
   grid-template-columns: 3fr 7fr;
   max-width: 1000px;
+  background-color: black;
+}
+
+.title {
+  color: red;
 }
 
 .box_one {
   grid-column: 1/ span 1;
   grid-row: span 4;
   min-width: 150px;
-  background-color: rgba(175, 175, 233, 0.801);
+  background-color: rgba(40, 40, 236, 0.801);
   padding: 5px;
 }
 

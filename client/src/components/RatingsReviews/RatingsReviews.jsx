@@ -1,5 +1,5 @@
 import React from 'react';
-import cssMain from './RatingsReviews';
+import cssRev from './RatingsReviews';
 import StarRating from '../SharedComponents/StarRating';
 import RatingProvider from './RatingProvider';
 import Reviews from './Reviews';
@@ -7,18 +7,19 @@ import Reviews from './Reviews';
 function RatingsReviews() {
   return (
     <>
-      <p>Ratings and Reviews</p>
       <RatingProvider>
-      <div className={cssMain.container}>
-        <div className={cssMain.box_one}>
-          <StarRating />
+        <div className={cssRev.containerDiv}>
+          <p className={cssRev.title}>Ratings and Reviews</p>
+          <div className={cssRev.box_one}>
+            <StarRating />
+          </div>
+          <div className={cssRev.box_two}>
+            <Reviews />
+          </div>
         </div>
-        <div className={cssMain.box_three}>
-          <Reviews />
-        </div>
-      </div>
-    </RatingProvider>
-</>
+      </RatingProvider>
+
+    </>
   );
 }
 

@@ -3,21 +3,23 @@ import css from './StarRating.css';
 import { useData } from '../Context/DataProvider';
 import { useRatingData } from '../RatingsReviews/RatingProvider';
 
-function StarsRating() {
+function StarsRating({value}) {
+  console.log('value',value)
   const { productId } = useData();
   const { reviews, getReviews } = useRatingData()
 
   const [average, setAverage] = useState(0)
   const [percentage, setPercentage] = useState(0)
+  const [rating, setRating] = useState(0)
   const isMounted = useRef(false);
 
-  if (isMounted.current) {
+  if (isMounted.current && productId) {
     let mapped = reviews.results.map((item) => {
       return item.rating
     })
     const sum = mapped.reduce((a, b) => (a + b))
     const avg = sum / mapped.length;
-    let percent = Math.round((avg / 5) * 100)
+    const percent = Math.round((avg / 5) * 100)
 
     setPercentage(percent)
     setAverage(avg)
@@ -27,10 +29,21 @@ function StarsRating() {
     isMounted.current = true;
   }
 
-  useEffect(()=> {}, [percentage])
+  const getValue = () => {
+    console.log('here', value)
+    const percent = value * 100 / 5;
+    setRating(value)
+    setPercentage(percent)
+    console.log(percentage)
+  }
+
+  useEffect(() => {
+    getValue()
+    isMounted.current = false;
+  }, [percentage])
 
   const styleStar = {
-    width: `${percentage}%`
+    width: `${[percentage]}%`
   }
 
   return (
