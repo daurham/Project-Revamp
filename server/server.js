@@ -17,9 +17,9 @@ const config = { headers };
 
 // returns all products
 app.get('/products', (req, res) => {
-  console.log('server GET ALL: ', );
+  console.log('server GET ALL: ');
   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products', config)
-    .then((result) => { console.log('server GET ALL: ', result.data); res.send(result.data); })
+    .then((result) => { console.log('server GET ALL: '); res.send(result.data); })
     .catch(() => { res.sendStatus(500); });
 });
 
@@ -47,15 +47,20 @@ app.get('/reviews', (req, res) => {
     .catch(() => { res.sendStatus(500); });
 });
 
+// /////////////////////////////////////////////////////
 // Questions / Answers
 // get questions(productId)
 app.get('/questions/:id', (req, res) => {
-  const localConfig = { headers };
-  localConfig.params = { product_id: req.params.id, page: 1, count: 5 };
-  console.log('QA-localConfig', localConfig);
-  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions', localConfig)
+  const body = { product_id: Number(req.params.id), page: 1, count: 5 };
+  console.log('QA-localConfig', body);
+  axios({
+    url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions',
+    headers: headers,
+    data: body,
+    method: 'GET',
+  })
     .then((result) => { console.log('server GET ALL Qs: ', result.data); res.status(200).send(result.data); })
-    .catch((err) => { res.status(500).send(err); });
+    .catch((err) => { console.log('serverGET ALL Qs Err: ', err); res.status(500).send(err); });
 });
 // get answers(questionId)
 app.get('/answers/:id', (req, res) => {
