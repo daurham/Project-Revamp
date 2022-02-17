@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import appcss from '../App.css';
 import css from './QuestAnswers.css';
 // import { useData } from '../DataProvider';
@@ -8,6 +9,19 @@ function Answer({ currentAnswer }) {
     Describe: 'My Answer component renders all the answer data'
     Test: 'CurrentAnswer prop length should match a get request of the answer'
   */
+  const { answer_id } = currentAnswer;
+
+  function reportUser() {
+    axios.put(`/answers/${answer_id}/report`)
+      .then(() => console.log('reported!'))
+      .catch((err) => console.log(err));
+  }
+
+  function upvoteUser() {
+    axios.put(`/answers/${answer_id}/helpful`)
+      .then(() => console.log('upvoted!'))
+      .catch((err) => console.log(err));
+  }
 
   // console.log(currentAnswer);
   const { answerer_name } = currentAnswer;
@@ -40,7 +54,20 @@ function Answer({ currentAnswer }) {
         </p>
       </span>
       <span className={css.border}>
-        <div className={appcss.para_sm}>Helpful Report</div>
+        <div className={appcss.para_sm}>
+          <p
+            style={{cursor: 'pointer'}}
+            onClick={upvoteUser}
+            >
+            Helpful
+          </p>
+          <p
+            style={{cursor: 'pointer'}}
+            onClick={reportUser}
+          >
+            Report
+          </p>
+        </div>
       </span>
     </div>
   );

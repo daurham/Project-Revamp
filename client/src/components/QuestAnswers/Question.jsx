@@ -106,6 +106,18 @@ function Question({ currentQuestion }) {
     // logic
   }
 
+  function reportUser() {
+    axios.put(`/questions/${questionId}/report`)
+      .then(() => console.log('reported!'))
+      .catch((err) => console.log(err));
+  }
+
+  function upvoteUser() {
+    axios.put(`/questions/${questionId}/helpful`)
+      .then(() => console.log('upvoted!'))
+      .catch((err) => console.log(err));
+  }
+
   const noAnswers = 'No ones answered yet...';
 
   return !answers ? <div>Loading...</div> : (
@@ -113,6 +125,20 @@ function Question({ currentQuestion }) {
       <span>
         Question-
         {question_body}
+        <div className={appcss.para_sm}>
+          <p
+            style={{ cursor: 'pointer' }}
+            onClick={upvoteUser}
+          >
+            Helpful
+          </p>
+          <p
+            style={{ cursor: 'pointer' }}
+            onClick={reportUser}
+          >
+            Report
+          </p>
+        </div>
       </span>
       {filteredList.length > 0 ? (filteredList.map((currAnswer) => (
         <Answer

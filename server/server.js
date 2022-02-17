@@ -96,28 +96,44 @@ app.post('/answers/:id', (req, res) => {
 //
 // put question as helpful(questionId)
 app.put('/questions/:id/helpful', (req, res) => {
-  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${req.params.id}/helpful`, config)
+  axios({
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${req.params.id}/helpful`,
+    headers: headers,
+    method: 'PUT',
+  })
     .then(() => { res.sendStatus(204); })
     .catch((err) => { console.log(err); res.status(500).send(err); });
 });
 
 // put report a question(questionId)
 app.put('/questions/:id/report', (req, res) => {
-  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${req.params.id}/report`, config)
+  axios({
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${req.params.id}/report`,
+    headers: headers,
+    method: 'PUT',
+  })
     .then(() => { res.sendStatus(204); })
     .catch((err) => { res.status(500).send(err); });
 });
 
 // put answer as helpful(answerId)
 app.put('/answers/:id/helpful', (req, res) => {
-  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/answers/${req.params.id}/helpful`, config)
+  axios({
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/answers/${req.params.id}/helpful`,
+    headers: headers,
+    method: 'PUT',
+  })
     .then(() => { res.sendStatus(204); })
     .catch((err) => { res.status(500).send(err); });
 });
 
 // put report a answer(answerId)
 app.put('/answers/:id/report', (req, res) => {
-  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/answers/${req.params.id}/report`, config)
+  axios({
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/answers/${req.params.id}/report`,
+    headers: headers,
+    method: 'PUT',
+  })
     .then(() => { res.sendStatus(204); })
     .catch((err) => { res.status(500).send(err); });
 });

@@ -24,7 +24,7 @@ function SearchBar(questionData) {
       return false;
       // logic
     });
-    console.log(searchResults);
+    // console.log(searchResults);
     setUserSpecifiedResults(searchResults);
     sendFilteredResults(searchResults);
     // send results back up to the QuestionList Component
