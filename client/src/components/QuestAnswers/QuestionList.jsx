@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Question from './Question';
-import QuestionModal from './QuestionModal';
+import Modal from './Modal';
+
 import { useData } from '../DataProvider';
-import css from './QuestAnswers.css';
+import qacss from './QuestAnswers.css';
+import modalcss from './modal.css';
 // import styles from './QuestAnswer';
 
 function QuestionList(questionData) {
@@ -11,11 +14,18 @@ function QuestionList(questionData) {
     Test: 'after "load more" button is clicked, expect the children of the list to increment by 2'
   */
 
+  const questions = [];
   const { productId } = useData();
-  const [loadLimit, updateLoadLimit] = useState(2);
   const { unfilteredQuestions } = questionData;
   const { userFilteredResults } = questionData;
-  const questions = [];
+  const [loadLimit, updateLoadLimit] = useState(2);
+  const [post, postMade] = useState(false);
+  const [modal, setModal] = useState(false);
+  // modal input:
+  const [input, setInput] = useState('');
+  const [userName, setUserName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+  const [attachment, setAttachment] = useState();
 
   if (userFilteredResults) {
     questions.push(...userFilteredResults);
@@ -36,15 +46,45 @@ function QuestionList(questionData) {
     e.preventDefault();
     updateLoadLimit(() => loadLimit + 2);
   }
-  // console.log(productId);
-  // if (productId) {
-  useEffect(() => {
-    console.log(productId);
-    updateLoadLimit(loadLimit); // restores the limit after each item selected
-  }, [productId]);
-  // }
 
-  console.log('QL - Current LoadLimit: ', loadLimit);
+  function toggleModal() {
+    setModal(!modal);
+  }
+
+  function handleInput(e) {
+    setInput(e.target.value);
+  }
+
+  function handleUserName(e) {
+    setUserName(e.target.value);
+  }
+
+  function handleUserEmail(e) {
+    setUserEmail(e.target.value);
+  }
+
+  function handleSubmit() {
+    if ((userName && userEmail) && input) {
+      const body = {
+        body: input,
+        name: userName,
+        email: userEmail,
+        product_id: productId,
+      };
+      postMade(true);
+      axios.post(`/questions/${productId}`, body)
+        .then(() => console.log('posted!'))
+        .catch((err) => console.log(err));
+    } else {
+      alert('Please fill in the form to submit a post.');
+    }
+  }
+
+
+  useEffect(() => {
+    updateLoadLimit(2); // restores the limit after each item selected
+  }, [productId]);
+
   return (
     <div>
       {filteredList.map((question) => (
@@ -66,7 +106,57 @@ function QuestionList(questionData) {
           >
             Load More Questions
           </button>
-          <QuestionModal />
+          {/* seperation */}
+          <button
+            type="button"
+            className="modal_opener"
+            onClick={toggleModal}
+          >
+            Ask a Question?
+          </button>
+
+          <Modal
+            show={modal}
+            closeCallback={toggleModal}
+          >
+            {!post
+              ? (
+                <div>
+                  <h2>Ask A Question</h2>
+
+                  <form>
+                    <textarea
+                      className={modalcss.qa_textarea}
+                      placeholder="What do you want to ask other buyers?"
+                      onChange={handleInput}
+                    />
+                    <span>
+                      <input
+                        type="text"
+                        onChange={handleUserName}
+                        placeholder="Name"
+                      />
+                      <input
+                        type="text"
+                        onChange={handleUserEmail}
+                        placeholder="Email"
+                      />
+                    </span>
+                  </form>
+                  <button
+                    onClick={handleSubmit}
+                    type="button"
+                  >
+                    Submit
+                  </button>
+                </div>
+              )
+              : (
+                <div>
+                  <h2>Thanks!</h2>
+                </div>
+              )}
+          </Modal>
         </div>
       </span>
     </div>

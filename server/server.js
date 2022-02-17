@@ -7,6 +7,9 @@ const app = express();
 const PORT = 3000;
 const DIST_DIR = path.join(__dirname, '../client/dist');
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 app.use(express.static(DIST_DIR));
 
 const headers = { Authorization };
@@ -37,17 +40,85 @@ app.get('/products/:id', (req, res) => {
 // });
 
 // Questions / Answers
+// get questions(productId)
 app.get('/questions/:id', (req, res) => {
   const localConfig = { headers };
   localConfig.params = { product_id: req.params.id, page: 1, count: 5 };
   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions', localConfig)
-    .then((result) => { res.send(result.data); })
+    .then((result) => { res.status(200).send(result.data); })
+    .catch((err) => { res.status(500).send(err); });
+});
+// get answers(questionId)
+app.get('/answers/:id', (req, res) => {
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${req.params.id}/answers/?page=1&count=5`, config)
+    .then((result) => { res.status(200).send(result.data); })
+    .catch((err) => { res.status(500).send(err); });
+});
+//
+
+// post question(productId)
+app.post('/questions/:id', (req, res) => {
+  const data = {
+    product_id: req.params.id,
+    body: req.body.id,
+    name: req.body.name,
+    email: req.body.email,
+  };
+  axios({
+    url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions',
+    headers: headers,
+    data: data,
+    method: 'POST',
+  })
+    .then(() => { res.sendStatus(201); })
     .catch((err) => { res.status(500).send(err); });
 });
 
-app.get('/answers/:id', (req, res) => {
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${req.params.id}/answers/?page=1&count=5`, config)
-    .then((result) => { res.send(result.data); })
+// post answer(questionId)
+app.post('/answers/:id', (req, res) => {
+  const data = {
+    question_id: req.params.id,
+    body: req.body.body,
+    name: req.body.name,
+    email: req.body.email,
+  };
+  req.body.photos ? data.photos = req.body.photos : null;
+  axios({
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${req.params.id}/answers`,
+    headers: headers,
+    data: data,
+    method: 'POST',
+  })
+    .then(() => { res.sendStatus(201); })
+    .catch((err) => { console.log(err); res.status(500).send(err); });
+});
+
+//
+// put question as helpful(questionId)
+app.put('/questions/:id/helpful', (req, res) => {
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${req.params.id}/helpful`, config)
+    .then(() => { res.sendStatus(204); })
+    .catch((err) => { console.log(err); res.status(500).send(err); });
+});
+
+// put report a question(questionId)
+app.put('/questions/:id/report', (req, res) => {
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${req.params.id}/report`, config)
+    .then(() => { res.sendStatus(204); })
+    .catch((err) => { res.status(500).send(err); });
+});
+
+// put answer as helpful(answerId)
+app.put('/answers/:id/helpful', (req, res) => {
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/answers/${req.params.id}/helpful`, config)
+    .then(() => { res.sendStatus(204); })
+    .catch((err) => { res.status(500).send(err); });
+});
+
+// put report a answer(answerId)
+app.put('/answers/:id/report', (req, res) => {
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/answers/${req.params.id}/report`, config)
+    .then(() => { res.sendStatus(204); })
     .catch((err) => { res.status(500).send(err); });
 });
 

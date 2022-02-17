@@ -8,7 +8,8 @@ function Answer({ currentAnswer }) {
     Describe: 'My Answer component renders all the answer data'
     Test: 'CurrentAnswer prop length should match a get request of the answer'
   */
-  console.log(currentAnswer);
+
+  // console.log(currentAnswer);
   const { answerer_name } = currentAnswer;
   const { body } = currentAnswer;
   const { date } = currentAnswer;

@@ -6,7 +6,6 @@ function SearchBar(questionData) {
   Test: 'input state should match the string "TesTinG"'
 */
 
-  // console.log(questionData);
   const { questions } = questionData;
   const { sendFilteredResults } = questionData;
   const { setUserSpecifiedResults } = questionData;

@@ -10,6 +10,7 @@ function QuestAnswers() {
   Describe: 'should be working with the current products data'
   Test: 'after rendering, my question state should be equal to a fresh get request'
 */
+
   const { productId } = useData();
   const [questions, setQuestions] = useState();
   const [userSpecifiedResults, setUserSpecifiedResults] = useState([]);
@@ -34,7 +35,7 @@ function QuestAnswers() {
   // console.log('search bar Filt: ', userFilteredResults);
   // console.log('search bar Spec: ', userSpecifiedResults);
 
-  return !questions ? null : (
+  return !questions ? <div>Loading...</div> : (
     <div
       className={css.question_div}
     >
