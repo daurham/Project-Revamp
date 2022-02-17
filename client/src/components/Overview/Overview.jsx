@@ -2,7 +2,7 @@ import React, {
   useState, useMemo, useContext, useEffect,
 } from 'react';
 import MainImage from './ImageGallery/MainImage';
-import Thumbnail from './ImageGallery/Thumbnail';
+// import Thumbnail from './ImageGallery/Thumbnail';
 import ProductDetail from './ProductDetail';
 import { useOverview } from '../Context/OverviewProvider';
 // import css from './Overview.css';
@@ -13,9 +13,9 @@ function Overview() {
   const { prodStyles } = useOverview();
   const [currentStyle, setCurrentStyle] = useState();
 
-  console.log('detail', prodDetails)
-  console.log('style', prodStyles)
-  console.log('current style', currentStyle)
+  // console.log('detail', prodDetails);
+  // console.log('style', prodStyles);
+  // console.log('current style', currentStyle);
   // console.log('current image', currentImage)
 
   useEffect(() => {
@@ -24,10 +24,12 @@ function Overview() {
 
   return (
     <>
+      {currentStyle && (
       <div className={ovcss.imggallery}>
-        <MainImage style={currentStyle}/>
+        <MainImage style={currentStyle} />
         {/* <Thumbnail images={prodStyles}/> */}
       </div>
+      )}
 
       <ProductDetail />
 
