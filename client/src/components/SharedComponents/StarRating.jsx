@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-// import css from './StarRating.css';
+import css from './StarRating.css';
 import { useData } from '../Context/DataProvider';
 import { useRatingData } from '../RatingsReviews/RatingProvider';
 
 function StarsRating() {
   const { productId } = useData();
   const { reviews, getReviews } = useRatingData()
-  console.log('reviews',reviews.results)
 
   const [average, setAverage] = useState(0)
   const isMounted = useRef(false);
@@ -15,22 +14,15 @@ function StarsRating() {
     let mapped = reviews.results.map((item) => {
       return item.rating
     })
-    console.log(mapped)
+
     const sum = mapped.reduce((a, b) => (a + b))
     const avg = sum / mapped.length;
     setAverage(avg)
-
-
 
     isMounted.current = false;
   } else {
     isMounted.current = true;
   }
-
-  // useEffect(() => {
-  // }, [productId], [isMounted]);
-
-  console.log(average)
 
   return (
     <div>
