@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useQAData } from './QA - Context/DataProvider';
 
 function SearchBar(questionData) {
 /* TEST:
@@ -7,12 +8,12 @@ function SearchBar(questionData) {
 */
 
   const { questions } = questionData;
-  const { sendFilteredResults } = questionData;
-  const { setUserSpecifiedResults } = questionData;
   // use the entire questions array as a base to filter through.
 
   // research into useState and hooks. Not using corrently.
   const [input, setInput] = useState('');
+  const { userSpecifiedResults } = useQAData();
+  const { setUserSpecifiedResults } = useQAData();
 
   // filter the questions
   function filterQuestions(query) {
@@ -26,7 +27,7 @@ function SearchBar(questionData) {
     });
     // console.log(searchResults);
     setUserSpecifiedResults(searchResults);
-    sendFilteredResults(searchResults);
+    // sendFilteredResults(searchResults);
     // send results back up to the QuestionList Component
   }
 

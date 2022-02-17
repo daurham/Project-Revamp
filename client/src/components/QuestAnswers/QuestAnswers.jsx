@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import SearchBar from './SearchBar';
 import QuestionList from './QuestionList';
 import { useData } from '../Context/DataProvider';
 import css from './QuestAnswers.css';
+import { SearchData } from './QA - Context/DataProvider';
 
 function QuestAnswers() {
-  /* TEST:
+/* TEST:
   Describe: 'should be working with the current products data'
   Test: 'after rendering, my question state should be equal to a fresh get request'
 */
@@ -16,11 +17,9 @@ function QuestAnswers() {
   const [questions, setQuestions] = useState();
   const [userSpecifiedResults, setUserSpecifiedResults] = useState([]);
 
-  // console.log('QA global productId', productId);
   function getQuestions() {
     axios.get(`/questions/${productId}`)
       .then((result) => {
-        // console.log('QA GET prodId', productId, 'QA results:', result.data.results);
         setQuestions(result.data.results);
       })
       .catch((err) => console.log(err));
@@ -31,18 +30,17 @@ function QuestAnswers() {
     getQuestions(productId);
   }, [productId]); // should auto update when id changes.
 
-  const userFilteredResults = [];
-  function getFilteredResults(results) {
-    // console.log('inside Invoked from Search:', results);
-    userFilteredResults.push(...results); // array from searchBar input field
-  }
   // console.log('search bar Filt: ', userFilteredResults);
-  // console.log('search bar Spec: ', userSpecifiedResults);
+  console.log('search bar Spec: ', userSpecifiedResults);
   // console.log(questions);
 
   if (questions) {
     // console.log('if truthy data: ', questions);
   }
+
+  const value = useMemo(() => ({
+    userSpecifiedResults, setUserSpecifiedResults,
+  }), [productId]);
 
   return !questions ? <div>Loading...</div> : (
     <div
@@ -50,15 +48,15 @@ function QuestAnswers() {
     >
       <button style={{ backgroundColor: 'orange' }} type="button" onClick={updateID}> Get Another Product ID {productId} </button>
       <div><p>Questions and Answers</p></div>
-      <SearchBar
-        sendFilteredResults={() => { getFilteredResults(); }}
-        setUserSpecifiedResults={() => { setUserSpecifiedResults(); }}
-        questions={questions}
-      />
-      <QuestionList
-        unfilteredAPIQuestions={questions}
-        userFilteredSearchResults={userFilteredResults.length ? userFilteredResults : null}
-      />
+      <SearchData.Provider value={value}>
+        <SearchBar
+          questions={questions}
+        />
+        <QuestionList
+          unfilteredAPIQuestions={questions}
+          userFilteredSearchResults={userSpecifiedResults.length ? userSpecifiedResults : null}
+        />
+      </SearchData.Provider>
     </div>
   );
 }

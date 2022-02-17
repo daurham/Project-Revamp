@@ -4,6 +4,7 @@ import Question from './Question';
 import Modal from '../SharedComponents/Modal';
 
 import { useData } from '../Context/DataProvider';
+import { useQAData } from './QA - Context/DataProvider';
 import qacss from './QuestAnswers.css';
 import modalcss from '../SharedComponents/Modal.css';
 // import styles from './QuestAnswer';
@@ -19,6 +20,8 @@ function QuestionList(questionData) {
   const { unfilteredAPIQuestions } = questionData;
   const { userFilteredSearchResults } = questionData;
   const [loadLimit, updateLoadLimit] = useState(2);
+  const { userSpecifiedResults } = useQAData();
+  // modal:
   const [post, postMade] = useState(false);
   const [modal, setModal] = useState(false);
   // modal input:
@@ -30,13 +33,18 @@ function QuestionList(questionData) {
 
   // console.log('QAList Prop data: ', unfilteredAPIQuestions, userFilteredSearchResults);
 
-  if (unfilteredAPIQuestions) {
+  if (userSpecifiedResults && userSpecifiedResults.length > 0) {
+    console.log('user searching');
+    questions.push(...userSpecifiedResults);
+  } else if (unfilteredAPIQuestions) {
+    console.log('user not searching');
     if (unfilteredAPIQuestions.length === 0) {
       noResults = true;
     } else {
       questions.push(...unfilteredAPIQuestions);
     }
   } else if (userFilteredSearchResults) {
+    console.log('user not searching');
     if (userFilteredSearchResults.length === 0) {
       noResults = true;
     } else {
