@@ -13,12 +13,10 @@ export function useRatingData() {
 
 function RatingProvider({ children }) {
   const { productId } = useData();
-
   const [reviews, setReviews] = useState([]);
 
   function getReviews(productId) {
     const query_params = {product_id: productId}
-
     axios.get('/reviews', {params: query_params})
     .then((response) => setReviews(response.data));
   }
@@ -27,7 +25,6 @@ function RatingProvider({ children }) {
     if (reviews.length === 0) {
       getReviews(productId)
     }
-
   }, [productId]);
 
   const value = useMemo(() => ({

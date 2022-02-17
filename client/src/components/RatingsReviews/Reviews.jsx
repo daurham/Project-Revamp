@@ -9,8 +9,6 @@ function Reviews() {
   const { productId } = useData()
   const { reviews, getReviews } = useRatingData()
 
-  // console.log(reviews,productId)
-
   return reviews.length !== 0 ? (
     <div>
        <button type="button" onClick={() => getReviews(productId)}> Reviews</button>
