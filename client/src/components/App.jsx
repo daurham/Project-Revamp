@@ -3,23 +3,26 @@ import React from 'react';
 import RelatedItems from './RelatedItems/RelatedItems';
 import QuestAnswers from './QuestAnswers/QuestAnswers';
 import RatingsReviews from './RatingsReviews/RatingsReviews';
-import DataProvider from './Context/DataProvider';
+import DataProvider, { useData } from './Context/DataProvider';
 import OverviewProvider from './Context/OverviewProvider';
 
+// import styles from './App.css';
+
 function App() {
-  // const { productId } = useData();
+  const { productId } = useData();
+
   return (
     <>
-
-      <DataProvider>
-        <OverviewProvider>
-          {/* <Overview /> */}
-          <RelatedItems />
-        </OverviewProvider>
-        <QuestAnswers />
-        <RatingsReviews />
-      </DataProvider>
-
+      {productId ? (
+        <DataProvider>
+          <OverviewProvider>
+            <Overview />
+            <RelatedItems />
+          </OverviewProvider>
+          <QuestAnswers />
+          <RatingsReviews />
+        </DataProvider>
+      ) : (<div>loading</div>)}
     </>
   );
 }
