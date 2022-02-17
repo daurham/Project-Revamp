@@ -16,7 +16,7 @@ function App() {
       {productId ? (
         <DataProvider>
           <OverviewProvider>
-            <Overview />
+            {/* <Overview /> */}
             <RelatedItems />
           </OverviewProvider>
           <QuestAnswers />

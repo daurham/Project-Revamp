@@ -12,6 +12,7 @@ function StarsRating() {
   const isMounted = useRef(false);
 
   if (isMounted.current) {
+    console.log('reviews',reviews)
     let mapped = reviews.results.map((item) => {
       return item.rating
     })
