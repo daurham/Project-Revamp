@@ -1,15 +1,27 @@
-"@jest-environment jsdom"
+/**
+ * @jest-environment jsdom
+ */
 import React from 'react';
 import { render } from "@testing-library/react";
 import App from './App';
 import RelatedItems from './RelatedItems/RelatedItems';
+import RatingsReviews from './RatingsReviews/RatingsReviews';
 
 
+describe("div", () => {
+  it("div", () => {
+    // const {getByTestId} = render(<QuestAnswers />);
+    // const button = getByTestId("getProduct-button")
+    // expect(button).toBeTruthy();
+    const element = document.createElement('div');
+    expect(element).not.toBeNull();
+  })
+});
 
-describe("Related Items Component", () => {
-  it("rendered related items", () => {
-    const {getByTestId} = render(<RelatedItems />);
-    const button = getByTestId("getProduct-button")
-    expect(button).toBeTruthy();
+describe("Ratings Component", () => {
+  it("ratings", () => {
+    render(<App />);
+    // const title = screen.getByText('Ratings and Reviews')
+    // expect(title).toBeInTheDocument();
   })
 });

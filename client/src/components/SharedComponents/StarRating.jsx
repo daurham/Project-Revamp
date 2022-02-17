@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import css from './StarRating.css';
+// import css from './StarRating.css';
 import { useData } from '../Context/DataProvider';
 import { useRatingData } from '../RatingsReviews/RatingProvider';
 

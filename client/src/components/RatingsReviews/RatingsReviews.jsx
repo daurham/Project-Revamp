@@ -1,12 +1,14 @@
 import React from 'react';
-import cssMain from './RatingsReviews.css';
+import cssMain from './RatingsReviews';
 import StarRating from '../SharedComponents/StarRating';
 import RatingProvider from './RatingProvider';
 import Reviews from './Reviews';
 
 function RatingsReviews() {
   return (
-    <RatingProvider>
+    <>
+      <p>Ratings and Reviews</p>
+      <RatingProvider>
       <div className={cssMain.container}>
         <div className={cssMain.box_one}>
           <StarRating />
@@ -16,7 +18,7 @@ function RatingsReviews() {
         </div>
       </div>
     </RatingProvider>
-
+</>
   );
 }
 

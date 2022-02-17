@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import css from '../App.css';
-import cssReviews from './Reviews.css';
+// import css from '../App.css';
+// import cssReviews from './Reviews.css';
 import { useRatingData } from './RatingProvider';
 import { useData } from '../Context/DataProvider';
 
