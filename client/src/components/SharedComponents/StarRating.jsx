@@ -32,13 +32,12 @@ function StarsRating() {
   console.log('average',average, 'percentage', percentage)
 
   const styleStar = {
-    width: `"${percentage}%"`
+    width: `${percentage}%`
   }
 
   return (
     <>
-      <button type="button" onClick={() => getReviews(productId)}> Reviews</button>
-      <h1>{average}</h1>
+      {/* <h1>{average}</h1> */}
       <div className={css.star_ratings_css}>
         <div className={css.star_ratings_css_top} style={styleStar}><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
         <div className={css.star_ratings_css_bottom}><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
