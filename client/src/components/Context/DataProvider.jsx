@@ -29,7 +29,7 @@ function DataProvider({ children }) {
     productId, updateID,
   }), [productId]);
 
-  return !productId ? null : (
+  return (
     <DataContext.Provider value={value}>
       {children}
     </DataContext.Provider>
