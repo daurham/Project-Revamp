@@ -1,17 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
-import css from './StarRating.css';
 import { useData } from '../Context/DataProvider';
 import { useRatingData } from '../RatingsReviews/RatingProvider';
+import styled from 'styled-components';
 
-function StarsRating({ value }) {
+function StarsRating({ value, productID, showAverage }) {
   const { productId } = useData();
   const { reviews, getReviews } = useRatingData()
 
   const [average, setAverage] = useState(0)
   const [percentage, setPercentage] = useState(0)
   const [rating, setRating] = useState(0)
-  const [displayAverage, setDisplayAverage] = useState(false);
+  const [displayAverage, setDisplayAverage] = useState(showAverage);
   const isMounted = useRef(false);
+
 
   if (isMounted.current && productId) {
     let mapped = reviews.results.map((item) => {
@@ -46,16 +47,45 @@ function StarsRating({ value }) {
 
   return (
     <>
-      <div className={css.container}>
-        {displayAverage ? <h1>{average}</h1> : null}
-        <div className={css.star_ratings_css}>
-          <div className={css.star_ratings_css_top} style={styleStar}><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-          <div className={css.star_ratings_css_bottom}><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-        </div>
-      </div>
-
+      <Container>
+        {showAverage ? <h1>{average}</h1> : null}
+        <StarRatingContainer>
+          <StarRatingTop style={styleStar}><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></StarRatingTop>
+          <StarRatingBottom><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></StarRatingBottom>
+        </StarRatingContainer>
+      </Container>
     </>
   )
 }
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+const StarRatingContainer = styled.div`
+  unicode-bidi: bidi-override;
+  color: #363636bf;
+  width: 70px;
+  margin: 0 auto;
+  position: relative;
+  padding: 0;
+  text-shadow: 0px 1px 0 #a2a2a2;
+`
+const StarRatingTop = styled.div`
+  color: #f1e312;
+  padding: 0;
+  position: absolute;
+  z-index: 1;
+  display: block;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+`
+const StarRatingBottom = styled.div`
+  padding: 0;
+  display: block;
+  z-index: 0;
+`
+
 export default StarsRating;
+

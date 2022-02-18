@@ -1,45 +1,39 @@
 import React, { useState, useEffect } from 'react';
-import css from './Reviews.css';
 import { useRatingData } from './RatingProvider';
 import { useData } from '../Context/DataProvider';
 import ReviewsList from './ReviewsList';
 import Button from '../SharedComponents/Button';
+import styled from 'styled-components';
 
 function Reviews() {
   const { productId } = useData();
   const { reviews, getReviews } = useRatingData();
 
   const [review, setReviews] = useState([]);
-  const [tile, setTile] = useState(2);
+  const [limit, setLimit] = useState(2);
   console.log('reviews', reviews, 'new review', review)
 
-  // const renderTile = () => {
-  //   if (reviews.length !== 0) {
-  //     let arrayRev = reviews.results;
-  //     for (var i = 0; i < arrayRev.length; i++) {
-  //       while (i <= tile) {
-  //        console.log(arrayRev[i])
-  //       }
-  //     }
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   renderTile();
-  // }, [reviews], [productId])
+  const updateLimit = () => {
+    setLimit(reviews.results.length);
+  }
 
   return reviews.length !== 0 ? (
-    <div className={css.container}>
-      <div className={css.reviews}>
-        {reviews.results.map((review, id, summary, rating, recommend, body, date, photos) => (
+    <Container>
+      <div>
+        {reviews.results.slice(0, limit ? limit : items.length).map((review, id, summary, rating, recommend, body, date, photos) => (
           <ReviewsList review={review} key={id} />))}
       </div>
-      <div className={css.buttons}>
-        <Button label="MORE REVIEWS"></Button>
+      <div>
+        <Button label="MORE REVIEWS" handleClick={updateLimit}></Button>
         <Button label="ADD A REVIEW"></Button>
       </div>
-    </div>
+    </Container>
   ) : <div>Loading</div>
 }
 
+const Container = styled.div`
+  display: grid;
+  margin: 10px;
+  padding: 10px;
+`
 export default Reviews;

@@ -1,8 +1,6 @@
 import React from 'react';
-import css from './Reviews.css';
+import css from '../App.css';
 import StarRating from '../SharedComponents/StarRating';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 function ReviewsList({review}) {
   const isoString = new Date().toISOString();
@@ -11,15 +9,14 @@ function ReviewsList({review}) {
   const americanDate = new Intl.DateTimeFormat("en-US", options).format(date);
 
   return (
-    <div className={css.container}>
+    <div>
       <StarRating value={review.rating}/>
       <h2 className={css.sub_title}>{review.summary}</h2>
-      <p className={css.para_md}>Review: {review.body}</p>
-      {/* <FontAwesomeIcon icon={faCoffee} /> */}
-      <p>{review.reviewer_name}</p>
-      {review.helpfulness > 0 ? <p>Helpful? Yes: {review.helpfulness}</p> : null }
-      {review.recommend ? <p>✔ I recommend this product </p> : null}
-      <p className={css.para_sm}>Date: {americanDate}</p>
+      <p className={css.para_md}>{review.body}</p>
+      {review.helpfulness > 0 ? <p className={css.para_sm}>Helpful? Yes: {review.helpfulness}</p> : null }
+      {review.recommend ? <p className={css.para_sm}>✔ I recommend this product </p> : null}
+      <p className={css.para_sm}>{review.reviewer_name}</p>
+      <p className={css.para_sm}>{americanDate}</p>
     </div>
   )
 }

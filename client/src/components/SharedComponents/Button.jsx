@@ -1,15 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function Button({label}) {
+function Button({label, handleClick}) {
   return (
     <>
-    <ButtonStyled>{label || 'label'}</ButtonStyled>
+    <ButtonStyled onClick={handleClick}>{label || 'label'}</ButtonStyled>
     </>
   )
 }
-
-export default Button;
 
 const ButtonStyled = styled.button`
   margin: 10px;
@@ -19,3 +17,5 @@ const ButtonStyled = styled.button`
   min-width: 140px;
   height: 40px;
 `
+
+export default Button;
