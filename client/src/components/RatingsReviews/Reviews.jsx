@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useRatingData } from './RatingProvider';
-import { useData } from '../Context/DataProvider';
+import { useRatingData } from '../SharedContexts/RatingProvider';
+import { useData } from '../SharedContexts/DataProvider';
 import ReviewsList from './ReviewsList';
 import Button from '../SharedComponents/Button';
 import styled from 'styled-components';

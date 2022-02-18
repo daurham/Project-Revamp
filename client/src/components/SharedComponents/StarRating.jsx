@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { useData } from '../Context/DataProvider';
-import { useRatingData } from '../RatingsReviews/RatingProvider';
+import { useData } from '../SharedContexts/DataProvider';
+import { useRatingData } from '../SharedContexts/RatingProvider';
 import styled from 'styled-components';
 import axios from 'axios';
 

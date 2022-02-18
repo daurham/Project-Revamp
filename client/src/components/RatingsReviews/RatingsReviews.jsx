@@ -1,9 +1,9 @@
 import React from 'react';
 import StarRating from '../SharedComponents/StarRating';
-import RatingProvider from './RatingProvider';
+import RatingProvider from '../SharedContexts/RatingProvider';
 import Reviews from './Reviews';
 import styled from 'styled-components';
-import { useData } from '../Context/DataProvider';
+import { useData } from '../SharedContexts/DataProvider';
 
 function RatingsReviews() {
   const { productId } = useData();

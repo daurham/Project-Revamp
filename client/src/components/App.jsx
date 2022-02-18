@@ -3,8 +3,8 @@ import React from 'react';
 import RelatedItems from './RelatedItems/RelatedItems';
 import QuestAnswers from './QuestAnswers/QuestAnswers';
 import RatingsReviews from './RatingsReviews/RatingsReviews';
-import DataProvider, { useData } from './Context/DataProvider';
-import OverviewProvider from './Context/OverviewProvider';
+import DataProvider, { useData } from './SharedContexts/DataProvider';
+import OverviewProvider from './SharedContexts/OverviewProvider';
 import styled from 'styled-components';
 import GlobalStyle from './GlobalStyle';
 

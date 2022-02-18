@@ -4,7 +4,7 @@
 import React from 'react';
 import { render } from "@testing-library/react";
 import App from './App';
-import DataProvider from './Context/DataProvider'
+import DataProvider from './SharedContexts/DataProvider'
 // import RelatedItems from './RelatedItems/RelatedItems';
 // import RatingsReviews from './RatingsReviews/RatingsReviews';
 
