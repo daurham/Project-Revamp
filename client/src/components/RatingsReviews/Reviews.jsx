@@ -18,9 +18,6 @@ function Reviews() {
   const updateLimit = () => {
     setLimit(reviews.results.length);
   }
-  const openModal = () => {
-
-  }
 
   return reviews.length !== 0 ? (
     <Container>
@@ -31,8 +28,7 @@ function Reviews() {
       <div>
         <Button label="MORE REVIEWS" handleClick={updateLimit}></Button>
         <Button label="ADD A REVIEW" handleClick={() => setIsOpen(true)}></Button>
-
-      {isOpen && <Modal setIsOpen={setIsOpen} />}
+        {isOpen && <Modal setIsOpen={setIsOpen} />}
       </div>
     </Container>
   ) : <div>Loading</div>

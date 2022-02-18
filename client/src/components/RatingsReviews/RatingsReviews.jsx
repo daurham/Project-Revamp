@@ -3,14 +3,16 @@ import StarRating from '../SharedComponents/StarRating';
 import RatingProvider from './RatingProvider';
 import Reviews from './Reviews';
 import styled from 'styled-components';
+import { useData } from '../Context/DataProvider';
 
 function RatingsReviews() {
+  const { productId } = useData();
   return (
     <>
       <RatingProvider>
         <Container>
           <BoxOne>
-            <StarRating />
+            <StarRating currentProduct/>
           </BoxOne>
           <BoxTwo>
             <Reviews />

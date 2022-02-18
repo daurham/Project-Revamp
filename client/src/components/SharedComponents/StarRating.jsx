@@ -1,54 +1,68 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useData } from '../Context/DataProvider';
 import { useRatingData } from '../RatingsReviews/RatingProvider';
 import styled from 'styled-components';
+import axios from 'axios';
 
-function StarsRating({ value, productID, showAverage }) {
-  const { productId } = useData();
-  const { reviews, getReviews } = useRatingData()
-
+function StarsRating({ value, productId, showAverage, relatedProduct, currentProduct }) {
+  // const { productId } = useData();
+  const { reviews, getReviews, meta } = useRatingData()
+  const [results, setResults] = useState(null);
+  console.log('meta', meta)
   const [average, setAverage] = useState(0)
-  const [percentage, setPercentage] = useState(0)
-  const [rating, setRating] = useState(0)
-  const [displayAverage, setDisplayAverage] = useState(showAverage);
-  const isMounted = useRef(false);
+  // const [percentage, setPercentage] = useState(0)
+  // const [rating, setRating] = useState(0)
+  // const [displayAverage, setDisplayAverage] = useState(showAverage);
+  // const isMounted = useRef(false);
 
-
-  if (isMounted.current && productId) {
-    let mapped = reviews.results.map((item) => {
-      return item.rating;
-    });
-    const sum = mapped.reduce((a, b) => (a + b));
-    const avg = sum / mapped.length;
-    const percent = Math.round((avg / 5) * 100);
-
-    setPercentage(percent);
-    setAverage(avg);
-    setDisplayAverage(true);
-    isMounted.current = false;
-  } else {
-    isMounted.current = true;
+  // ----- Austin's copy pasta ----
+  if (relatedProduct) {
+    useEffect(() => {
+      const query = { product_id: relatedProduct };
+      axios.get('/reviews/meta', { params: query })
+        .then((response) => {
+          setResults(response.data);
+        });
+      return setResults();
+    }, [productId]);
   }
 
-  const getValue = () => {
-    const percent = value * 100 / 5;
-    setRating(value);
-    setPercentage(percent);
+  if (currentProduct) {
+    useEffect(() => {
+      if (meta && typeof meta === 'object') {
+        setResults(meta.ratings)
+      }
+    }, [meta])
   }
 
-  useEffect(() => {
-    getValue();
-    isMounted.current = false;
-  }, [percentage], [displayAverage]);
+  function calcPercent() {
+    if (results) {
+      const entries = Object.entries(results);
+      let total = 0;
+      let submits = 0;
+      // eslint-disable-next-line no-restricted-syntax
+      for (let [key, val] of entries) {
+        key = Number(key);
+        val = Number(val);
+        total += (key * val);
+        submits += val;
+      }
+      const avg = total / submits;
+
+      setAverage(avg.toFixed(1));
+      return Math.round((avg / 5) * 100, 2);
+    }
+  }
+  const percent = useMemo(() => calcPercent(), [results]);
 
   const styleStar = {
-    width: `${percentage}%`
+    width: `${percent}%`,
   };
 
   return (
     <>
       <Container>
-        {showAverage ? <h1>{average}</h1> : null}
+        {/* {displayAverage ? <h1>{average}</h1> : null} */}
         <StarRatingContainer>
           <StarRatingTop style={styleStar}><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></StarRatingTop>
           <StarRatingBottom><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></StarRatingBottom>
