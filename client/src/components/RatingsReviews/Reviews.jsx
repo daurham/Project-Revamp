@@ -3,6 +3,7 @@ import css from './Reviews.css';
 import { useRatingData } from './RatingProvider';
 import { useData } from '../Context/DataProvider';
 import ReviewsList from './ReviewsList';
+import Button from '../SharedComponents/Button';
 
 function Reviews() {
   const { productId } = useData();
@@ -34,8 +35,8 @@ function Reviews() {
           <ReviewsList review={review} key={id} />))}
       </div>
       <div className={css.buttons}>
-        <button>More Reviews</button>
-        <button>Add a Review</button>
+        <Button label="MORE REVIEWS"></Button>
+        <Button label="ADD A REVIEW"></Button>
       </div>
     </div>
   ) : <div>Loading</div>

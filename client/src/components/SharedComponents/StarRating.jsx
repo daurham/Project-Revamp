@@ -41,7 +41,7 @@ function StarsRating({ value }) {
   }, [percentage], [displayAverage]);
 
   const styleStar = {
-    width: `${[percentage]}%`
+    width: `${percentage}%`
   };
 
   return (
