@@ -39,7 +39,8 @@ app.get('/products/:id/relatedinfo', (req, res) => {
 
   axios.all([axiosrequest1, axiosrequest2])
     .then(axios.spread((res1, res2) => {
-      const tempObj = { ...res1.data, thumbnail: res2.data.results[0].photos[0].thumbnail_url };
+      const thumbnail = res2.data.results[0].photos[0].thumbnail_url || 'https://anthemprep.greatheartsamerica.org/wp-content/uploads/sites/12/2016/12/default-placeholder.png';
+      const tempObj = { ...res1.data, thumbnail };
       // res.send([res1.data, res2.data.results[0].photos[0].thumbnail_url]);
       res.send([tempObj]);
     }))

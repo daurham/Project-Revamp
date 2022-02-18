@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import css from '../App.css';
 import cssReviews from './Reviews.css';
 import { useRatingData } from './RatingProvider';
-import { useData } from '../Context/DataProvider';
+import { useData } from '../SharedContexts/DataProvider';
 import ReviewsList from './ReviewsList';
 
 function Reviews() {

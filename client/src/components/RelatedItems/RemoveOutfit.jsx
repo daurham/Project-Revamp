@@ -1,5 +1,7 @@
 import React from 'react';
 import { useRelated } from './RelatedProvider';
+// import appcss from '../App.css';
+import css from './Carousel.css';
 
 function RemoveOutfit(props) {
   const { item } = props;
@@ -13,9 +15,13 @@ function RemoveOutfit(props) {
   }
 
   return (
-    <button type="button" onClick={removeItem}>
-      X
-    </button>
+    <div className={css.button_padding}>
+      <button type="button" onClick={removeItem} className={css.add_button}>
+        <div className={css.para_md}>
+          x
+        </div>
+      </button>
+    </div>
   );
 }
 

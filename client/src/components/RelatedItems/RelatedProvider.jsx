@@ -26,7 +26,8 @@ function RelatedProvider({ children }) {
             .then((result2) => setRelatedItemsInfo((prevItems) => [...prevItems, ...result2.data]));
         });
       });
-    return () => (setRelatedItemsInfo([]));
+    // return () => (setRelatedItemsInfo([]));
+    return setRelatedItemsInfo([]);
   }, [productId]);
 
   const value = useMemo(() => ({

@@ -1,4 +1,5 @@
 import React from 'react';
+import css from '../RelatedItems/Carousel.css';
 import { useRelated } from '../RelatedItems/RelatedProvider';
 
 function AddOutfit(props) {
@@ -18,9 +19,13 @@ function AddOutfit(props) {
   }
 
   return (
-    <button type="button" onClick={onButtonClick}>
-      +
-    </button>
+    <div className={css.button_padding}>
+      <button type="button" onClick={onButtonClick} className={css.add_button}>
+        <div className={css.para_md}>
+          +
+        </div>
+      </button>
+    </div>
   );
 }
 
