@@ -22,7 +22,7 @@ function AddOutfit(props) {
     <div className={css.button_padding}>
       <button type="button" onClick={onButtonClick} className={css.add_button}>
         <div className={css.para_md}>
-          +
+          ★
         </div>
       </button>
     </div>

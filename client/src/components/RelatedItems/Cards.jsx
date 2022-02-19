@@ -32,7 +32,7 @@ function Cards(props) {
             <div className={appcss.para_sm}>{item.category}</div>
             <div className={css.para_md}>{item.name}</div>
             <div className={appcss.para_sm}>{item.default_price}</div>
-            <StarsRating productId={item.id} />
+            <StarsRating relatedProduct={item.id} />
           </div>
         </div>
       </div>
