@@ -14,11 +14,11 @@ function ReviewsList({review}) {
     <div>
       <StarRating value={review} currentProduct/>
       <TitleStyle>{review.summary}</TitleStyle>
-      {/* <p className={css.para_md}>{review.body}</p>
-      {review.helpfulness > 0 ? <p className={css.para_sm}>Helpful? Yes: {review.helpfulness}</p> : null }
-      {review.recommend ? <p className={css.para_sm}>✔ I recommend this product </p> : null}
-      <p className={css.para_sm}>{review.reviewer_name}</p>
-      <p className={css.para_sm}>{americanDate}</p> */}
+      <ReviewBody>{review.body}</ReviewBody>
+      {review.helpfulness > 0 ? <Helpful>Helpful? Yes: {review.helpfulness} </Helpful>: null }
+      {review.recommend ? <Recommend>✔ I recommend this product </Recommend> : null}
+      <ReviewerName>{review.reviewer_name}</ReviewerName>
+      <DateStyle>{americanDate}</DateStyle>
     </div>
   )
 }
@@ -27,7 +27,19 @@ const TitleStyle = styled.h1`
   ${GlobalStyle.sub_title};
 `
 const Helpful = styled.p`
+  ${GlobalStyle.para_sm};
+`
+const ReviewBody = styled.p`
   ${GlobalStyle.para_md};
+`
+const Recommend = styled.p`
+  ${GlobalStyle.para_sm};
+`
+const ReviewerName = styled.p`
+  ${GlobalStyle.para_sm};
+`
+const DateStyle = styled.p`
+  ${GlobalStyle.para_sm};
 `
 
 export default ReviewsList;

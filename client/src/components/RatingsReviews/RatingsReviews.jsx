@@ -12,7 +12,7 @@ function RatingsReviews() {
       <RatingProvider>
         <Container>
           <BoxOne>
-            <StarRating currentProduct/>
+            <StarRating currentProduct showAverage/>
           </BoxOne>
           <BoxTwo>
             <Reviews />

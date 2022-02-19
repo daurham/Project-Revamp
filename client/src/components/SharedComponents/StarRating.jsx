@@ -5,15 +5,10 @@ import styled from 'styled-components';
 import axios from 'axios';
 
 function StarsRating({ value, productId, showAverage, relatedProduct, currentProduct }) {
-  // const { productId } = useData();
   const { reviews, getReviews, meta } = useRatingData()
   const [results, setResults] = useState(null);
   console.log('meta', meta)
   const [average, setAverage] = useState(0)
-  // const [percentage, setPercentage] = useState(0)
-  // const [rating, setRating] = useState(0)
-  // const [displayAverage, setDisplayAverage] = useState(showAverage);
-  // const isMounted = useRef(false);
 
   // ----- Austin's copy pasta ----
   if (relatedProduct) {
@@ -62,7 +57,7 @@ function StarsRating({ value, productId, showAverage, relatedProduct, currentPro
   return (
     <>
       <Container>
-        {/* {displayAverage ? <h1>{average}</h1> : null} */}
+        {showAverage ? <h1>{average}</h1> : null}
         <StarRatingContainer>
           <StarRatingTop style={styleStar}><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></StarRatingTop>
           <StarRatingBottom><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></StarRatingBottom>
