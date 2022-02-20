@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 
 import axios from 'axios';
-import { useData } from '../Context/DataProvider';
+import { useData } from '../SharedContexts/DataProvider';
 
 const RatingContext = React.createContext();
 

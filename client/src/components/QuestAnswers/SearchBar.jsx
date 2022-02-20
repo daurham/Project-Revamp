@@ -1,53 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQAData } from './QA - Context/DataProvider';
+import { useData } from '../SharedContexts/DataProvider';
 
-function SearchBar(questionData) {
+function SearchBar() {
 /* TEST:
   Describe: 'My SearchBar component should capture the user input data'
   Test: 'input state should match the string "TesTinG"'
 */
 
-  const { questions } = questionData;
-  // use the entire questions array as a base to filter through.
-
-  // research into useState and hooks. Not using corrently.
+  const { productId } = useData();
+  const { questions, setQuestions } = useQAData();
   const [input, setInput] = useState('');
-  const { userSpecifiedResults } = useQAData();
-  const { setUserSpecifiedResults } = useQAData();
+
+  console.log('SB', questions);
 
   // filter the questions
   function filterQuestions(query) {
-    const searchResults = questions.filter((q) => {
-      if (q.question_body.indexOf(query) > 0) {
-        // console.log(q.question_body);
+    const filteredSearchResults = questions.filter((q) => {
+      console.log('filtering', questions);
+      if (q.question_body.toLowerCase().includes(query.toLowerCase())) {
         return true;
       }
       return false;
-      // logic
     });
-    // console.log(searchResults);
-    setUserSpecifiedResults(searchResults);
-    // sendFilteredResults(searchResults);
-    // send results back up to the QuestionList Component
+    setQuestions(filteredSearchResults);
   }
 
   function handleInput(e) {
     setInput(e.target.value);
   }
 
-  // figure how to trigger after >= 3 input length
-  if (input.length > 2) {
-    filterQuestions(input);
-  }
-  // const styles = {
-  //   borderBottom: 'solid 2px orange',
-  // };
-  // style={styles}
+  useEffect(() => {
+    if (input.length > 2 && questions.length > 0) {
+      filterQuestions(input);
+    }
+  }, [input]);
+
+  useEffect(() => {
+    setInput('');
+  }, [productId]);
+
   return (
     <div>
       <form>
         <input
           type="text"
+          value={input}
           placeholder="Search for a question"
           onChange={handleInput}
         />

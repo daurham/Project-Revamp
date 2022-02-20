@@ -3,8 +3,9 @@ import React from 'react';
 import RelatedItems from './RelatedItems/RelatedItems';
 import QuestAnswers from './QuestAnswers/QuestAnswers';
 import RatingsReviews from './RatingsReviews/RatingsReviews';
-import DataProvider, { useData } from './Context/DataProvider';
-import OverviewProvider from './Context/OverviewProvider';
+import DataProvider, { useData } from './SharedContexts/DataProvider';
+import OverviewProvider from './SharedContexts/OverviewProvider';
+import QuestionProvider from './QuestAnswers/QA - Context/DataProvider';
 
 // import styles from './App.css';
 
@@ -19,7 +20,9 @@ function App() {
             {/* <Overview /> */}
             <RelatedItems />
           </OverviewProvider>
-          <QuestAnswers />
+          <QuestionProvider>
+            <QuestAnswers />
+          </QuestionProvider>
           <RatingsReviews />
         </DataProvider>
       ) : (<div>loading</div>)}

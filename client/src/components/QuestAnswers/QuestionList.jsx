@@ -3,67 +3,50 @@ import axios from 'axios';
 import Question from './Question';
 import Modal from '../SharedComponents/Modal';
 
-import { useData } from '../Context/DataProvider';
+import { useData } from '../SharedContexts/DataProvider';
 import { useQAData } from './QA - Context/DataProvider';
 import qacss from './QuestAnswers.css';
 import modalcss from '../SharedComponents/Modal.css';
-// import styles from './QuestAnswer';
+// spinner: <i class="fa-solid fa-spinner"></i>
+// spinner: ~
 
-function QuestionList(questionData) {
+function QuestionList() {
   /* TEST:
     Describe: 'My Question component dynamically renders the filtered question data in bursts of 2'
     Test: 'after "load more" button is clicked, expect the children of the list to increment by 2'
   */
 
-  const questions = [];
   const { productId } = useData();
-  const { unfilteredAPIQuestions } = questionData;
-  const { userFilteredSearchResults } = questionData;
+  const { questions } = useQAData();
   const [loadLimit, updateLoadLimit] = useState(2);
-  const { userSpecifiedResults } = useQAData();
-  // modal:
-  const [post, postMade] = useState(false);
-  const [modal, setModal] = useState(false);
   // modal input:
+  const [modal, setModal] = useState(false);
   const [input, setInput] = useState('');
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [attachment, setAttachment] = useState();
+  const [post, setPost] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   let noResults = false;
 
-  // console.log('QAList Prop data: ', unfilteredAPIQuestions, userFilteredSearchResults);
+  questions.sort((a, b) => {a.helpfulness > b.helpfulness ? 1 : -1}); // sort by helpfulness
 
-  if (userSpecifiedResults && userSpecifiedResults.length > 0) {
-    console.log('user searching');
-    questions.push(...userSpecifiedResults);
-  } else if (unfilteredAPIQuestions) {
-    console.log('user not searching');
-    if (unfilteredAPIQuestions.length === 0) {
-      noResults = true;
-    } else {
-      questions.push(...unfilteredAPIQuestions);
-    }
-  } else if (userFilteredSearchResults) {
-    console.log('user not searching');
-    if (userFilteredSearchResults.length === 0) {
-      noResults = true;
-    } else {
-      questions.push(...userFilteredSearchResults);
-    }
-  }
-
-  // only allow 2 elements at a time.
+  // only allow 4 questions at a time.
   const filteredList = [];
-  for (let i = 0; i < loadLimit; i += 1) {
-    if (questions[i]) {
-      filteredList.push(questions[i]);
+  if (questions && questions.length > 0) {
+    noResults = true;
+    for (let i = 0; i < loadLimit; i += 1) {
+      if (questions[i]) { // if truthy
+        filteredList.push(questions[i]);
+      }
     }
   }
 
   // load more Questions if the btn is clicked and invoking this fn.
-  function loadMoreQuestions(e) {
+  function toggleQuestionAccordian(e) {
     e.preventDefault();
-    updateLoadLimit(() => loadLimit + 2);
+    updateLoadLimit(loadLimit === 4 ? questions.length : 4);
+    setCollapsed(!collapsed);
   }
 
   function toggleModal() {
@@ -90,7 +73,7 @@ function QuestionList(questionData) {
         email: userEmail,
         product_id: productId,
       };
-      postMade(true);
+      setPost(true);
       console.log(body);
       axios.post(`/questions/${productId}`, body)
         .then(() => console.log('Question posted!'))
@@ -101,29 +84,41 @@ function QuestionList(questionData) {
   }
 
   useEffect(() => {
-    updateLoadLimit(2); // restores the limit after each item selected
+    updateLoadLimit(4); // restores the limit after each item selected
+    setCollapsed(true);
   }, [productId]);
+
+  useEffect(() => {
+  }, [questions, collapsed]);
+  console.log(noResults);
 
   return (
     <div>
-      {noResults ? (<div>No Questions!</div>) : filteredList.map((question) => (
+      {!noResults ? (<div>No Questions!</div>) : filteredList.map((question) => (
         <div
           key={question.question_id}
         >
           <Question
             currentQuestion={question}
           />
+
         </div>
       ))}
+      {noResults
+        ? (
+          <button
+            type="button"
+            onClick={toggleQuestionAccordian}
+          >
+            {
+              collapsed ? 'open' : 'close'
+            }
+          </button>
+        ) : null}
       <br />
       <span>
         <div className="question-list-btm-btn">
-          <button
-            type="button"
-            onClick={loadMoreQuestions}
-          >
-            Load More Questions
-          </button>
+
           {/* seperation */}
           <button
             type="button"

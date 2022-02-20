@@ -4,7 +4,7 @@ const axios = require('axios');
 const { Authorization } = require('../apikey');
 
 const app = express();
-const PORT = 3000;
+const PORT = 4000;
 const DIST_DIR = path.join(__dirname, '../client/dist');
 
 app.use(express.urlencoded({ extended: true }));
@@ -17,7 +17,6 @@ const config = { headers };
 
 // returns all products
 app.get('/products', (req, res) => {
-  console.log('server GET ALL: ');
   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products', config)
     .then((result) => { res.send(result.data); })
     .catch(() => { res.sendStatus(500); });

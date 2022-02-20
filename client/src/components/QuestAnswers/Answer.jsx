@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import appcss from '../App.css';
 import css from './QuestAnswers.css';
@@ -10,20 +10,29 @@ function Answer({ currentAnswer }) {
     Test: 'CurrentAnswer prop length should match a get request of the answer'
   */
   const { answer_id } = currentAnswer;
+  const [voted, hasVoted] = useState(false);
+  const [reported, hasReported] = useState(false);
 
   function reportUser() {
-    axios.put(`/answers/${answer_id}/report`)
-      .then(() => console.log('reported!'))
-      .catch((err) => console.log(err));
+    alert('Thanks for keeping the community safe');
+    if (!reported) {
+      hasReported(true);
+      axios.put(`/answers/${answer_id}/report`)
+        .then(() => console.log('reported!'))
+        .catch((err) => console.log(err));
+    }
   }
 
   function upvoteUser() {
-    axios.put(`/answers/${answer_id}/helpful`)
-      .then(() => console.log('upvoted!'))
-      .catch((err) => console.log(err));
+    if (!voted) {
+      hasVoted(true);
+      axios.put(`/answers/${answer_id}/helpful`)
+        .then(() => console.log('upvoted!'))
+        .catch((err) => console.log(err));
+    }
   }
 
-  // console.log(currentAnswer);
+  console.log(currentAnswer);
   const { answerer_name } = currentAnswer;
   const { body } = currentAnswer;
   const { date } = currentAnswer;
@@ -31,42 +40,28 @@ function Answer({ currentAnswer }) {
   const month = date.slice(5, 7);
   const day = date.slice(8, 10);
   const newDate = `${month}/${day}/${year}`;
+
+  const { photos } = currentAnswer;
+  const { helpfulness } = currentAnswer;
   // const reply = `Answer: \n
   // ${answerer_name} - ${body}\n -
   // ${newDate}`;
 
   // css.border isn't picking up...? why.
+  console.log(currentAnswer);
+  const putStyles = { cursor: 'pointer' };
+  console.log(answerer_name);
   return (
     <div className={css.border}>
       <span className={css.border}>
-        <p className={appcss.para_sub_title}>Answer</p>
-        <p className={appcss.para_sm}>
-          Responders Name-
-          {answerer_name}
-        </p>
-        <p className={appcss.para_md}>
-          Body-
-          {body}
-        </p>
-        <p className={appcss.para_sm}>
-          Date-
-          {newDate}
-        </p>
-      </span>
-      <span className={css.border}>
         <div className={appcss.para_sm}>
-          <p
-            style={{cursor: 'pointer'}}
-            onClick={upvoteUser}
-            >
-            Helpful
-          </p>
-          <p
-            style={{cursor: 'pointer'}}
-            onClick={reportUser}
-          >
-            Report
-          </p>
+          A:
+          {body}
+          {/* <p className={}>{body}</p> */}
+          {answerer_name === 'Seller' ? <b>{answerer_name}</b> : answerer_name } {newDate}
+          Helpful?
+          <ins style={putStyles} onClick={upvoteUser}>Yes? ({helpfulness})</ins>
+          <ins style={putStyles} onClick={reportUser}>{!reported ? 'Report' : 'Reported'}</ins>
         </div>
       </span>
     </div>

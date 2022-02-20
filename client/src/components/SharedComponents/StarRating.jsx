@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import css from './StarRating.css';
-import { useData } from '../Context/DataProvider';
+import { useData } from '../SharedContexts/DataProvider';
+
 import { useRatingData } from '../RatingsReviews/RatingProvider';
 
 function StarsRating() {
