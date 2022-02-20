@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function Button({label, handleClick}) {
+function Button({ label, handleClick }) {
   return (
     <>
     <ButtonStyled onClick={handleClick}>{label || 'label'}</ButtonStyled>
     </>
-  )
+  );
 }
 
 const ButtonStyled = styled.button`
@@ -16,6 +16,7 @@ const ButtonStyled = styled.button`
   box-shadow: 2px 2px 1px 2px #8888;
   min-width: 140px;
   height: 40px;
-`
+  cursor: pointer;
+`;
 
 export default Button;

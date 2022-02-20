@@ -6,9 +6,8 @@ import RatingsReviews from './RatingsReviews/RatingsReviews';
 import DataProvider, { useData } from './SharedContexts/DataProvider';
 import OverviewProvider from './SharedContexts/OverviewProvider';
 import QuestionProvider from './QuestAnswers/QA - Context/DataProvider';
-// import styles from './App.css';
-import styled from 'styled-components';
 import GlobalStyle from './GlobalStyle';
+import styled from 'styled-components';
 
 function App() {
   // const { productId } = useData();

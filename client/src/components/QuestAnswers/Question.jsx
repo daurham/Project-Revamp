@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
 import Answer from './Answer';
 import Modal from '../SharedComponents/Modal';
 import { useData } from '../SharedContexts/DataProvider';
 import qacss from './QuestAnswers.css';
-import appcss from '../App.css';
 import modalcss from '../SharedComponents/Modal.css';
+import Button from '../SharedComponents/Button';
 
 function Question({ currentQuestion }) {
   /* TEST:
@@ -62,19 +63,6 @@ function Question({ currentQuestion }) {
       }
     }
   }
-
-  // useEffect(() => {
-  //   setQuestionId();
-  // }, [questionId]);
-
-  // function filterAnswers(data, filter = null) {
-  //   if (filter === 'helpful') {
-  //     arrayOfAnswers.push(...getHelpfulAnswers(data)); // create the fn
-  //   } else {
-  //     // if the filter isnt truthy,
-  //     arrayOfAnswers.push(...Object.keys(data));
-  //   }
-  // }
 
   function loadMoreAnswers() {
     updateLoadLimit(() => loadLimit + 2);
@@ -148,7 +136,7 @@ function Question({ currentQuestion }) {
         {question_helpfulness}
         {question_date}
         {asker_name}
-        <div className={appcss.para_sm}>
+        <div>
           <span>
             Helpful?
             {' '}
@@ -164,21 +152,19 @@ function Question({ currentQuestion }) {
           key={currAnswer.answer_id}
         />
       )))
-        : <div className={appcss.para_sm}>{noAnswers}</div>}
+        : <div>{noAnswers}</div>}
       <br />
       <span>
-        <button
+        <Button
           type="button"
-          onClick={() => { loadMoreAnswers(); }}
-        >
-          Load More Answers
-        </button>
-        <button
+          handleClick={() => { loadMoreAnswers(); }}
+          label="Load More Answers"
+        />
+        <Button
           type="button"
-          onClick={() => { toggleModal(); }}
-        >
-          Answer this Question?
-        </button>
+          handleClick={() => { toggleModal(); }}
+          label="Answer this Question?"
+        />
         <Modal
           show={modal}
           closeCallback={toggleModal}

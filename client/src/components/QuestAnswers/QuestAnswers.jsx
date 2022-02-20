@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import styled from 'styled-components';
 import SearchBar from './SearchBar';
 import QuestionList from './QuestionList';
 import { useData } from '../SharedContexts/DataProvider';

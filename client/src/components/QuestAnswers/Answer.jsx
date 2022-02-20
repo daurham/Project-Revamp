@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import appcss from '../App.css';
+import styled from 'styled-components';
+// import appcss from '../App.css';
 import css from './QuestAnswers.css';
 // import { useData } from '../DataProvider';
 
@@ -48,24 +49,32 @@ function Answer({ currentAnswer }) {
   // ${newDate}`;
 
   // css.border isn't picking up...? why.
-  console.log(currentAnswer);
+  // console.log(currentAnswer);
   const putStyles = { cursor: 'pointer' };
-  console.log(answerer_name);
+  // console.log(answerer_name);
   return (
     <div className={css.border}>
       <span className={css.border}>
-        <div className={appcss.para_sm}>
+        <AnAnswer>
           A:
           {body}
-          {/* <p className={}>{body}</p> */}
           {answerer_name === 'Seller' ? <b>{answerer_name}</b> : answerer_name } {newDate}
           Helpful?
           <ins style={putStyles} onClick={upvoteUser}>Yes? ({helpfulness})</ins>
           <ins style={putStyles} onClick={reportUser}>{!reported ? 'Report' : 'Reported'}</ins>
-        </div>
+        </AnAnswer>
       </span>
     </div>
   );
 }
 
 export default Answer;
+
+const AnAnswer = styled.div`
+`;
+//   width: 50%;
+//   height: 20px;
+//   border: blue 2px solid;
+//   padding: 0px;
+//   margin: 0px;
+//   box-shadow
