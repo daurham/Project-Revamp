@@ -4,8 +4,9 @@
 import React from 'react';
 import { render } from "@testing-library/react";
 import App from './App';
-import RelatedItems from './RelatedItems/RelatedItems';
-import RatingsReviews from './RatingsReviews/RatingsReviews';
+import DataProvider from './SharedContexts/DataProvider'
+// import RelatedItems from './RelatedItems/RelatedItems';
+// import RatingsReviews from './RatingsReviews/RatingsReviews';
 
 
 describe("div", () => {
@@ -18,8 +19,8 @@ describe("div", () => {
   })
 });
 
-describe("Ratings Component", () => {
-  it("ratings", () => {
+describe("App Component", () => {
+  it("appdfdf", () => {
     render(<App />);
     // const title = screen.getByText('Ratings and Reviews')
     // expect(title).toBeInTheDocument();
