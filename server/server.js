@@ -46,6 +46,16 @@ app.get('/reviews', (req, res) => {
     .catch(() => { res.sendStatus(500); });
 });
 
+app.get('/reviews/meta', (req, res) => {
+  const reviewConfig = {
+    params: req.query,
+    headers,
+  };
+  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/meta', reviewConfig)
+    .then((result) => { res.send(result.data); })
+    .catch(() => { res.sendStatus(500); });
+});
+
 // Questions / Answers
 // get questions(productId)
 app.get('/questions/:id', (req, res) => {
