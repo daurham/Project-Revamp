@@ -14,8 +14,9 @@ function QuestionProvider({ children }) {
   const { productId } = useData();
   const [questions, setQuestions] = useState();
   const [searchResults, setSearchResults] = useState([]);
-  const [currentQuestion, setCurrentQuestion] = useState();
-  const [currentAnswer, setCurrentAnswer] = useState();
+  const [qS, getQuestions] = useState(0);
+  // const [currentQuestion, setCurrentQuestion] = useState();
+  // const [currentAnswer, setCurrentAnswer] = useState();
   // const [input, setInput] = useState('');
 
   useEffect(() => {
@@ -24,10 +25,10 @@ function QuestionProvider({ children }) {
         setQuestions(result.data.results);
       })
       .catch((err) => console.log(err));
-  }, [productId]); // should auto update when id changes.
+  }, [productId, qS]); // should auto update when id changes.
 
   const value = useMemo(() => ({
-    questions, searchResults, setSearchResults, setQuestions,
+    questions, searchResults, setSearchResults, getQuestions, qS,
   }), [questions, searchResults]);
 
   return (

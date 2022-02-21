@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import GlobalStyle from '../GlobalStyle';
 import Answer from './Answer';
 import Modal from '../SharedComponents/Modal';
-import { useData } from '../SharedContexts/DataProvider';
-import qacss from './QuestAnswers.css';
 import modalcss from '../SharedComponents/Modal.css';
 import Button from '../SharedComponents/Button';
+import Spinner from '../SharedComponents/Spinner';
+import { useData } from '../SharedContexts/DataProvider';
 
 function Question({ currentQuestion }) {
   /* TEST:
@@ -14,21 +15,11 @@ function Question({ currentQuestion }) {
     Test: 'CurrentQuestion prop length should match a get request of the question'
   */
 
-  /*
-  asker_name: "Joe"
-  question_body: "hgf"
-  question_date: "2022-02-17T00:00:00.000Z"
-  question_helpfulness: 7
-  question_id: 573381
-  reported: false
-  */
-
   const filteredList = [];
   const { question_id } = currentQuestion;
   const { question_body } = currentQuestion;
-  const { question_date } = currentQuestion;
   const { question_helpfulness } = currentQuestion;
-  const { asker_name } = currentQuestion;
+  const { productId } = useData();
   const [questionId, setQuestionId] = useState(question_id);
   const [answers, setAnswers] = useState();
   const [loadLimit, updateLoadLimit] = useState(2);
@@ -41,6 +32,7 @@ function Question({ currentQuestion }) {
   const [attachment, setAttachment] = useState();
   const [voted, hasVoted] = useState(false);
   const [reported, hasReported] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
 
   function getAnswers(id) {
     axios.get(`/answers/${id}`)
@@ -53,22 +45,32 @@ function Question({ currentQuestion }) {
     getAnswers(questionId);
   }
 
-
-  if (answers) {
-    answers.sort((a, b) => { a.helpfulness > b.helpfulness ? 1 : -1 });
-    answers.sort((a, b) => { a.answerer_name.toLowerCase() === 'seller' && b.answerer_name.toLowerCase() !== 'seller' ? 1 : -1 });
-    for (let i = 0; i < loadLimit; i += 1) {
-      if (answers[i]) {
-        filteredList.push(answers[i]);
+  function renderList() {
+    if (answers) { // sort
+      answers.sort((a, b) => (a.helpfulness > b.helpfulness ? 1 : -1));
+      answers.sort((a, b) => ((a.answerer_name.toLowerCase() === 'seller' && b.answerer_name.toLowerCase() !== 'seller') ? 1 : -1));
+      // repopulate
+      for (let i = 0; i < loadLimit; i += 1) {
+        if (answers[i]) {
+          filteredList.push(answers[i]);
+        }
       }
     }
   }
 
-  function loadMoreAnswers() {
-    updateLoadLimit(() => loadLimit + 2);
+  if (answers) {
+    renderList();
   }
 
+  function toggleAnswerAccordian() {
+    updateLoadLimit(loadLimit === 2 ? answers.length : 2);
+    setCollapsed(!collapsed);
+  }
+
+  const answerListLabel = (collapsed ? 'See more answers' : 'Collapse answers');
+
   function toggleModal() {
+    console.log(modal);
     setModal(!modal);
   }
 
@@ -111,60 +113,83 @@ function Question({ currentQuestion }) {
   }
 
   function reportUser() {
-    console.log(currentQuestion);
-    axios.put(`/questions/${questionId}/report`)
-      .then(() => console.log('reported!'))
-      .catch((err) => console.log(err));
+    alert('Thanks you for keeping our community safe!');
+    if (!reported) {
+      hasReported(true);
+      axios.put(`/questions/${questionId}/report`)
+        .then(() => console.log('reported!'))
+        .catch((err) => console.log(err));
+    }
   }
 
   function upvoteUser() {
-    console.log(currentQuestion.question_helpfulness);
-    axios.put(`/questions/${questionId}/helpful`)
-      .then(() => console.log('upvoted!'))
-      .catch((err) => console.log(err));
+    if (!voted) {
+      hasVoted(true);
+      axios.put(`/questions/${questionId}/helpful`)
+        .then(() => console.log('upvoted!'))
+        .catch((err) => console.log(err));
+    }
   }
 
   const noAnswers = 'No ones answered yet...';
 
   const putStyles = { cursor: 'pointer' };
 
-  return !answers ? <div>Loading...</div> : (
+  useEffect(() => {
+    renderList();
+    hasReported(false);
+    hasVoted(false);
+  }, [productId]);
+
+  return !answers ? <SpinnerContainer><Spinner /></SpinnerContainer> : (
     <div>
-      <span>
-        Q: {question_id}
-        {question_body}
-        {question_helpfulness}
-        {question_date}
-        {asker_name}
-        <div>
-          <span>
+      <AQuestion>
+        <TitleStyle>
+          {'Q: '}
+          {question_body}
+        </TitleStyle>
+        <HelpfulBtnBlock>
+          <SmButton
+            type="button"
+            onClick={() => { toggleModal(); }}
+          >
+            Add Answer
+          </SmButton>
+          <Helpful>
             Helpful?
             {' '}
-            <ins style={putStyles} onClick={upvoteUser}>Yes ({question_helpfulness})</ins>
+            <ins style={putStyles} role="button" tabIndex={0} onKeyDown={upvoteUser} onClick={upvoteUser}>
+              Yes
+              (
+              {question_helpfulness}
+              )
+            </ins>
             {' | '}
-            <ins style={putStyles} onClick={reportUser}>{!reported ? 'Report' : 'Reported'}</ins>
-          </span>
-        </div>
-      </span>
-      {filteredList.length > 0 ? (filteredList.map((currAnswer) => (
-        <Answer
-          currentAnswer={currAnswer}
-          key={currAnswer.answer_id}
-        />
-      )))
-        : <div>{noAnswers}</div>}
-      <br />
+            <ins style={putStyles} role="button" tabIndex={0} onKeyDown={reportUser} onClick={reportUser}>{!reported ? 'Report' : 'Reported'}</ins>
+          </Helpful>
+        </HelpfulBtnBlock>
+      </AQuestion>
+      <TitleAStyle>A:</TitleAStyle>
+      {
+        filteredList.length > 0 ? ((filteredList.map((currentAnswer) => (
+          <Answer
+            currentAnswer={currentAnswer}
+            key={currentAnswer.answer_id}
+          />
+        ))))
+          : <NoAnswer>{noAnswers}</NoAnswer>
+      }
+      {
+        filteredList.length > 2 ? (
+          <SmButton
+            type="button"
+            onClick={() => { toggleAnswerAccordian(); }}
+          >
+            {answerListLabel}
+          </SmButton>
+        ) : null
+      }
       <span>
-        <Button
-          type="button"
-          handleClick={() => { loadMoreAnswers(); }}
-          label="Load More Answers"
-        />
-        <Button
-          type="button"
-          handleClick={() => { toggleModal(); }}
-          label="Answer this Question?"
-        />
         <Modal
           show={modal}
           closeCallback={toggleModal}
@@ -194,18 +219,16 @@ function Question({ currentQuestion }) {
                   </span>
                 </form>
                 <span>
-                  <button
-                    onClick={handleSubmit}
+                  <Button
+                    handleClick={handleSubmit}
                     type="button"
-                  >
-                    Submit
-                  </button>
-                  <button
-                    onClick={uploadAttachment}
+                    label="Submit"
+                  />
+                  <Button
+                    handleClick={uploadAttachment}
                     type="button"
-                  >
-                    Upload an Image
-                  </button>
+                    label="Upload an Image"
+                  />
                 </span>
               </div>
             )
@@ -221,3 +244,55 @@ function Question({ currentQuestion }) {
 }
 
 export default Question;
+
+// Styles:
+
+const SmButton = styled.button`
+  box-shadow: 2px 0px 1px 0px #8888;
+  margin-left: 10px;
+  background-color: white;
+  height: 20px;
+  cursor: pointer;
+  ${GlobalStyle.para_md};
+  `;
+const TitleStyle = styled.h1`
+  ${GlobalStyle.sub_title};
+  display: inline;
+  margin: 0px;
+`;
+const TitleAStyle = styled.h1`
+  ${GlobalStyle.sub_title}
+  margin: 0px;
+  padding: 0% 2% 0% 2%;
+`;
+const Helpful = styled.p`
+  ${GlobalStyle.para_sm};
+  display: inline;
+  margin: 0px;
+  margin-left: 5%;
+  white-space: nowrap;
+`;
+const AQuestion = styled.div`
+  border-top: grey 3px solid;
+  border-bottom: light-grey 2px solid;
+  padding: 0% 2% 0% 2%;
+  margin: 0px;
+  box-shadow: 2px 0px 1px 0px #8888;
+  min-width: 50%;
+  display: flex;
+  justify-content: space-between;
+  `;
+
+const HelpfulBtnBlock = styled.span`
+  float: right;
+  display: inline-grid;
+  `;
+
+const NoAnswer = styled.div`
+  margin-left: 5%;
+`;
+
+const SpinnerContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;

@@ -7,7 +7,7 @@ import axios from 'axios';
 function StarsRating({ value, productId, showAverage, relatedProduct, currentProduct }) {
   const { reviews, getReviews, meta } = useRatingData()
   const [results, setResults] = useState(null);
-  console.log('meta', meta)
+  // console.log('meta', meta)
   const [average, setAverage] = useState(0)
 
   // ----- Austin's copy pasta ----

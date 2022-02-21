@@ -2,7 +2,7 @@
 import React from 'react';
 import modalcss from './Modal.css';
 
-function QuestionModal({
+function Modal({
   show,
   children,
   closeCallback,
@@ -31,4 +31,4 @@ function QuestionModal({
   );
 }
 
-export default QuestionModal;
+export default Modal;

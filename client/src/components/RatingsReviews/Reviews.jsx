@@ -13,7 +13,7 @@ function Reviews() {
 
   const [review, setReviews] = useState([]);
   const [limit, setLimit] = useState(2);
-  console.log('reviews', reviews, 'new review', review);
+  // console.log('reviews', reviews, 'new review', review);
 
   const updateLimit = () => {
     setLimit(reviews.results.length);

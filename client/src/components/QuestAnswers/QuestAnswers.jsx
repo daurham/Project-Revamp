@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import GlobalStyle from '../GlobalStyle';
 import SearchBar from './SearchBar';
 import QuestionList from './QuestionList';
 import { useData } from '../SharedContexts/DataProvider';
-import css from './QuestAnswers.css';
 import { useQAData } from './QA - Context/DataProvider';
+import Spinner from '../SharedComponents/Spinner';
 
 function QuestAnswers() {
   /* TEST:
@@ -19,18 +20,47 @@ function QuestAnswers() {
   useEffect(() => {
   }, [productId]); // should auto update when id changes.
 
-  console.log(questions);
-
-  return !questions ? <div>Loading...</div> : (
-    <div
-      className={css.question_div}
-    >
+  return !questions ? <SpinnerContainer><Spinner /></SpinnerContainer> : (
+    <div>
       <button style={{ backgroundColor: 'orange' }} type="button" onClick={updateID}> Get Another Product ID {productId} </button>
-      <div><p>Questions and Answers</p></div>
-      <SearchBar />
-      <QuestionList />
+      <QAFlexContainer>
+        <QASection>
+          <QAHeader><TitleStyle>Questions and Answers</TitleStyle></QAHeader>
+          <SearchBar />
+          <QuestionList />
+        </QASection>
+      </QAFlexContainer>
     </div>
   );
 }
 
 export default QuestAnswers;
+
+const QAHeader = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const TitleStyle = styled.h1`
+  ${GlobalStyle.Title};
+`;
+
+const QAFlexContainer = styled.div`
+  display: flex;
+  border: solid 2px rgb(238, 238, 238);
+  border: solid black 6px;
+  justify-self: center;
+  min-width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  `;
+
+const QASection = styled.div`
+justify-content: center;
+min-width: 100%;
+`;
+
+const SpinnerContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;

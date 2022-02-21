@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
 import Question from './Question';
 import Modal from '../SharedComponents/Modal';
-
+import GlobalStyle from '../GlobalStyle';
 import { useData } from '../SharedContexts/DataProvider';
 import { useQAData } from './QA - Context/DataProvider';
 import qacss from './QuestAnswers.css';
 import modalcss from '../SharedComponents/Modal.css';
+import Button from '../SharedComponents/Button';
 // spinner: <i class="fa-solid fa-spinner"></i>
 // spinner: ~
 
@@ -16,9 +18,11 @@ function QuestionList() {
     Test: 'after "load more" button is clicked, expect the children of the list to increment by 2'
   */
 
+  const filteredList = [];
   const { productId } = useData();
-  const { questions } = useQAData();
+  const { questions, getQuestions, qS } = useQAData();
   const [loadLimit, updateLoadLimit] = useState(2);
+
   // modal input:
   const [modal, setModal] = useState(false);
   const [input, setInput] = useState('');
@@ -27,24 +31,27 @@ function QuestionList() {
   const [attachment, setAttachment] = useState();
   const [post, setPost] = useState(false);
   const [collapsed, setCollapsed] = useState(true);
-  let noResults = false;
-
-  questions.sort((a, b) => {a.helpfulness > b.helpfulness ? 1 : -1}); // sort by helpfulness
+  let noResults = true;
 
   // only allow 4 questions at a time.
-  const filteredList = [];
-  if (questions && questions.length > 0) {
-    noResults = true;
-    for (let i = 0; i < loadLimit; i += 1) {
-      if (questions[i]) { // if truthy
-        filteredList.push(questions[i]);
+  function renderList() {
+    questions.sort((a, b) => (a.question_helpfulness < b.question_helpfulness
+      ? 1 : -1)); // sort by helpfulness
+    if (questions && questions.length > 0) {
+      noResults = false;
+      for (let i = 0; i < loadLimit; i += 1) {
+        if (questions[i]) { // if truthy
+          filteredList.push(questions[i]);
+        }
       }
     }
   }
 
-  // load more Questions if the btn is clicked and invoking this fn.
-  function toggleQuestionAccordian(e) {
-    e.preventDefault();
+  if (questions) {
+    renderList();
+  }
+
+  function toggleQuestionAccordian() {
     updateLoadLimit(loadLimit === 4 ? questions.length : 4);
     setCollapsed(!collapsed);
   }
@@ -77,103 +84,126 @@ function QuestionList() {
       console.log(body);
       axios.post(`/questions/${productId}`, body)
         .then(() => console.log('Question posted!'))
-        .catch((err) => console.log(err));
+        .then(() => getQuestions(!qS));
     } else {
       alert('Please fill in the form to submit a post.');
     }
   }
 
   useEffect(() => {
+    renderList();
     updateLoadLimit(4); // restores the limit after each item selected
     setCollapsed(true);
   }, [productId]);
 
-  useEffect(() => {
-  }, [questions, collapsed]);
-  console.log(noResults);
-
   return (
     <div>
-      {!noResults ? (<div>No Questions!</div>) : filteredList.map((question) => (
-        <div
-          key={question.question_id}
+      <QuestionListContainer>
+
+        {noResults ? (<NoQuestions>No Questions</NoQuestions>) : filteredList.map((question) => (
+          <div
+            key={question.question_id}
+          >
+            <Question
+              currentQuestion={question}
+            />
+
+          </div>
+        ))}
+        {(!noResults && questions.length > 4)
+          ? (
+            <SmButton
+              type="button"
+              onClick={toggleQuestionAccordian}
+            >
+              {
+                collapsed ? 'See more questions' : 'Collapse'
+              }
+            </SmButton>
+          ) : null}
+        <br />
+      </QuestionListContainer>
+      <ButtonContainer>
+        <Button
+          type="button"
+          className="modal_opener"
+          handleClick={toggleModal}
+          label="Ask a Question?"
+        />
+
+        <Modal
+          show={modal}
+          closeCallback={toggleModal}
         >
-          <Question
-            currentQuestion={question}
-          />
+          {!post
+            ? (
+              <div>
+                <h2>Ask A Question</h2>
 
-        </div>
-      ))}
-      {noResults
-        ? (
-          <button
-            type="button"
-            onClick={toggleQuestionAccordian}
-          >
-            {
-              collapsed ? 'open' : 'close'
-            }
-          </button>
-        ) : null}
-      <br />
-      <span>
-        <div className="question-list-btm-btn">
-
-          {/* seperation */}
-          <button
-            type="button"
-            className="modal_opener"
-            onClick={toggleModal}
-          >
-            Ask a Question?
-          </button>
-
-          <Modal
-            show={modal}
-            closeCallback={toggleModal}
-          >
-            {!post
-              ? (
-                <div>
-                  <h2>Ask A Question</h2>
-
-                  <form>
-                    <textarea
-                      className={modalcss.qa_textarea}
-                      placeholder="What do you want to ask other buyers?"
-                      onChange={handleInput}
+                <form>
+                  <textarea
+                    className={modalcss.qa_textarea}
+                    placeholder="What do you want to ask other buyers?"
+                    onChange={handleInput}
+                  />
+                  <span>
+                    <input
+                      type="text"
+                      onChange={handleUserName}
+                      placeholder="Name"
                     />
-                    <span>
-                      <input
-                        type="text"
-                        onChange={handleUserName}
-                        placeholder="Name"
-                      />
-                      <input
-                        type="text"
-                        onChange={handleUserEmail}
-                        placeholder="Email"
-                      />
-                    </span>
-                  </form>
-                  <button
-                    onClick={handleSubmit}
-                    type="button"
-                  >
-                    Submit
-                  </button>
-                </div>
-              )
-              : (
-                <div>
-                  <h2>Thanks!</h2>
-                </div>
-              )}
-          </Modal>
-        </div>
-      </span>
+                    <input
+                      type="text"
+                      onChange={handleUserEmail}
+                      placeholder="Email"
+                    />
+                  </span>
+                </form>
+                <button
+                  onClick={handleSubmit}
+                  type="button"
+                >
+                  Submit
+                </button>
+              </div>
+            )
+            : (
+              <div>
+                <h2>Thanks!</h2>
+              </div>
+            )}
+        </Modal>
+      </ButtonContainer>
     </div>
   );
 }
 
 export default QuestionList;
+
+// Styles:
+
+const SmButton = styled.button`
+  box-shadow: 2px 0px 1px 0px #8888;
+  margin-left: 10px;
+  background-color: white;
+  height: 20px;
+  cursor: pointer;
+  ${GlobalStyle.para_md};
+  `;
+
+const QuestionListContainer = styled.div`
+  overflow-y: scroll;
+  min-height: 10vh;
+  max-height: 50vh;
+  `;
+
+const ButtonContainer = styled.div`
+  margin-bottom: 2%;
+  margin-left: 2%;
+`;
+
+const NoQuestions = styled.h1`
+  ${GlobalStyle.sub_title};
+  margin-left: 5%;
+`;
+

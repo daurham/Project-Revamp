@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 import { useQAData } from './QA - Context/DataProvider';
 import { useData } from '../SharedContexts/DataProvider';
 
@@ -12,12 +13,9 @@ function SearchBar() {
   const { questions, setQuestions } = useQAData();
   const [input, setInput] = useState('');
 
-  console.log('SB', questions);
-
   // filter the questions
   function filterQuestions(query) {
     const filteredSearchResults = questions.filter((q) => {
-      console.log('filtering', questions);
       if (q.question_body.toLowerCase().includes(query.toLowerCase())) {
         return true;
       }
@@ -42,17 +40,29 @@ function SearchBar() {
 
   return (
     <div>
-      <form>
-        <input
+      <SearchBarContainer>
+        <InputSearchBar
           type="text"
           value={input}
           placeholder="Search for a question"
           onChange={handleInput}
         />
-      </form>
+      </SearchBarContainer>
       <br />
     </div>
   );
 }
 
 export default SearchBar;
+
+const SearchBarContainer = styled.div`
+  display: flex;
+  `;
+
+const InputSearchBar = styled.input`
+  width: 100%;
+  min-width: 20%;
+  margin-left: 60%;
+  margin-right: 5%;
+  float: right;
+`;
