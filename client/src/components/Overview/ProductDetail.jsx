@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 // import custom hook created on line 9 of DataProvider
 import axios from 'axios';
-import { useOverview } from '../Context/OverviewProvider';
+import { useOverview } from '../SharedContexts/OverviewProvider';
 
 function ProductDetail() {
   const { prodDetails } = useOverview();

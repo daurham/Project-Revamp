@@ -34,12 +34,21 @@ app.get('/products/:id/styles', (req, res) => {
 });
 
 app.get('/reviews', (req, res) => {
-  console.log(req.query)
   const reviewConfig = {
     params: req.query,
     headers
   }
   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews', reviewConfig)
+    .then((result) => { res.send(result.data); })
+    .catch(() => { res.sendStatus(500); });
+});
+
+app.get('/reviews/meta', (req, res) => {
+  const reviewConfig = {
+    params: req.query,
+    headers,
+  };
+  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/meta', reviewConfig)
     .then((result) => { res.send(result.data); })
     .catch(() => { res.sendStatus(500); });
 });
