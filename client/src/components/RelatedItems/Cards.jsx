@@ -22,6 +22,21 @@ function Cards(props) {
       <RemoveOutfit item={item} />
     );
   }
+
+  let price;
+  if (item.sale_price) {
+    price = (
+      <>
+        <div className={css.saleprice}>{item.sale_price}</div>
+        &nbsp;
+        <div className={css.originalPriceStriked}>{item.original_price}</div>
+      </>
+    );
+  } else {
+    price = (
+      <div>{item.original_price}</div>
+    );
+  }
   return (
     <div className={css.card_holder}>
       <div className={css.card} role="presentation">
@@ -31,7 +46,15 @@ function Cards(props) {
           <div className={css.card_info_holder}>
             <div className={appcss.para_sm}>{item.category}</div>
             <div className={css.para_md}>{item.name}</div>
-            <div className={appcss.para_sm}>{item.default_price}</div>
+            {/* <div className={css.flexrow}>{item.default_price }</div> */}
+            {/* &nbsp; */}
+            {/* <div className={css.flexrow}>{item.default_price}</div> */}
+            <div className={css.pricecontainer}>
+              {price}
+              {/* <div>hi</div>
+              &nbsp;
+              <div>there</div> */}
+            </div>
             <StarsRating relatedProduct={item.id} />
           </div>
         </div>

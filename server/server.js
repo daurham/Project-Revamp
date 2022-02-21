@@ -39,8 +39,15 @@ app.get('/products/:id/relatedinfo', (req, res) => {
 
   axios.all([axiosrequest1, axiosrequest2])
     .then(axios.spread((res1, res2) => {
-      const thumbnail = res2.data.results[0].photos[0].thumbnail_url || 'https://anthemprep.greatheartsamerica.org/wp-content/uploads/sites/12/2016/12/default-placeholder.png';
-      const tempObj = { ...res1.data, thumbnail };
+      const firstStyle = res2.data.results[0];
+      const thumbnail = firstStyle.photos[0].thumbnail_url || 'https://anthemprep.greatheartsamerica.org/wp-content/uploads/sites/12/2016/12/default-placeholder.png';
+      const tempObj = {
+        ...res1.data,
+        thumbnail,
+        original_price: firstStyle.original_price,
+        sale_price: firstStyle.sale_price,
+        // sale_price: '100.00',
+      };
       // res.send([res1.data, res2.data.results[0].photos[0].thumbnail_url]);
       res.send([tempObj]);
     }))
@@ -57,8 +64,8 @@ app.get('/products/:id/styles', (req, res) => {
 app.get('/reviews', (req, res) => {
   const reviewConfig = {
     params: req.query,
-    headers
-  }
+    headers,
+  };
   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews', reviewConfig)
     .then((result) => { res.send(result.data); })
     .catch(() => { res.sendStatus(500); });

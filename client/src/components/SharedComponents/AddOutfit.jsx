@@ -21,8 +21,10 @@ function AddOutfit(props) {
   return (
     <div className={css.button_padding}>
       <button type="button" onClick={onButtonClick} className={css.add_button}>
-        <div className={css.para_md}>
-          ★
+        {/* <div className={css.para_md}> */}
+        <div>
+
+          +
         </div>
       </button>
     </div>
