@@ -1,5 +1,5 @@
 import React from 'react';
-// import Overview from './Overview/Overview';
+import Overview from './Overview/Overview';
 import RelatedItems from './RelatedItems/RelatedItems';
 import QuestAnswers from './QuestAnswers/QuestAnswers';
 import RatingsReviews from './RatingsReviews/RatingsReviews';
@@ -12,18 +12,18 @@ function App() {
   const { productId } = useData();
 
   return (
-    <>
+    <div>
       {productId ? (
         <DataProvider>
           <OverviewProvider>
-            {/* <Overview /> */}
+            <Overview />
             <RelatedItems />
           </OverviewProvider>
           <QuestAnswers />
-          <RatingsReviews />
+          {/* <RatingsReviews /> */}
         </DataProvider>
       ) : (<div>loading</div>)}
-    </>
+    </div>
   );
 }
 

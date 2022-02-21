@@ -6,10 +6,20 @@ import axios from 'axios';
 import { useOverview } from '../Context/OverviewProvider';
 
 function ProductDetail() {
+  const { prodDetails } = useOverview();
+  const { currentStyle } = useOverview();
+
   return (
     <div>
-      {/* {prodStyles.map( (eachStyle) => <div>{eachStyle.name}</div>)} */}
-      {/* {prodStyles[0]} */}
+      {prodDetails && currentStyle && (
+        <div>
+          {prodDetails.category}
+          {prodDetails.name}
+          {currentStyle.original_price}
+          {currentStyle.style_price && currentStyle.style_price}
+          {prodDetails.description}
+        </div>
+      )}
     </div>
   );
 }

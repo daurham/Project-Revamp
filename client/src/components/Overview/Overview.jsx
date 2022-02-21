@@ -1,43 +1,70 @@
 import React, {
   useState, useMemo, useContext, useEffect,
 } from 'react';
-import MainImage from './ImageGallery/MainImage';
-// import Thumbnail from './ImageGallery/Thumbnail';
+// import styled from 'styled-components';
+import ImageGallery from './ImageGallery/ImageGallery';
 import ProductDetail from './ProductDetail';
-import { useOverview } from '../Context/OverviewProvider';
-// import css from './Overview.css';
-import ovcss from './Overview.css';
+import StyleSelector from './StyleSelector';
+import Test from './Test';
+import Cart from './Cart';
+import OverviewProvider, { useOverview } from '../Context/OverviewProvider';
 
 function Overview() {
   const { prodDetails } = useOverview();
   const { prodStyles } = useOverview();
-  const [currentStyle, setCurrentStyle] = useState();
+  const { currentStyleId, setCurrentStyleId } = useOverview();
+  const { currentStyle, setCurrentStyle } = useOverview();
+  // const [currentStyleId, setCurrentStyleId] = useState();
+  // const [currentStyle, setCurrentStyle] = useState();
 
-  // console.log('detail', prodDetails);
-  // console.log('style', prodStyles);
-  // console.log('current style', currentStyle);
-  // console.log('current image', currentImage)
+  // console.log('prodDetails', prodDetails)
+  // console.log('prodStyles', prodStyles)
+  // console.log('currentStyleID', currentStyleId)
+  // console.log('currentStyle', currentStyle)
 
-  useEffect(() => {
-    setCurrentStyle(prodStyles[0]);
-  }, [prodStyles]);
+  // useEffect(() => {
+  //   if (prodStyles.length > 0) {
+  //     setCurrentStyleId(prodStyles[0].style_id);
+  //   }
+  // }, [prodStyles]);
+
+  // useEffect(() => {
+  //   prodStyles.forEach((style) => {
+  //     if (style.style_id === currentStyleId) {
+  //       setCurrentStyle(style);
+  //     }
+  //   })
+  // }, [currentStyleId]);
+
+  // function toSetCurrentStyleId(newId) {
+  //   setCurrentStyleId(newId)
+  // }
 
   return (
     <>
-      {currentStyle && (
-      <div className={ovcss.imggallery}>
-        <MainImage style={currentStyle} />
-        {/* <Thumbnail images={prodStyles}/> */}
+      {/* <Test /> */}
+      {/* <Container> */}
+      <div>
+        {prodDetails && prodStyles && currentStyle && currentStyleId ? (
+          <OverviewProvider>
+            <ImageGallery />
+            <StyleSelector />
+            <Cart />
+            <ProductDetail />
+          </OverviewProvider>
+        ) : (<div>loading</div>)}
       </div>
-      )}
-
-      <ProductDetail />
-
+      {/* </Container> */}
     </>
   );
 }
 
 export default Overview;
+
+// const Container = styled.div`
+//   display: grid;
+//   grid-template-columns: 50% 50%;
+//   grid-template-rows: [row1-start] 300px [row1-end] 200px [third-line] 50px [fourth-line] 100px [last-line];`
 
 //   <p className={appcss.title}>Title</p>
 //   <p className={appcss.sub_title}>Sub Title</p>
