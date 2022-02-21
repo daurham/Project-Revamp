@@ -17,9 +17,11 @@ function RemoveOutfit(props) {
   return (
     <div className={css.button_padding}>
       <button type="button" onClick={removeItem} className={css.add_button}>
-        <div className={css.para_md}>
+        {/* <div className={css.para_md}> */}
+
+
           x
-        </div>
+        {/* </div> */}
       </button>
     </div>
   );

@@ -2,16 +2,15 @@ import React from 'react';
 import styles from './Modal.css';
 import Form from './Form';
 
-const Modal = ({ setIsOpen }) => {
+function Modal({ setIsOpen }) {
   return (
     <>
       <div className={styles.darkBG} onClick={() => setIsOpen(false)} />
       <div className={styles.centered}>
         <div className={styles.modal}>
-          <button className={styles.closeBtn} onClick={() => setIsOpen(false)}>
-          </button>
+          <button className={styles.closeBtn} onClick={() => setIsOpen(false)} />
           <div className={styles.modalContent}>
-            <Form/>
+            <Form />
           </div>
           <div className={styles.modalActions}>
             <div className={styles.actionsContainer}>
@@ -30,6 +29,6 @@ const Modal = ({ setIsOpen }) => {
       </div>
     </>
   );
-};
+}
 
 export default Modal;

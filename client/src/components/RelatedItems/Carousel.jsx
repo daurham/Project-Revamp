@@ -3,6 +3,8 @@ import Cards from './Cards';
 import { useRelated } from './RelatedProvider';
 import css from './Carousel.css';
 import appcss from '../App.css';
+import AddOutfit from '../SharedComponents/AddOutfit';
+import AddOutfitCard from './AddOutfitCard';
 
 function Carousel(props) {
   const { view } = props;
@@ -26,7 +28,7 @@ function Carousel(props) {
     }, [relatedItemsInfo]);
   } else {
     useEffect(() => {
-      setLength(Object.keys(localData).length);
+      setLength(Object.keys(localData).length + 1);
     }, [localData]);
   }
 
@@ -43,7 +45,6 @@ function Carousel(props) {
       setCurrentIndex((prevState) => prevState - 1);
     }
   };
-
   return (
     <>
       <div className={css.header}>{ header }</div>
@@ -103,6 +104,7 @@ function Carousel(props) {
                 className={`${css.carousel_content} ${css[shownNum]}`}
                 style={{ transform: `translateX(-${currentIndex * (100 / shown)}%)` }}
               >
+                <AddOutfitCard />
                 {Object.values(localData).map((eachItem) => (
                   <Cards
                     view={false}

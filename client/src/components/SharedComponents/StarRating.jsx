@@ -151,7 +151,7 @@ function StarsRating({ value, productId, showAverage, relatedProduct }) {
   return (
     <div >
       {/* {displayAverage && <h1>{average}</h1>} */}
-      <h1>{average}</h1>
+      {/* <h1>{average}</h1> */}
 
       <div className={css.star_ratings_css}>
         <div className={css.star_ratings_css_top} style={styleStar}>
