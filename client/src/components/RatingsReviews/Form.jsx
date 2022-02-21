@@ -1,22 +1,61 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from 'styled-components';
+import { addReviews } from '../SharedContexts/RatingProvider';
+import { useRatingData } from '../SharedContexts/RatingProvider';
+import Characteristics from './Characteristics';
 
 function Form() {
-  const [email, setEmail] = useState("");
-  const [nickname, setNickname] = useState("");
-  const [summary, setSummary] = useState("");
-  const [review, setReview] = useState("");
+  const { addReviews } = useRatingData();
+  const { meta } = useRatingData();
+  const [formData, setFormData] = useState({
+    email: '',
+    name: '',
+    summary: '',
+    body: '',
+    recommend: true,
+    photos: [],
+    characteristics: {}
+  });
 
-  const handleSubmit = (event) => {
-    console.log(`
-      Email: ${email}
-      Nickname: ${password}
-      Summary: ${country}
-      Review: ${review}
-    `);
-
+  const handleSubmit = (e) => {
     event.preventDefault();
+    addReviews(formData);
+    console.log('form data from handlesubmit', formData)
   }
+  const handleChange = (e) => {
+    setFormData({
+      ...formData, [event.target.name]: event.target.value
+    })
+  }
+  const handleRadio = (e) => {
+    const isChecked = e.currentTarget.value === 'true' ? true : false;
+    // formData.recommend = isChecked;
+    setFormData({
+      ...formData, [event.target.name]: isChecked
+    })
+  }
+
+  const sendCharacteristics = (characteristicsFrom) => {
+    console.log('Form', characteristicsFrom)
+    setFormData({
+      ...formData, characteristics: characteristicsFrom
+    })
+    console.log('Form data', formData)
+  }
+
+  const getMetaIds = () => {
+    const metaIds = {}
+    const entries = Object.entries(meta.characteristics);
+
+    for (let [key, val] of entries) {
+      metaIds[val.id] = 0
+    }
+    return metaIds;
+  }
+
+  useEffect(()=>{
+
+  }, [formData])
 
   return (
     <FormStyle onSubmit={handleSubmit}>
@@ -27,20 +66,20 @@ function Form() {
         <input
           name="email"
           type="email"
-          value={email}
+          value={formData.email}
           placeholder="Example: jackson11@email.com"
-          onChange={e => setEmail(e.target.value)}
+          onChange={handleChange}
           required />
       </label>
 
       <label>
-        Nickname:
+        Name:
         <input
-          name="nickname"
-          type="nickname"
-          value={nickname}
+          name="name"
+          type="name"
+          value={formData.nickname}
           placeholder="Example: jackson11!"
-          onChange={e => setEmail(e.target.value)}
+          onChange={handleChange}
           required />
       </label>
 
@@ -49,45 +88,49 @@ function Form() {
         <input
           name="summary"
           type="summary"
-          value={summary}
-          onChange={e => setSummary(e.target.value)}
+          value={formData.summary}
+          onChange={handleChange}
           required />
       </label>
       <label>
-        Review Body
+        Review
         <input
-          name="review"
-          value={review}
+          name="body"
+          value={formData.body}
           placeholder="Why did you like the product or not?"
-          onChange={e => setReview(e.target.value)}
+          onChange={handleChange}
           required>
         </input>
       </label>
       <div className="radio">
+        Do you recommend this product?
           <label>
-            <input
-              type="radio"
-              value="Yes"
-              // checked={setSelected === "Yes"}
-              // onChange={onValueChange}
-            />
+          <input
+            name="recommend"
+            type="radio"
+            value="true"
+            defaultChecked={formData.recommend === true}
+            onChange={handleRadio}
+          />
             Yes
           </label>
-        </div>
-        <div className="radio">
-          <label>
-          Do you recommend this product?
-            <input
-              type="radio"
-              value="No"
-              // checked={setSelected === "No"}
-              // onChange={onValueChange}
-            />
+      </div>
+      <div className="radio">
+        <label>
+          <input
+            name="recommend"
+            type="radio"
+            value="false"
+            defaultChecked={formData.recommend === false}
+            onChange={handleRadio}
+          />
             No
           </label>
-        </div>
+      </div>
+      <Characteristics meta={meta} metaIds={getMetaIds()} sendCharacteristics={sendCharacteristics}/>
 
-      <button>Submit</button>
+      <button onClick={handleSubmit}>Submit</button>
+      <button onClick={getMetaIds}>Submit1</button>
     </FormStyle>
   );
 }

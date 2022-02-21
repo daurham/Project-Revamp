@@ -32,5 +32,6 @@ function App() {
 export default App;
 
 const AppStyle = styled.div`
- ${GlobalStyle.body}
+ ${GlobalStyle.body};
+ box-sizing: border-box;
 `

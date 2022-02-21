@@ -11,9 +11,8 @@ function Reviews() {
   const { reviews, getReviews } = useRatingData();
   const [isOpen, setIsOpen] = useState(false);
 
-  const [review, setReviews] = useState([]);
   const [limit, setLimit] = useState(2);
-  console.log('reviews', reviews, 'new review', review)
+  // console.log('reviews', reviews)
 
   const updateLimit = () => {
     setLimit(reviews.results.length);

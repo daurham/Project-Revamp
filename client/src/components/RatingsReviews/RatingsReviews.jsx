@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import StarRating from '../SharedComponents/StarRating';
+import ProgressBar from './ProgressBar';
 import RatingProvider from '../SharedContexts/RatingProvider';
 import Reviews from './Reviews';
 import styled from 'styled-components';
@@ -7,12 +8,27 @@ import { useData } from '../SharedContexts/DataProvider';
 
 function RatingsReviews() {
   const { productId } = useData();
+  // const [value, updateValue] = useState(0);
+
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     updateValue(oldValue => {
+  //       const newValue = oldValue + 10;
+
+  //       if (newValue === 100) {
+  //         clearInterval(interval);
+  //       }
+  //       return newValue;
+  //     });
+  //   }, 1000);
+  // }, []);
   return (
     <>
       <RatingProvider>
         <Container>
           <BoxOne>
-            <StarRating currentProduct showAverage/>
+            <StarRating currentProduct showAverage />
+            <ProgressBar value={40}/>
           </BoxOne>
           <BoxTwo>
             <Reviews />

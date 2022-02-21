@@ -8,6 +8,8 @@ const PORT = 3000;
 const DIST_DIR = path.join(__dirname, '../client/dist');
 
 app.use(express.static(DIST_DIR));
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json());
 
 const headers = { Authorization };
 const config = { headers };
@@ -53,6 +55,30 @@ app.get('/reviews/meta', (req, res) => {
     .catch(() => { res.sendStatus(500); });
 });
 
+app.post('/reviews', (req, res) => {
+  postConfig = {
+    headers: {
+      Authorization,
+      'Content-Type': 'application/json'
+    }
+  }
+  console.log(postConfig);
+  console.log(req.body);
+  console.log(JSON.stringify(req.body));
+
+  axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews', JSON.stringify(req.body), postConfig)
+    .then((result) => {
+      console.log("post review WORKED server");
+      res.send(result.data);
+    })
+    .catch((error) => {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      }
+    });
+});
 // app.get('/questions', (req, res) => {
 //   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions', params)
 //     .then((result) => { res.send(result.data); });
