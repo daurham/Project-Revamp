@@ -1,8 +1,8 @@
 .darkBG {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.571);
   width: 100vw;
   height: 100vh;
-  z-index: 0;
+  z-index: 3;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
