@@ -8,36 +8,29 @@ import { useData } from '../SharedContexts/DataProvider';
 
 function RatingsReviews() {
   const { productId } = useData();
-  // const [value, updateValue] = useState(0);
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     updateValue(oldValue => {
-  //       const newValue = oldValue + 10;
-
-  //       if (newValue === 100) {
-  //         clearInterval(interval);
-  //       }
-  //       return newValue;
-  //     });
-  //   }, 1000);
-  // }, []);
   return (
     <>
       <RatingProvider>
+        <ContainerWrapper>
         <Container>
           <BoxOne>
-            <StarRating currentProduct showAverage />
-            <ProgressBar value={40}/>
+            <StarRating showAverage currentProduct />
+            <ProgressBar/>
           </BoxOne>
           <BoxTwo>
             <Reviews />
           </BoxTwo>
         </Container>
+      </ContainerWrapper>
       </RatingProvider>
     </>
   );
 }
+const ContainerWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 
 const Container = styled.div`
   display: grid;
@@ -58,11 +51,6 @@ const BoxTwo = styled.div`
   grid-column: 2/ span 4;
   grid-row: span 2;
   background-color: rgba(243, 243, 62, 0.507);
-`
-const BoxThree = styled.div`
-  grid-column: 2/ span 4;
-  grid-row: span 2;
-  background-color: rgba(216, 191, 216, 0.644);
 `
 
 export default RatingsReviews;

@@ -9,10 +9,10 @@ function ReviewsList({review}) {
   const options = { month: "long", day: "numeric", year: "numeric" };
   const date = new Date(review.date);
   const americanDate = new Intl.DateTimeFormat("en-US", options).format(date);
-
+  console.log('review', review)
   return (
     <div>
-      <StarRating value={review} currentProduct/>
+      <StarRating value={review.rating} />
       <TitleStyle>{review.summary}</TitleStyle>
       <ReviewBody>{review.body}</ReviewBody>
       {review.helpfulness > 0 ? <Helpful>Helpful? Yes: {review.helpfulness} </Helpful>: null }

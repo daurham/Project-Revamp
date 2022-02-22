@@ -5,9 +5,8 @@ import styled from 'styled-components';
 import axios from 'axios';
 
 function StarsRating({ value, productId, showAverage, relatedProduct, currentProduct }) {
-  const { reviews, getReviews, meta } = useRatingData();
+  const { reviews, getReviews, meta } = useRatingData()
   const [results, setResults] = useState(null);
-  // console.log('meta', meta);
   const [average, setAverage] = useState(0);
 
   // ----- Austin's copy pasta ----
@@ -29,9 +28,17 @@ function StarsRating({ value, productId, showAverage, relatedProduct, currentPro
       }
     }, [meta])
   }
+  if (value) {
+    useEffect(() => {
+      if (meta && typeof meta === 'object') {
+        setAverage(value * 20)
+      }
+    }, [meta])
+  }
 
   function calcPercent() {
     if (results) {
+      console.log('resultsssss',results)
       const entries = Object.entries(results);
       let total = 0;
       let submits = 0;
@@ -49,15 +56,16 @@ function StarsRating({ value, productId, showAverage, relatedProduct, currentPro
     }
   }
   const percent = useMemo(() => calcPercent(), [results]);
-
+  console.log('percent',percent)
+  console.log('average', average)
   const styleStar = {
-    width: `${percent}%`,
+    width: value ? `${average}%` : `${percent}%`,
   };
 
   return (
     <>
       <Container>
-        {showAverage ? <h1>{average}</h1> : null}
+      <Average>{showAverage ? <h1>{average}</h1> : null}</Average>
         <StarRatingContainer>
           <StarRatingTop style={styleStar}><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></StarRatingTop>
           <StarRatingBottom><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></StarRatingBottom>
@@ -68,13 +76,13 @@ function StarsRating({ value, productId, showAverage, relatedProduct, currentPro
 }
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: grid;
 `
 const StarRatingContainer = styled.div`
+  z-index: 0;
   unicode-bidi: bidi-override;
   color: #363636bf;
-  width: 70px;
+  width: max-width;
   margin: 0 auto;
   position: relative;
   padding: 0;
@@ -95,6 +103,10 @@ const StarRatingBottom = styled.div`
   display: block;
   z-index: 0;
 `
+const Average = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 
 export default StarsRating;
-

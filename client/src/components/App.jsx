@@ -10,7 +10,6 @@ import GlobalStyle from './GlobalStyle';
 
 function App() {
   // const { productId } = useData();
-
   return (
     <>
       {/* {productId ? ( */}

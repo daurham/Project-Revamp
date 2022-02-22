@@ -53,85 +53,95 @@ function Form() {
     return metaIds;
   }
 
-  useEffect(()=>{
-
-  }, [formData])
+  useEffect(() => {}, [formData])
 
   return (
-    <FormStyle onSubmit={handleSubmit}>
-      <h1>Write Your Review</h1>
-      <p>About the product</p>
-      <label>
-        Email:
-        <input
-          name="email"
-          type="email"
-          value={formData.email}
-          placeholder="Example: jackson11@email.com"
-          onChange={handleChange}
-          required />
-      </label>
+    <>
 
-      <label>
-        Name:
-        <input
-          name="name"
-          type="name"
-          value={formData.nickname}
-          placeholder="Example: jackson11!"
-          onChange={handleChange}
-          required />
-      </label>
+      <FormStyle onSubmit={handleSubmit}>
+        <h1>Write Your Review</h1>
+        <p>About the product</p>
+{/*
+        <StarWrapper>
+        <Anchor></Anchor>
+        <Anchor href="#" class="fas fa-star s2"></Anchor>
+        <Anchor href="#" class="fas fa-star s3"></Anchor>
+        <Anchor href="#" class="fas fa-star s4"></Anchor>
+        <Anchor href="#" class="fas fa-star s5"></Anchor>
+      </StarWrapper> */}
 
-      <label>
-        Review Summary
+        <label>
+          Email:
+        <Input
+            name="email"
+            type="email"
+            value={formData.email}
+            placeholder="Example: jackson11@email.com"
+            onChange={handleChange}
+            required />
+        </label>
+
+        <label>
+          Name:
         <input
-          name="summary"
-          type="summary"
-          value={formData.summary}
-          onChange={handleChange}
-          required />
-      </label>
-      <label>
-        Review
+            name="name"
+            type="name"
+            value={formData.nickname}
+            placeholder="Example: jackson11!"
+            onChange={handleChange}
+            required />
+        </label>
+
+        <label>
+          Review Summary
         <input
-          name="body"
-          value={formData.body}
-          placeholder="Why did you like the product or not?"
-          onChange={handleChange}
-          required>
-        </input>
-      </label>
-      <div className="radio">
-        Do you recommend this product?
+            name="summary"
+            type="summary"
+            value={formData.summary}
+            onChange={handleChange}
+            required />
+        </label>
+        <label>
+          Review
+        <input
+            name="body"
+            value={formData.body}
+            placeholder="Why did you like the product or not?"
+            onChange={handleChange}
+            required>
+          </input>
+        </label>
+        <div className="radio">
+          Do you recommend this product?
           <label>
-          <input
-            name="recommend"
-            type="radio"
-            value="true"
-            defaultChecked={formData.recommend === true}
-            onChange={handleRadio}
-          />
+            <input
+              name="recommend"
+              type="radio"
+              value="true"
+              defaultChecked={formData.recommend === true}
+              onChange={handleRadio}
+            />
             Yes
           </label>
-      </div>
-      <div className="radio">
-        <label>
-          <input
-            name="recommend"
-            type="radio"
-            value="false"
-            defaultChecked={formData.recommend === false}
-            onChange={handleRadio}
-          />
+        </div>
+        <div className="radio">
+          <label>
+            <input
+              name="recommend"
+              type="radio"
+              value="false"
+              defaultChecked={formData.recommend === false}
+              onChange={handleRadio}
+            />
             No
           </label>
-      </div>
-      <Characteristics meta={meta} metaIds={getMetaIds()} sendCharacteristics={sendCharacteristics}/>
+        </div>
+        <Characteristics meta={meta} metaIds={getMetaIds()} sendCharacteristics={sendCharacteristics} />
 
-      <button onClick={handleSubmit}>Submit</button>
-      <button onClick={getMetaIds}>Submit1</button>
-    </FormStyle>
+        <button onClick={handleSubmit}>Submit</button>
+
+      </FormStyle>
+    </>
   );
 }
 
@@ -139,5 +149,26 @@ const FormStyle = styled.div`
   position: relevant;
   height: 500px;
 `
-
+const StarWrapper = styled.div`
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  direction: rtl;
+`
+const Anchor = styled.a`
+  content:'\f006';
+  font-family: FontAwesome;
+  font-size: 4em;
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.5s;
+  margin: 4px;
+ `
+const Input = styled.input`
+  padding: 10px 10px;
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid #d6d1d5;
+`
 export default Form;
