@@ -5,6 +5,8 @@ import RemoveOutfit from './RemoveOutfit';
 import css from './Carousel.css';
 import appcss from '../App.css';
 import StarsRating from '../SharedComponents/StarRating';
+import AddOutfitCard from './AddOutfitCard';
+import CompareButton from './CompareButton';
 
 function Cards(props) {
   const { item } = props;
@@ -15,7 +17,11 @@ function Cards(props) {
   let render;
   if (relatedView) {
     render = (
-      <AddOutfit item={item} />
+      // <AddOutfit item={item} />
+      <>
+        <AddOutfitCard item={item} />
+        <CompareButton />
+      </>
     );
   } else {
     render = (
@@ -27,14 +33,14 @@ function Cards(props) {
   if (item.sale_price) {
     price = (
       <>
-        <div className={css.saleprice}>{item.sale_price}</div>
+        <div className={css.saleprice}>{`$${item.sale_price}`}</div>
         &nbsp;
-        <div className={css.originalPriceStriked}>{item.original_price}</div>
+        <div className={css.originalPriceStriked}>{`$${item.original_price}`}</div>
       </>
     );
   } else {
     price = (
-      <div>{item.original_price}</div>
+      <div>{`$${item.original_price}`}</div>
     );
   }
   return (

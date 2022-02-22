@@ -105,7 +105,9 @@ function Carousel(props) {
                 style={{ transform: `translateX(-${currentIndex * (100 / shown)}%)` }}
               >
                 <AddOutfitCard />
-                {Object.values(localData).map((eachItem) => (
+                {/* {Object.values(localData).map((eachItem) => ( */}
+                {localData.map((eachItem) => (
+
                   <Cards
                     view={false}
                     item={eachItem}

@@ -9,11 +9,21 @@ function AddOutfit(props) {
   function onButtonClick() {
     let storage;
     if (!localStorage.items) {
-      storage = {};
+      storage = [item];
+      // storage.push(item);
     } else {
+      let found = false;
       storage = JSON.parse(localStorage.items);
+      for (let i = 0; i < storage.length; i += 1) {
+        if (storage[i].id === item.id) {
+          found = true;
+          break;
+        }
+      }
+      if (!found) {
+        storage.push(item);
+      }
     }
-    storage[item.id] = item;
     localStorage.setItem('items', JSON.stringify(storage));
     setLocalData(JSON.parse(localStorage.items));
   }
@@ -32,3 +42,16 @@ function AddOutfit(props) {
 }
 
 export default AddOutfit;
+
+// implemtation with object:
+// function onButtonClick() {
+//   let storage;
+//   if (!localStorage.items) {
+//     storage = {};
+//   } else {
+//     storage = JSON.parse(localStorage.items);
+//   }
+//   storage[item.id] = item;
+//   localStorage.setItem('items', JSON.stringify(storage));
+//   setLocalData(JSON.parse(localStorage.items));
+// }

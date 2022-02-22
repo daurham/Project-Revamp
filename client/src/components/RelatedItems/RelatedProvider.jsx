@@ -14,7 +14,7 @@ function RelatedProvider({ children }) {
   const { productId } = useData();
   const [relatedItemsInfo, setRelatedItemsInfo] = useState([]);
   const [localData, setLocalData] = useState(
-    localStorage.items ? JSON.parse(localStorage.items) : {},
+    localStorage.items ? JSON.parse(localStorage.items) : [],
   );
 
   useEffect(() => {

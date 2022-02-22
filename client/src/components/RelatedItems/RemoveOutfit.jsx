@@ -9,7 +9,13 @@ function RemoveOutfit(props) {
 
   function removeItem() {
     const storage = JSON.parse(localStorage.items);
-    delete storage[item.id];
+    let index;
+    for (let i = 0; i < storage.length; i += 1) {
+      if (storage[i].id === item.id) {
+        index = i;
+      }
+    }
+    storage.splice(index, 1);
     localStorage.setItem('items', JSON.stringify(storage));
     setLocalData(JSON.parse(localStorage.items));
   }
@@ -18,9 +24,7 @@ function RemoveOutfit(props) {
     <div className={css.button_padding}>
       <button type="button" onClick={removeItem} className={css.add_button}>
         {/* <div className={css.para_md}> */}
-
-
-          x
+        x
         {/* </div> */}
       </button>
     </div>
@@ -28,3 +32,11 @@ function RemoveOutfit(props) {
 }
 
 export default RemoveOutfit;
+
+// implemtation with object:
+// function removeItem() {
+//   const storage = JSON.parse(localStorage.items);
+//   delete storage[item.id];
+//   localStorage.setItem('items', JSON.stringify(storage));
+//   setLocalData(JSON.parse(localStorage.items));
+// }
