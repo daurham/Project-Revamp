@@ -38,7 +38,6 @@ function StarsRating({ value, productId, showAverage, relatedProduct, currentPro
 
   function calcPercent() {
     if (results) {
-      console.log('resultsssss',results)
       const entries = Object.entries(results);
       let total = 0;
       let submits = 0;
@@ -56,8 +55,6 @@ function StarsRating({ value, productId, showAverage, relatedProduct, currentPro
     }
   }
   const percent = useMemo(() => calcPercent(), [results]);
-  console.log('percent',percent)
-  console.log('average', average)
   const styleStar = {
     width: value ? `${average}%` : `${percent}%`,
   };

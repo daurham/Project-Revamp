@@ -9,19 +9,31 @@ function ReviewsList({review}) {
   const options = { month: "long", day: "numeric", year: "numeric" };
   const date = new Date(review.date);
   const americanDate = new Intl.DateTimeFormat("en-US", options).format(date);
-  console.log('review', review)
+  console.log(review)
   return (
     <div>
       <StarRating value={review.rating} />
       <TitleStyle>{review.summary}</TitleStyle>
       <ReviewBody>{review.body}</ReviewBody>
-      {review.helpfulness > 0 ? <Helpful>Helpful? Yes: {review.helpfulness} </Helpful>: null }
+     <Helpful>Was this review helpful?<YesButton>Yes</YesButton> {review.helpfulness} </Helpful>
       {review.recommend ? <Recommend>✔ I recommend this product </Recommend> : null}
       <ReviewerName>{review.reviewer_name}</ReviewerName>
       <DateStyle>{americanDate}</DateStyle>
     </div>
   )
 }
+const YesButton = styled.button`
+  width: auto;
+  font-size: 10px;
+  border-radius: 50%;
+  background-color: white;
+  color: black;
+  border: 2px solid #e7e7e7;
+  transition-duration: 0.2s;
+  &:hover{
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19)
+  }
+`
 
 const TitleStyle = styled.h1`
   ${GlobalStyle.sub_title};

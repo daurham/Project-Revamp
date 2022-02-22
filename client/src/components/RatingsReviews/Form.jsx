@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { addReviews } from '../SharedContexts/RatingProvider';
 import { useRatingData } from '../SharedContexts/RatingProvider';
 import Characteristics from './Characteristics';
+import StarClick from './StarClick';
 
 function Form() {
   const { addReviews } = useRatingData();
@@ -57,7 +58,7 @@ function Form() {
 
   return (
     <>
-
+      <StarClick />
       <FormStyle onSubmit={handleSubmit}>
         <h1>Write Your Review</h1>
         <p>About the product</p>
