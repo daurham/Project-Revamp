@@ -1,5 +1,5 @@
 const GlobalStyle = {
-  title : `
+  title: `
   font-size: 30px;
   font-weight: 400;
   `,
@@ -30,6 +30,6 @@ const GlobalStyle = {
     background-color: rgb(255, 255, 255);
     color: black;
   `,
-}
+};
 
 export default GlobalStyle;
