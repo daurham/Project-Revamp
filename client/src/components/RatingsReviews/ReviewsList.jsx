@@ -1,18 +1,45 @@
 import React from 'react';
-import css from '../App.css';
-import cssReviews from './Reviews.css';
+// import css from '../App.css';
+import StarRating from '../SharedComponents/StarRating';
+import styled from 'styled-components';
+import GlobalStyle from '../GlobalStyle';
 
 function ReviewsList({review}) {
-  console.log(review)
+  const isoString = new Date().toISOString();
+  const options = { month: "long", day: "numeric", year: "numeric" };
+  const date = new Date(review.date);
+  const americanDate = new Intl.DateTimeFormat("en-US", options).format(date);
+
   return (
-    <div className={cssReviews.container}>
-      <h2 className={css.sub_title}>{review.summary}</h2>
-      <p className={css.para_md}>Review: {review.body}</p>
-      {/* <p>recommend: {review.recommend}</p> */}
-      {/* <p>rating: {review.rating}</p> */}
-      <p className={css.para_sm}>Date: {review.date}</p>
+    <div>
+      <StarRating value={review} currentProduct/>
+      <TitleStyle>{review.summary}</TitleStyle>
+      <ReviewBody>{review.body}</ReviewBody>
+      {review.helpfulness > 0 ? <Helpful>Helpful? Yes: {review.helpfulness} </Helpful>: null }
+      {review.recommend ? <Recommend>✔ I recommend this product </Recommend> : null}
+      <ReviewerName>{review.reviewer_name}</ReviewerName>
+      <DateStyle>{americanDate}</DateStyle>
     </div>
   )
 }
+
+const TitleStyle = styled.h1`
+  ${GlobalStyle.sub_title};
+`
+const Helpful = styled.p`
+  ${GlobalStyle.para_sm};
+`
+const ReviewBody = styled.p`
+  ${GlobalStyle.para_md};
+`
+const Recommend = styled.p`
+  ${GlobalStyle.para_sm};
+`
+const ReviewerName = styled.p`
+  ${GlobalStyle.para_sm};
+`
+const DateStyle = styled.p`
+  ${GlobalStyle.para_sm};
+`
 
 export default ReviewsList;

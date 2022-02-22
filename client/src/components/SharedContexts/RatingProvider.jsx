@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 
 import axios from 'axios';
-import { useData } from '../Context/DataProvider';
+import { useData } from '../SharedContexts/DataProvider';
 
 const RatingContext = React.createContext();
 
@@ -14,6 +14,7 @@ export function useRatingData() {
 function RatingProvider({ children }) {
   const { productId } = useData();
   const [reviews, setReviews] = useState([]);
+  const [meta, setMeta] = useState(null);
 
   function getReviews(productId) {
     const query_params = {product_id: productId}
@@ -27,9 +28,15 @@ function RatingProvider({ children }) {
     }
   }, [productId]);
 
+  useEffect(() => {
+    const query_params = {product_id: productId}
+    axios.get('/reviews/meta', {params: query_params})
+    .then((response) => setMeta(response.data));
+  }, [productId])
+
   const value = useMemo(() => ({
-    reviews, getReviews
-  }), [reviews]);
+    reviews, getReviews, meta
+  }), [reviews, meta]);
 
   return (
     <RatingContext.Provider value={value}>

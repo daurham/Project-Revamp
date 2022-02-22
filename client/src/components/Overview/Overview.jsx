@@ -4,7 +4,7 @@ import React, {
 import MainImage from './ImageGallery/MainImage';
 import Thumbnail from './ImageGallery/Thumbnail';
 import ProductDetail from './ProductDetail';
-import { useOverview } from '../Context/OverviewProvider';
+import { useOverview } from '../SharedContexts/OverviewProvider';
 // import css from './Overview.css';
 import ovcss from './Overview.css';
 
