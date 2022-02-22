@@ -21,7 +21,7 @@ function App() {
             <RelatedItems />
           </OverviewProvider>
           <QuestAnswers />
-          <RatingsReviews />
+          {/* <RatingsReviews /> */}
           </AppStyle>
         </DataProvider>
      {/* ) : (<div>loading</div>)} */}

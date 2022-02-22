@@ -19,10 +19,10 @@ function OverviewProvider({ children }) {
   const [currentStyle, setCurrentStyle] = useState();
 
   // console.log('ProdID', productId)
-  // console.log('prodDetails', prodDetails)
-  // console.log('prodStyles', prodStyles)
-  // console.log('currentStyleID', currentStyleId)
-  // console.log('currentStyle', currentStyle)
+  console.log('prodDetails', prodDetails)
+  console.log('prodStyles', prodStyles)
+  console.log('currentStyleID', currentStyleId)
+  console.log('currentStyle', currentStyle)
 
   useEffect(() => {
     axios.get(`/products/${productId}`)

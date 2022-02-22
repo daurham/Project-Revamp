@@ -3,11 +3,11 @@ import React, {
 } from 'react';
 // import custom hook created on line 9 of DataProvider
 import axios from 'axios';
-import { useOverview } from '../Context/OverviewProvider';
+import { useOverview } from '../SharedContexts/OverviewProvider';
 
 function Cart() {
   return (
-    <div>
+    <div classNam="Cart">
       {/* {prodStyles.map( (eachStyle) => <div>{eachStyle.name}</div>)} */}
       {/* {prodStyles[0]} */}
     </div>

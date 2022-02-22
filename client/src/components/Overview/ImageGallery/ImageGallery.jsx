@@ -1,12 +1,11 @@
 import React, {
   useState, useMemo, useContext, useEffect,
 } from 'react';
-import { useOverview } from '../../Context/OverviewProvider';
+import styled from 'styled-components';
+import { useOverview } from '../../SharedContexts/OverviewProvider';
 // import Thumbnail from './Thumbnail';
 import Carousel from './Carousel';
 import './Carousel.css';
-// import ovcss from '../Overview.css';
-// import imgcss from './ImageGallery.css';
 
 function ImageGallery() {
   const { currentStyle } = useOverview();
@@ -24,12 +23,12 @@ function ImageGallery() {
   //   d
   // }
 
-  console.log('currentStyle', currentStyle);
+  // console.log('currentStyle', currentStyle);
 
   function handleClick(e) {
     setClicked(true);
     setCurrentIndex(Number(e.target.name));
-    console.log('e.target', e.target.name);
+    // console.log('e.target', e.target.name);
     // console.log('in handleclick', currentIndex)
   }
 
@@ -42,67 +41,62 @@ function ImageGallery() {
   }
 
   return (
-    <div>
+    <div className="ImageGallery">
       {
-        <div>
-          <div style={{
+
+        <div
+          className="MainImage"
+          style={{
             maxWidth: 500, marginLeft: 'auto', marginRight: 'auto', marginTop: 64,
           }}
-          >
-            <Carousel show={1} infiniteLoop>
-              {/* {(currentStyle.photos.map((photo, index) => {
-              console.log('here', currentIndex)
-              if (currentIndex === index) {
-                return (<img src={photo.url} key={index} />);
-              }
-            }))} */}
-              {(currentStyle.photos.map((photo, index) => (<img src={photo.url} key={index} />)))}
-            </Carousel>
-          </div>
+        >
+          {/* <MainImageContainer> */}
+          <Carousel show={1} infiniteLoop>
+            {(currentStyle.photos.map((photo, index) => (<MainImage src={photo.url} key={index} />)))}
+          </Carousel>
+          {/* </MainImageContainer> */}
         </div>
-      }
+}
 
       {currentStyle.photos.length > 7 ? (
-        <div>
-          <div style={{
-            maxWidth: 1000, marginLeft: 'auto', marginRight: 'auto', marginTop: 64,
-          }}
-          >
-            <Carousel show={7} infiniteLoop>
-              {/* {(currentStyle.photos.map(
-              (photo, index) => (
-                <Thumbnail photo={photo} key={index} toDisplayImage={() => toDisplayImage} />),
-            ))} */}
-              {(currentStyle.photos.map(
-                (photo, index) => (
-                  <img
-                    src={photo.thumbnail_url}
-                    name={index}
-                    onClick={handleClick}
-                  />
-                ),
-              ))}
-            </Carousel>
-          </div>
-        </div>
-      ) : (
-        <div>
-          <div style={{
-            maxWidth: 1000, marginLeft: 'auto', marginRight: 'auto', marginTop: 64,
-          }}
-          >
+      // style={{
+      //   maxWidth: 1000, marginLeft: 'auto', marginRight: 'auto', marginTop: 64,
+      // }}
+        <div className="Thumbnail">
+          {/* <ThumbnailContainer> */}
+          <Carousel show={7} infiniteLoop>
             {(currentStyle.photos.map(
               (photo, index) => (
-                <img
+                <Thumbnail
                   src={photo.thumbnail_url}
-                  key={index}
                   name={index}
                   onClick={handleClick}
                 />
               ),
             ))}
-          </div>
+          </Carousel>
+          {/* </ThumbnailContainer> */}
         </div>
+
+      ) : (
+      // style={{
+      //   maxWidth: 1000, marginLeft: 'auto', marginRight: 'auto', marginTop: 64,
+      // }}
+        <div className="Thumbnail">
+          {/* <ThumbnailContainer> */}
+          {(currentStyle.photos.map(
+            (photo, index) => (
+              <Thumbnail
+                src={photo.thumbnail_url}
+                key={index}
+                name={index}
+                onClick={handleClick}
+              />
+            ),
+          ))}
+          {/* </ThumbnailContainer> */}
+        </div>
+
       )}
     </div>
 
@@ -110,6 +104,25 @@ function ImageGallery() {
 }
 
 export default ImageGallery;
+
+// const MainImageContainer = styled.div`
+//   grid-row-start: 1;
+//   grid-row-end: span 2;
+// `;
+
+// const ThumbnailContainer = styled.div`
+//   grid-row-start: 3;
+// `;
+
+const MainImage = styled.img`
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+`;
+
+const Thumbnail = styled.img`
+  height: 100px;
+`;
 
 // console.log('props', props); // what am i?
 // if (Array.isArray(props.images) && props.images.length > 0) {

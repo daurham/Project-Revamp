@@ -1,23 +1,22 @@
 import React, {
   useState, useMemo, useContext, useEffect,
 } from 'react';
-// import styled from 'styled-components';
+import styled from 'styled-components';
+import GlobalStyle from '../GlobalStyle';
 import ImageGallery from './ImageGallery/ImageGallery';
 import ProductDetail from './ProductDetail';
-import StyleSelector from './StyleSelector';
+import StyleSelector from './StyleSelector/StyleSelector';
 import Test from './Test';
 import Cart from './Cart';
-import OverviewProvider, { useOverview } from '../Context/OverviewProvider';
+import OverviewProvider, { useOverview } from '../SharedContexts/OverviewProvider';
 
 function Overview() {
   const { prodDetails } = useOverview();
   const { prodStyles } = useOverview();
   const { currentStyleId, setCurrentStyleId } = useOverview();
   const { currentStyle, setCurrentStyle } = useOverview();
-  // const [currentStyleId, setCurrentStyleId] = useState();
-  // const [currentStyle, setCurrentStyle] = useState();
 
-  // console.log('prodDetails', prodDetails)
+  // console.log('prodDetails', prodDetails);
   // console.log('prodStyles', prodStyles)
   // console.log('currentStyleID', currentStyleId)
   // console.log('currentStyle', currentStyle)
@@ -43,28 +42,144 @@ function Overview() {
   return (
     <>
       {/* <Test /> */}
-      {/* <Container> */}
-      <div>
+      <div className="Overview">
         {prodDetails && prodStyles && currentStyle && currentStyleId ? (
-          <OverviewProvider>
-            <ImageGallery />
-            <StyleSelector />
-            <Cart />
-            <ProductDetail />
-          </OverviewProvider>
+          <Container>
+            <OverviewProvider>
+              <ImageGalleryContainer>
+                <ImageGallery />
+              </ImageGalleryContainer>
+
+              <ProductDetailsContainer>
+                <ProductDetail />
+              </ProductDetailsContainer>
+
+              <StyleSelectorContainer>
+                <StyleSelector />
+              </StyleSelectorContainer>
+
+              <CartContainer>
+                <Cart />
+              </CartContainer>
+
+              <ProductDescriptionContainer>
+                <DesriptionHead>Product Description</DesriptionHead>
+                <Row>
+                  <Column>
+                    <DesTitle>Description</DesTitle>
+                  </Column>
+                  <Column>
+                    <DesTitle>Features</DesTitle>
+                  </Column>
+                </Row>
+
+                <Row>
+                  <Column>
+                    <DescriptionBody>
+                      <p>{prodDetails.description}</p>
+                    </DescriptionBody>
+                  </Column>
+                  <Column>
+                    <DescriptionBody>
+                      {(prodDetails.features.map((feature1, index) => (
+                        <List>
+                          <li>
+                            {`${feature1.feature} :
+                        ${feature1.value}`}
+                          </li>
+                        </List>
+                      )))}
+                    </DescriptionBody>
+                  </Column>
+                </Row>
+              </ProductDescriptionContainer>
+
+            </OverviewProvider>
+          </Container>
         ) : (<div>loading</div>)}
       </div>
-      {/* </Container> */}
     </>
   );
 }
 
 export default Overview;
 
-// const Container = styled.div`
-//   display: grid;
-//   grid-template-columns: 50% 50%;
-//   grid-template-rows: [row1-start] 300px [row1-end] 200px [third-line] 50px [fourth-line] 100px [last-line];`
+const DesriptionHead = styled.h2`
+  ${GlobalStyle.sub_title};
+`;
+
+const Row = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 100%;
+`;
+
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+`;
+
+// const DesriptionTitle = styled.div`
+//   display: flex;
+//   flex-direction: row;
+// `;
+
+const DesTitle = styled.h3`
+  ${GlobalStyle.para_title};
+`;
+
+const DescriptionBody = styled.div`
+  ${GlobalStyle.para_md};
+`;
+
+const List = styled.ul`
+  list-style-type: none;
+  padding: 0;
+`;
+
+const Container = styled.div`
+  display: grid;
+  margin: 100px 200px;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: [row1-start] 200px
+  [row1-end] 200px
+  [third-line] 200px
+  [fourth-line] 200px
+  [last-line];
+`;
+
+const ImageGalleryContainer = styled.div`
+  grid-column-start: 1;
+  grid-row-start: 1;
+  grid-row-end: span 3;
+`;
+
+const ProductDetailsContainer = styled.div`
+  margin-left: 10px;
+  grid-column-start: 2;
+  grid-row-start: 1;
+`;
+
+const StyleSelectorContainer = styled.div`
+  margin-left: 10px;
+  grid-column-start: 2;
+  grid-row-start: 2;
+`;
+
+const CartContainer = styled.div`
+  margin-left: 10px;
+  grid-column-start: 2;
+  grid-row-start: 3;
+`;
+
+const ProductDescriptionContainer = styled.div`
+  grid-column-start: 1;
+  grid-column-end: end;
+  grid-row-start: 4;
+`;
 
 //   <p className={appcss.title}>Title</p>
 //   <p className={appcss.sub_title}>Sub Title</p>
@@ -126,3 +241,6 @@ export default Overview;
 // {prodStyles.length ? prodStyles[0].sku : <div>loading</div>} <br/> */}
 // {/* {currentProdName !== undefined ? currentProdName : <div>loading</div>} */}
 // {/* {currentStyleName !== undefined ? currentStyleName : <div>loading</div>} */}
+
+// prodStyles.length === 0 ? null :
+// Object.keys(objKey).length === 0
