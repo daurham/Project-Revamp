@@ -1,21 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import css from '../App.css';
 import StarRating from '../SharedComponents/StarRating';
 import styled from 'styled-components';
 import GlobalStyle from '../GlobalStyle';
+import { updateHelpful, useRatingData } from '../SharedContexts/RatingProvider';
 
 function ReviewsList({review}) {
+  const { updateHelpful } = useRatingData();
+  const [count, setCount] = useState(0);
+
   const isoString = new Date().toISOString();
   const options = { month: "long", day: "numeric", year: "numeric" };
   const date = new Date(review.date);
   const americanDate = new Intl.DateTimeFormat("en-US", options).format(date);
-  console.log(review)
+
+  const handleClick = () => {
+    // console.log('click yes button')
+    updateHelpful(review.review_id);
+    // setCount(count + 1)
+  }
   return (
     <div>
       <StarRating value={review.rating} />
       <TitleStyle>{review.summary}</TitleStyle>
       <ReviewBody>{review.body}</ReviewBody>
-     <Helpful>Was this review helpful?<YesButton>Yes</YesButton> {review.helpfulness} </Helpful>
+     <Helpful>Was this review helpful?<YesButton onClick={handleClick}>Yes</YesButton> {review.helpfulness} </Helpful>
       {review.recommend ? <Recommend>✔ I recommend this product </Recommend> : null}
       <ReviewerName>{review.reviewer_name}</ReviewerName>
       <DateStyle>{americanDate}</DateStyle>

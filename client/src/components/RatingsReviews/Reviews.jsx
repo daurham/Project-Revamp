@@ -10,9 +10,7 @@ function Reviews() {
   const { productId } = useData();
   const { reviews, getReviews } = useRatingData();
   const [isOpen, setIsOpen] = useState(false);
-
   const [limit, setLimit] = useState(2);
-  // console.log('reviews', reviews)
 
   const updateLimit = () => {
     setLimit(reviews.results.length);

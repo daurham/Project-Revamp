@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import styled from 'styled-components';
 import { addReviews } from '../SharedContexts/RatingProvider';
 import { useRatingData } from '../SharedContexts/RatingProvider';
+import { useOverview } from '../SharedContexts/OverviewProvider';
 import Characteristics from './Characteristics';
 import StarClick from './StarClick';
 
 function Form() {
   const { addReviews } = useRatingData();
   const { meta } = useRatingData();
+  const { prodDetails } = useOverview();
   const [formData, setFormData] = useState({
     email: '',
     name: '',
@@ -20,8 +22,9 @@ function Form() {
 
   const handleSubmit = (e) => {
     event.preventDefault();
-    addReviews(formData);
     console.log('form data from handlesubmit', formData)
+    addReviews(formData);
+
   }
   const handleChange = (e) => {
     setFormData({
@@ -37,83 +40,74 @@ function Form() {
   }
 
   const sendCharacteristics = (characteristicsFrom) => {
-    console.log('Form', characteristicsFrom)
     setFormData({
       ...formData, characteristics: characteristicsFrom
     })
-    console.log('Form data', formData)
+    console.log('form data', formData)
   }
 
   const getMetaIds = () => {
     const metaIds = {}
     const entries = Object.entries(meta.characteristics);
-
     for (let [key, val] of entries) {
       metaIds[val.id] = 0
     }
     return metaIds;
   }
 
-  useEffect(() => {}, [formData])
+  useEffect(() => { }, [formData])
 
   return (
     <>
       <StarClick />
       <FormStyle onSubmit={handleSubmit}>
         <h1>Write Your Review</h1>
-        <p>About the product</p>
-{/*
-        <StarWrapper>
-        <Anchor></Anchor>
-        <Anchor href="#" class="fas fa-star s2"></Anchor>
-        <Anchor href="#" class="fas fa-star s3"></Anchor>
-        <Anchor href="#" class="fas fa-star s4"></Anchor>
-        <Anchor href="#" class="fas fa-star s5"></Anchor>
-      </StarWrapper> */}
+        <p>About {prodDetails.name}</p>
+        <Label>
+          <LabelTitle>Email: <Required>*</Required></LabelTitle>
 
-        <label>
-          Email:
-        <Input
+          <Input
             name="email"
             type="email"
             value={formData.email}
             placeholder="Example: jackson11@email.com"
             onChange={handleChange}
-            required />
-        </label>
-
-        <label>
-          Name:
-        <input
+            required
+            aria-hidden/>
+        </Label>
+        <Label>
+          <LabelTitle>Name: <Required>*</Required></LabelTitle>
+          <Input
             name="name"
             type="name"
             value={formData.nickname}
-            placeholder="Example: jackson11!"
+            placeholder="Your Name"
             onChange={handleChange}
             required />
-        </label>
-
-        <label>
-          Review Summary
-        <input
+        </Label>
+        <Label>
+          <LabelTitle>Summary: </LabelTitle>
+          <TextAreaSummary
             name="summary"
             type="summary"
             value={formData.summary}
+            placeholder="“Example: Best purchase ever!”"
             onChange={handleChange}
+            maxLength={60}
             required />
-        </label>
-        <label>
-          Review
-        <input
+        </Label>
+        <Label>
+          <LabelTitle>Review: <Required>*</Required></LabelTitle>
+          <TextAreaReview
             name="body"
             value={formData.body}
             placeholder="Why did you like the product or not?"
             onChange={handleChange}
-            required>
-          </input>
-        </label>
-        <div className="radio">
-          Do you recommend this product?
+            maxLength={1000}
+            required />
+        </Label>
+        <Recommend>
+          Do you recommend this product? <Required>*</Required>
           <label>
             <input
               name="recommend"
@@ -124,8 +118,6 @@ function Form() {
             />
             Yes
           </label>
-        </div>
-        <div className="radio">
           <label>
             <input
               name="recommend"
@@ -136,11 +128,9 @@ function Form() {
             />
             No
           </label>
-        </div>
+        </Recommend>
         <Characteristics meta={meta} metaIds={getMetaIds()} sendCharacteristics={sendCharacteristics} />
-
-        <button onClick={handleSubmit}>Submit</button>
-
+        <button onCick={handleSubmit}>Submit</button>
       </FormStyle>
     </>
   );
@@ -148,7 +138,8 @@ function Form() {
 
 const FormStyle = styled.div`
   position: relevant;
-  height: 500px;
+  margin: 30px;
+  flex-flow: column wrap;
 `
 const StarWrapper = styled.div`
   top: 50%;
@@ -157,19 +148,47 @@ const StarWrapper = styled.div`
   position: absolute;
   direction: rtl;
 `
-const Anchor = styled.a`
-  content:'\f006';
-  font-family: FontAwesome;
-  font-size: 4em;
-  color: #fff;
-  text-decoration: none;
-  transition: all 0.5s;
-  margin: 4px;
- `
 const Input = styled.input`
+  width: 250px;
+  height: 10px;
+  padding: 8px;
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid #d6d1d5;
+`
+const TextAreaReview = styled.textarea`
+  height: 50px;
+  width: 350px;
   padding: 10px 10px;
   border-radius: 5px;
   outline: none;
   border: 1px solid #d6d1d5;
+`
+const TextAreaSummary = styled.textarea`
+  height: 20px;
+  width: 350px;
+  padding: 10px 10px;
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid #d6d1d5;
+`
+const LabelTitle = styled.p`
+  padding: 5px 5px;
+`
+const Label = styled.label`
+  margin: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+`
+const Recommend = styled.div`
+  margin: 10px;
+  padding: 10px;
+`
+const Required = styled.span`
+  color: #e32;
+  content: ' *';
+  display:inline;
+  padding-right: 5px;
 `
 export default Form;

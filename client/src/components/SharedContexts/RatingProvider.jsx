@@ -16,6 +16,7 @@ function RatingProvider({ children }) {
   const { characteristics } = useData();
   const [reviews, setReviews] = useState([]);
   const [meta, setMeta] = useState(null);
+  // const [helpful, setHelpful] = useState(0);
 
   function getReviews(productId) {
     const query_params = {product_id: productId}
@@ -23,23 +24,25 @@ function RatingProvider({ children }) {
     .then((response) => setReviews(response.data));
   }
 
-  /*{
-	"product_id": 40344,
-	"rating": 4,
-	"characteristics": {
-		"135221": 5
-	}
-} */
   function addReviews(review) {
     review.product_id = productId
     review.rating = 2
     console.log(JSON.stringify(review))
     axios.post('/reviews', review)
     .then((response) => {
-      console.log('POST reviews WORKED----rating provider', response.data)
-      // setReviews([...reviews], response.data)
+      console.log('setReaviews', response)
+      setReviews([...reviews], response.data)
     })
     .catch((error) => console.error(error));
+  }
+
+  function updateHelpful(review_id) {
+    // const query_params = {review_id: reviewId}
+    axios.put(`/reviews/${review_id}/helpful`)
+    .then((response) => {
+      getReviews(productId)
+    })
+    .catch((error) => console.error(error))
   }
 
   useEffect(() => {
@@ -55,7 +58,7 @@ function RatingProvider({ children }) {
   }, [productId])
 
   const value = useMemo(() => ({
-    reviews, meta, getReviews, addReviews
+    reviews, meta, getReviews, addReviews, updateHelpful
   }), [reviews, meta]);
 
   return (

@@ -12,12 +12,12 @@ const GlobalStyle = {
     font-weight: 300;
   `,
   para_md: `
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 300;
   `,
   para_sm: `
     font-size: 11px;
-    font-weight: 200;
+    font-weight: 300;
   `,
   white: `
     rgb(255, 255, 255)

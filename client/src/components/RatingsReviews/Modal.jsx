@@ -30,8 +30,8 @@ const Modal = ({ setIsOpen }) => {
 };
 const Background = styled.div`
   background-color: rgba(0, 0, 0, 0.2);
-  width: 100vw;
-  height: 100vh;
+  width: 500vw;
+  height: 500vh;
   z-index: 0;
   top: 50%;
   left: 50%;
@@ -70,6 +70,7 @@ const ActionsContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+  margin: auto;
 `
 
 const CloseBtn = styled.button`
@@ -96,13 +97,13 @@ const SubmitBtn = styled.button `
   border-radius: 12px;
   font-size: 0.8rem;
   border: none;
-  color: #fff;
-  background: #ff3e4e;
+  color: black;
+  background: #fcfcfc;
   transition: all 0.25s ease;
   &:hover {
-    box-shadow: 0 10px 20px -10px rgba(255, 62, 78, 0.6);
+    box-shadow: 0 10px 20px -10px rgba(105, 62, 78, 0.6);
     transform: translateY(-2px);
-    background: #ff3e4e;
+    background: #fcfcfc;
   }
 `
 export default Modal;

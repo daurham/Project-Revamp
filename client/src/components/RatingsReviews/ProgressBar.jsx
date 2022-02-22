@@ -12,9 +12,9 @@ function ProgressBar(props) {
   // console.log(isFirstRef)
   let recommended = 0;
   let ratingsTot;
-  console.log(reviews)
+  // console.log(reviews)
   if (meta) {
-    console.log('META from prog', meta)
+    console.log('META from progress', meta)
     recommended = calcPercent(meta, meta.recommended, 'recommended')
     calcPercent(meta, meta.ratings);
 
@@ -37,11 +37,10 @@ function ProgressBar(props) {
           values.push(Number(val));
           total += Number(val);
         }
-        return {total, keys, values}
+        return { total, keys, values }
       }
     };
     ratingsTot = calcPercent(meta, meta.ratings);
-    console.log('ratingsTot', ratingsTot)
   };
 
   return !ratingsTot ? null : (
@@ -50,9 +49,9 @@ function ProgressBar(props) {
       <Title> {recommended} % of the reviews recommend this product</Title>
       <Container>
         <BarListBox>
-        {ratingsTot.values.map((rating, index)=>
-            <BarList  key={index}><p>{index + 1}</p><progress value={rating} max={ratingsTot.total}/>
-            <span>{rating}</span>
+          {ratingsTot.values.map((rating, index) =>
+            <BarList key={index}><ProgDetail>{index + 1}</ProgDetail><progress value={rating} max={ratingsTot.total} />
+              <ProgDetail>{rating}</ProgDetail>
             </BarList>
           )}
         </BarListBox>
@@ -65,7 +64,6 @@ ProgressBar.propTypes = {
   value: PropTypes.number,
   max: PropTypes.number,
   color: PropTypes.string,
-  // width: PropTypes.string,
 };
 
 ProgressBar.defaultProps = {
@@ -73,34 +71,39 @@ ProgressBar.defaultProps = {
 };
 
 const Container = styled.div`
-  progress[value] {
-    width: ${props => props.width};
-    appearance: none;
-  }
-  ::webkit-progress-bar {
-    height: 5px;
-    border-radius: 10px;
-    background-color: #eee;
-  }
-  ::webkit-progress-value {
-    height: 5px;
-    border-radius: 10px;
-    background-color: ${props => props.color};
-  }
   box-sizing: content-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 const BarListBox = styled.ul`
+  padding: 0;
   display: flex;
   flex-direction: column-reverse;
   list-style-type: none;
+  justify-content: center;
+  align-items: center;
 `;
 const BarList = styled.li`
-  flex: 0 0 auto;
+  progress[value] {
+    width: ${props => props.width};
+    appearance: none;
+    height: 10px;
+  }
+  display: flex;
+  align-items: center;
 `;
 const Title = styled.h1`
  ${GlobalStyle.para_md};
+ font-size: 10px;
+ display: flex;
+ justify-content: center;
 `;
 const RatingTitle = styled.h1`
  ${GlobalStyle.sub_title};
 `;
+const ProgDetail = styled.span`
+  font-size: 12px;
+  padding: 3px;
+`
 export default ProgressBar;

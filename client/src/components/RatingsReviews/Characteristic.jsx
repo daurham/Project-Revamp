@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 
 function Characteristic({ character, id, sendCharacteristic }) {
   const [characteristic, setCharacteristic] = useState({});
-
-  // NEED TO REPLACE Characteristic WITH NUMBERS
-//   Comfort: {id: 135221, value: '3.1200000000000000'}
-// Fit: {id: 135219, value: '2.6933333333333333'}
-// Length: {id: 135220, value: '2.7600000000000000'}
-// Quality: {id: 135222, value: '3.3567251461988304'}
 
   const handleChange = (e) => {
     setCharacteristic({
@@ -17,10 +12,12 @@ function Characteristic({ character, id, sendCharacteristic }) {
   useEffect(()=>{
     sendCharacteristic(characteristic)
   }, [characteristic])
+
   return (
-    <div className="characteristic">
-      <div className="size">
-      {character}
+    <Container>
+      <Wrapper>
+        <Character>{character}</Character>
+        <LabelStyle>
           <label>
           <input
             name={character}
@@ -71,9 +68,29 @@ function Characteristic({ character, id, sendCharacteristic }) {
           />
           5
         </label>
-      </div>
-    </div>
+        </LabelStyle>
+      </Wrapper>
+    </Container>
   )
 };
 
+const Container = styled.div`
+  align-items: center;
+  justify-content: center;
+`
+const Wrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+`
+const Character = styled.p`
+  grid-column-start: 2;
+  grid-column-end: 1;
+  justify-content: start;
+`
+const LabelStyle = styled.label`
+  display: flex;
+  grid-column-start: 2;
+  grid-column-end: 4;
+  align-items: center;
+`
 export default Characteristic;
