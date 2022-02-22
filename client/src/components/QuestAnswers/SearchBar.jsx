@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useQAData } from './QA - Context/DataProvider';
 import { useData } from '../SharedContexts/DataProvider';
@@ -13,10 +13,12 @@ function SearchBar() {
   const { productId } = useData();
   const { questions, setQuestions, getQuestions } = useQAData();
   const [input, setInput] = useState('');
+  const renderQuestionsData = useRef([]);
 
   // filter the questions
   function filterQuestions(query) {
-    const filteredSearchResults = questions.filter((q) => {
+    const filteredSearchResults = renderQuestionsData.filter((q) => {
+    // const filteredSearchResults = questions.filter((q) => {
       if (q.question_body.toLowerCase().includes(query.toLowerCase())) {
         return true;
       }
@@ -36,6 +38,7 @@ function SearchBar() {
   }, [input]);
 
   useEffect(() => {
+    renderQuestionsData.current = questions; // every new product id, get new data array
     setInput('');
   }, [productId]);
 
