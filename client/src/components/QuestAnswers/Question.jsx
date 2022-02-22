@@ -70,7 +70,6 @@ function Question({ currentQuestion }) {
   const answerListLabel = (collapsed ? 'See more answers' : 'Collapse answers');
 
   function toggleModal() {
-    console.log(modal);
     setModal(!modal);
   }
 
@@ -136,7 +135,7 @@ function Question({ currentQuestion }) {
   const putStyles = { cursor: 'pointer' };
 
   useEffect(() => {
-    renderList();
+    // renderList();
     hasReported(false);
     hasVoted(false);
   }, [productId]);

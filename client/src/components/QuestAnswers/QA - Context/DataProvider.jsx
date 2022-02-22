@@ -14,21 +14,21 @@ function QuestionProvider({ children }) {
   const { productId } = useData();
   const [questions, setQuestions] = useState();
   const [searchResults, setSearchResults] = useState([]);
-  const [qS, getQuestions] = useState(0);
-  // const [currentQuestion, setCurrentQuestion] = useState();
-  // const [currentAnswer, setCurrentAnswer] = useState();
-  // const [input, setInput] = useState('');
 
-  useEffect(() => {
+  function getQuestions() {
     axios.get(`/questions/${productId}`)
       .then((result) => {
         setQuestions(result.data.results);
       })
       .catch((err) => console.log(err));
-  }, [productId, qS]); // should auto update when id changes.
+  }
+
+  useEffect(() => {
+    getQuestions();
+  }, [productId]); // should auto update when id changes.
 
   const value = useMemo(() => ({
-    questions, searchResults, setSearchResults, getQuestions, qS,
+    questions, searchResults, setSearchResults, setQuestions, getQuestions,
   }), [questions, searchResults]);
 
   return (

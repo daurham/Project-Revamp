@@ -7,10 +7,11 @@ function SearchBar() {
 /* TEST:
   Describe: 'My SearchBar component should capture the user input data'
   Test: 'input state should match the string "TesTinG"'
+
 */
 
   const { productId } = useData();
-  const { questions, setQuestions } = useQAData();
+  const { questions, setQuestions, getQuestions } = useQAData();
   const [input, setInput] = useState('');
 
   // filter the questions

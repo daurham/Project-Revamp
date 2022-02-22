@@ -6,7 +6,6 @@ import Modal from '../SharedComponents/Modal';
 import GlobalStyle from '../GlobalStyle';
 import { useData } from '../SharedContexts/DataProvider';
 import { useQAData } from './QA - Context/DataProvider';
-import qacss from './QuestAnswers.css';
 import modalcss from '../SharedComponents/Modal.css';
 import Button from '../SharedComponents/Button';
 // spinner: <i class="fa-solid fa-spinner"></i>
@@ -20,7 +19,7 @@ function QuestionList() {
 
   const filteredList = [];
   const { productId } = useData();
-  const { questions, getQuestions, qS } = useQAData();
+  const { questions, setQuestions } = useQAData();
   const [loadLimit, updateLoadLimit] = useState(2);
 
   // modal input:
@@ -84,7 +83,6 @@ function QuestionList() {
       console.log(body);
       axios.post(`/questions/${productId}`, body)
         .then(() => console.log('Question posted!'))
-        .then(() => getQuestions(!qS));
     } else {
       alert('Please fill in the form to submit a post.');
     }

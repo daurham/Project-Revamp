@@ -4,7 +4,7 @@ const axios = require('axios');
 const { Authorization } = require('../apikey');
 
 const app = express();
-const PORT = 4000;
+const PORT = 3000;
 const DIST_DIR = path.join(__dirname, '../client/dist');
 
 app.use(express.urlencoded({ extended: true }));
