@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import GlobalStyle from '../GlobalStyle';
-import css from './QuestAnswers.css';
+// import css from './QuestAnswers.css';
 import { useData } from '../SharedContexts/DataProvider';
 // import appcss from '../App.css';
 
@@ -48,8 +48,8 @@ function Answer({ currentAnswer }) {
   const { helpfulness } = currentAnswer;
 
   return (
-    <div className={css.border}>
-      <span className={css.border}>
+    <div>
+      <span>
         <AnAnswer>
           <ReviewBody>{body}</ReviewBody>
           <NameAndDate>

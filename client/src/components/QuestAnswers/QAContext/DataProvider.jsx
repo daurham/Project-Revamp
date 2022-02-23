@@ -19,6 +19,7 @@ function QuestionProvider({ children }) {
     axios.get(`/questions/${productId}`)
       .then((result) => {
         setQuestions(result.data.results);
+        setSearchResults(result.data.results);
       })
       .catch((err) => console.log(err));
   }

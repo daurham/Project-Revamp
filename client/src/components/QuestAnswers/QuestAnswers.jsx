@@ -4,7 +4,7 @@ import GlobalStyle from '../GlobalStyle';
 import SearchBar from './SearchBar';
 import QuestionList from './QuestionList';
 import { useData } from '../SharedContexts/DataProvider';
-import { useQAData } from './QA - Context/DataProvider';
+import { useQAData } from './QAContext/DataProvider';
 import Spinner from '../SharedComponents/Spinner';
 
 function QuestAnswers() {

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import GlobalStyle from '../GlobalStyle';
 import Answer from './Answer';
 import Modal from '../SharedComponents/Modal';
-import modalcss from '../SharedComponents/Modal.css';
+// import modalcss from '../SharedComponents/Modal.css';
 import Button from '../SharedComponents/Button';
 import Spinner from '../SharedComponents/Spinner';
 import { useData } from '../SharedContexts/DataProvider';

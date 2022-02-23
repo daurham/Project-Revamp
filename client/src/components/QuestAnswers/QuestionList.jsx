@@ -5,11 +5,8 @@ import Question from './Question';
 import Modal from '../SharedComponents/Modal';
 import GlobalStyle from '../GlobalStyle';
 import { useData } from '../SharedContexts/DataProvider';
-import { useQAData } from './QA - Context/DataProvider';
-import modalcss from '../SharedComponents/Modal.css';
+import { useQAData } from './QAContext/DataProvider';
 import Button from '../SharedComponents/Button';
-// spinner: <i class="fa-solid fa-spinner"></i>
-// spinner: ~
 
 function QuestionList() {
   /* TEST:
@@ -19,7 +16,7 @@ function QuestionList() {
 
   const filteredList = [];
   const { productId } = useData();
-  const { questions, setQuestions } = useQAData();
+  const { questions, setQuestions, searchResults } = useQAData();
   const [loadLimit, updateLoadLimit] = useState(2);
 
   // modal input:
@@ -34,24 +31,24 @@ function QuestionList() {
 
   // only allow 4 questions at a time.
   function renderList() {
-    questions.sort((a, b) => (a.question_helpfulness < b.question_helpfulness
+    searchResults.sort((a, b) => (a.question_helpfulness < b.question_helpfulness
       ? 1 : -1)); // sort by helpfulness
-    if (questions && questions.length > 0) {
+    if (searchResults && searchResults.length > 0) {
       noResults = false;
       for (let i = 0; i < loadLimit; i += 1) {
-        if (questions[i]) { // if truthy
-          filteredList.push(questions[i]);
+        if (searchResults[i]) { // if truthy
+          filteredList.push(searchResults[i]);
         }
       }
     }
   }
 
-  if (questions) {
+  if (searchResults) {
     renderList();
   }
 
   function toggleQuestionAccordian() {
-    updateLoadLimit(loadLimit === 4 ? questions.length : 4);
+    updateLoadLimit(loadLimit === 4 ? searchResults.length : 4);
     setCollapsed(!collapsed);
   }
 
@@ -83,6 +80,7 @@ function QuestionList() {
       console.log(body);
       axios.post(`/questions/${productId}`, body)
         .then(() => console.log('Question posted!'))
+        .catch((err) => console.log(err));
     } else {
       alert('Please fill in the form to submit a post.');
     }
@@ -94,10 +92,13 @@ function QuestionList() {
     setCollapsed(true);
   }, [productId]);
 
+  useEffect(() => {
+    renderList();
+  }, [searchResults]);
+
   return (
     <div>
       <QuestionListContainer>
-
         {noResults ? (<NoQuestions>No Questions</NoQuestions>) : filteredList.map((question) => (
           <div
             key={question.question_id}
@@ -108,7 +109,7 @@ function QuestionList() {
 
           </div>
         ))}
-        {(!noResults && questions.length > 4)
+        {(!noResults && searchResults.length > 4)
           ? (
             <SmButton
               type="button"
@@ -124,7 +125,6 @@ function QuestionList() {
       <ButtonContainer>
         <Button
           type="button"
-          className="modal_opener"
           handleClick={toggleModal}
           label="Ask a Question?"
         />
@@ -139,8 +139,7 @@ function QuestionList() {
                 <h2>Ask A Question</h2>
 
                 <form>
-                  <textarea
-                    className={modalcss.qa_textarea}
+                  <ModalTextarea
                     placeholder="What do you want to ask other buyers?"
                     onChange={handleInput}
                   />
@@ -205,3 +204,8 @@ const NoQuestions = styled.h1`
   margin-left: 5%;
 `;
 
+const ModalTextarea = styled.textarea`
+  resize: none;
+  width: 90%;
+  height: 90%;
+`;
