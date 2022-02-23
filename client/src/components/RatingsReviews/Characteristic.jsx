@@ -77,7 +77,7 @@ function Characteristic({ character, id, sendCharacteristic }) {
 const Container = styled.div`
   align-items: center;
   justify-content: center;
-  padding-left: 110px;
+  padding-left: 50px;
   `
 const Wrapper = styled.div`
   display: grid;

@@ -54,11 +54,13 @@ const ModalDiv = styled.div`
   box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
 `
 const ModalContent = styled.div`
+width: 800px;
   z-index: 1000;
   padding: 10px;
   font-size: 14px;
   color: #2c3e50;
   text-align: center;
+
 `
 const ModalActions = styled.div`
   position: absolute;

@@ -68,119 +68,130 @@ function Form() {
 
   return (
     <>
-      <StarClick addRating={addRating} />
+
       <FormStyle onSubmit={handleSubmit}>
         <h1>Write Your Review</h1>
         <p>About {prodDetails.name}</p>
         <GridContainer>
-          <Label>
-            <LabelTitle>Email: <Required>*</Required></LabelTitle>
-            <Input
-              name="email"
-              type="email"
-              value={formData.email}
-              placeholder="Example: jackson11@email.com"
-              onChange={handleChange}
-              required
-              aria-hidden />
-          </Label>
-          <Label>
-            <LabelTitle>Name: <Required>*</Required></LabelTitle>
-            <Input
-              name="name"
-              type="name"
-              value={formData.nickname}
-              placeholder="Your Name"
-              onChange={handleChange}
-              required />
-          </Label>
-          <Label>
-            <LabelTitle>Summary: </LabelTitle>
-            <TextAreaSummary
-              name="summary"
-              type="summary"
-              value={formData.summary}
-              placeholder="“Example: Best purchase ever!”"
-              onChange={handleChange}
-              maxLength={60}
-              required />
-          </Label>
-          <Label>
-            <LabelTitle>Review: <Required>*</Required></LabelTitle>
-            <TextAreaReview
-              name="body"
-              value={formData.body}
-              placeholder="Why did you like the product or not?"
-              onChange={handleChange}
-              maxLength={1000}
-              required />
-          </Label>
-        </GridContainer>
-        <Recommend>
-          Do you recommend this product? <Required>*</Required>
-          <label>
-            <input
-              name="recommend"
-              type="radio"
-              value="true"
-              defaultChecked={formData.recommend === true}
-              onChange={handleRadio}
-            />
+          <Right>
+            <Label>
+              <LabelTitle>Email: <Required>*</Required></LabelTitle>
+              <Input
+                name="email"
+                type="email"
+                value={formData.email}
+                placeholder="Example: jackson11@email.com"
+                onChange={handleChange}
+                required
+                 />
+            </Label>
+            <Label>
+              <LabelTitle>Name: <Required>*</Required></LabelTitle>
+              <Input
+                name="name"
+                type="name"
+                value={formData.nickname}
+                placeholder="Your Name"
+                onChange={handleChange}
+                required />
+            </Label>
+            <Label>
+              <LabelTitle>Summary: </LabelTitle>
+              <TextAreaSummary
+                name="summary"
+                type="summary"
+                value={formData.summary}
+                placeholder="“Example: Best purchase ever!”"
+                onChange={handleChange}
+                maxLength={60}
+                required />
+            </Label>
+            <Label>
+              <LabelTitle>Review: <Required>*</Required></LabelTitle>
+              <TextAreaReview
+                name="body"
+                value={formData.body}
+                placeholder="Why did you like the product or not?"
+                onChange={handleChange}
+                maxLength={1000}
+                required />
+            </Label>
+        </Right>
+        <Left>
+          <StarClick addRating={addRating} />
+          <Recommend>
+            Do you recommend this product? <Required>*</Required>
+            <label>
+              <input
+                name="recommend"
+                type="radio"
+                value="true"
+                defaultChecked={formData.recommend === true}
+                onChange={handleRadio}
+              />
             Yes
           </label>
-          <label>
-            <input
-              name="recommend"
-              type="radio"
-              value="false"
-              defaultChecked={formData.recommend === false}
-              onChange={handleRadio}
-            />
+            <label>
+              <input
+                name="recommend"
+                type="radio"
+                value="false"
+                defaultChecked={formData.recommend === false}
+                onChange={handleRadio}
+              />
             No
           </label>
-        </Recommend>
-        <Characteristics meta={meta} metaIds={getMetaIds()} sendCharacteristics={sendCharacteristics} />
+          </Recommend>
+          <Characteristics meta={meta} metaIds={getMetaIds()} sendCharacteristics={sendCharacteristics} />
+        </Left>
+        </GridContainer>
         <button onClick={handleSubmit}>Submit</button>
-      </FormStyle>
+
+    </FormStyle>
     </>
   );
 }
 
 const FormStyle = styled.div`
-  position: relevant;
   margin: 30px;
-  flex-flow: column wrap;
-`
-const StarWrapper = styled.div`
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  position: absolute;
-  direction: rtl;
+  font-size: 12px;
 `
 const GridContainer = styled.div`
   display: grid;
-
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  padding: 15px;
+`
+const Left = styled.div`
+  display: grid;
+  width: 100%;
+  float: left;
+  padding: 20px;
+  border-left: 1px solid grey;
+`
+const Right = styled.div`
+  display: grid;
 `
 const Input = styled.input`
-  width: 250px;
+  width: 200px;
   height: 10px;
-  padding: 8px;
+  padding: 10px;
   border-radius: 5px;
   outline: none;
   border: 1px solid #d6d1d5;
 `
 const TextAreaReview = styled.textarea`
   height: 50px;
-  width: 350px;
+  width: 300px;
   padding: 10px 10px;
   border-radius: 5px;
   outline: none;
   border: 1px solid #d6d1d5;
 `
 const TextAreaSummary = styled.textarea`
+font-size: 12px;
   height: 20px;
-  width: 350px;
+  width: 300px;
   padding: 10px 10px;
   border-radius: 5px;
   outline: none;
@@ -196,7 +207,7 @@ const Label = styled.label`
 `
 const Recommend = styled.div`
   margin: 10px;
-  padding: 10px;
+  padding: 20px 10px;
 `
 const Required = styled.span`
   color: #e32;
@@ -204,4 +215,11 @@ const Required = styled.span`
   display:inline;
   padding-right: 5px;
 `
+// const StarWrapper = styled.div`
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   position: absolute;
+//   direction: rtl;
+// `
 export default Form;
