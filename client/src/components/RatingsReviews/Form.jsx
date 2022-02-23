@@ -68,53 +68,54 @@ function Form() {
 
   return (
     <>
-      <StarClick addRating={addRating}/>
+      <StarClick addRating={addRating} />
       <FormStyle onSubmit={handleSubmit}>
         <h1>Write Your Review</h1>
         <p>About {prodDetails.name}</p>
-        <Label>
-          <LabelTitle>Email: <Required>*</Required></LabelTitle>
-
-          <Input
-            name="email"
-            type="email"
-            value={formData.email}
-            placeholder="Example: jackson11@email.com"
-            onChange={handleChange}
-            required
-            aria-hidden/>
-        </Label>
-        <Label>
-          <LabelTitle>Name: <Required>*</Required></LabelTitle>
-          <Input
-            name="name"
-            type="name"
-            value={formData.nickname}
-            placeholder="Your Name"
-            onChange={handleChange}
-            required />
-        </Label>
-        <Label>
-          <LabelTitle>Summary: </LabelTitle>
-          <TextAreaSummary
-            name="summary"
-            type="summary"
-            value={formData.summary}
-            placeholder="“Example: Best purchase ever!”"
-            onChange={handleChange}
-            maxLength={60}
-            required />
-        </Label>
-        <Label>
-          <LabelTitle>Review: <Required>*</Required></LabelTitle>
-          <TextAreaReview
-            name="body"
-            value={formData.body}
-            placeholder="Why did you like the product or not?"
-            onChange={handleChange}
-            maxLength={1000}
-            required />
-        </Label>
+        <GridContainer>
+          <Label>
+            <LabelTitle>Email: <Required>*</Required></LabelTitle>
+            <Input
+              name="email"
+              type="email"
+              value={formData.email}
+              placeholder="Example: jackson11@email.com"
+              onChange={handleChange}
+              required
+              aria-hidden />
+          </Label>
+          <Label>
+            <LabelTitle>Name: <Required>*</Required></LabelTitle>
+            <Input
+              name="name"
+              type="name"
+              value={formData.nickname}
+              placeholder="Your Name"
+              onChange={handleChange}
+              required />
+          </Label>
+          <Label>
+            <LabelTitle>Summary: </LabelTitle>
+            <TextAreaSummary
+              name="summary"
+              type="summary"
+              value={formData.summary}
+              placeholder="“Example: Best purchase ever!”"
+              onChange={handleChange}
+              maxLength={60}
+              required />
+          </Label>
+          <Label>
+            <LabelTitle>Review: <Required>*</Required></LabelTitle>
+            <TextAreaReview
+              name="body"
+              value={formData.body}
+              placeholder="Why did you like the product or not?"
+              onChange={handleChange}
+              maxLength={1000}
+              required />
+          </Label>
+        </GridContainer>
         <Recommend>
           Do you recommend this product? <Required>*</Required>
           <label>
@@ -139,7 +140,7 @@ function Form() {
           </label>
         </Recommend>
         <Characteristics meta={meta} metaIds={getMetaIds()} sendCharacteristics={sendCharacteristics} />
-        <button onCick={handleSubmit}>Submit</button>
+        <button onClick={handleSubmit}>Submit</button>
       </FormStyle>
     </>
   );
@@ -156,6 +157,10 @@ const StarWrapper = styled.div`
   transform: translate(-50%, -50%);
   position: absolute;
   direction: rtl;
+`
+const GridContainer = styled.div`
+  display: grid;
+
 `
 const Input = styled.input`
   width: 250px;
@@ -181,14 +186,13 @@ const TextAreaSummary = styled.textarea`
   outline: none;
   border: 1px solid #d6d1d5;
 `
-const LabelTitle = styled.p`
+const LabelTitle = styled.span`
   padding: 5px 5px;
 `
 const Label = styled.label`
-  margin: 0;
-  display: flex;
   justify-content: flex-start;
   align-items: center;
+  margin: 0;
 `
 const Recommend = styled.div`
   margin: 10px;
