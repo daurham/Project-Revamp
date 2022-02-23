@@ -18,10 +18,10 @@ function Reviews() {
 
   return reviews.length !== 0 ? (
     <Container>
-      <div>
+      <ReviewStyled>
         {reviews.results.slice(0, limit ? limit : items.length).map((review, id, summary, rating, recommend, body, date, photos) => (
           <ReviewsList review={review} key={id} />))}
-      </div>
+      </ReviewStyled>
       <div>
         <Button label="MORE REVIEWS" handleClick={updateLimit}></Button>
         <Button label="ADD A REVIEW" handleClick={() => setIsOpen(true)}></Button>
@@ -35,5 +35,8 @@ const Container = styled.div`
   display: grid;
   margin: 10px;
   padding: 10px;
+`
+const ReviewStyled = styled.div`
+
 `
 export default Reviews;

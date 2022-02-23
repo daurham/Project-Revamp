@@ -29,6 +29,7 @@ const GlobalStyle = {
     font-family: 'Poppins', sans-serif;
     background-color: rgb(255, 255, 255);
     color: black;
+    box-sizing: content-box;
   `,
 }
 

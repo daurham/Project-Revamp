@@ -17,14 +17,14 @@ function Form() {
     body: '',
     recommend: true,
     photos: [],
-    characteristics: {}
+    characteristics: {},
+    rating: ''
   });
 
   const handleSubmit = (e) => {
     event.preventDefault();
     console.log('form data from handlesubmit', formData)
     addReviews(formData);
-
   }
   const handleChange = (e) => {
     setFormData({
@@ -37,6 +37,15 @@ function Form() {
     setFormData({
       ...formData, [event.target.name]: isChecked
     })
+  }
+  const addRating = (rate) => {
+    console.log('add rating clicked', rate)
+    if (rate) {
+      setFormData({
+        ...formData, rating: Number(rate)
+      })
+    }
+    console.log('rate updated', formData)
   }
 
   const sendCharacteristics = (characteristicsFrom) => {
@@ -59,7 +68,7 @@ function Form() {
 
   return (
     <>
-      <StarClick />
+      <StarClick addRating={addRating}/>
       <FormStyle onSubmit={handleSubmit}>
         <h1>Write Your Review</h1>
         <p>About {prodDetails.name}</p>

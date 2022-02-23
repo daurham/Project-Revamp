@@ -20,17 +20,55 @@ function ReviewsList({review}) {
     // setCount(count + 1)
   }
   return (
-    <div>
+    <SingleReview>
       <StarRating value={review.rating} />
+      <ReviewerName>{review.reviewer_name}</ReviewerName>
+      <DateStyle>{americanDate}</DateStyle>
       <TitleStyle>{review.summary}</TitleStyle>
       <ReviewBody>{review.body}</ReviewBody>
      <Helpful>Was this review helpful?<YesButton onClick={handleClick}>Yes</YesButton> {review.helpfulness} </Helpful>
       {review.recommend ? <Recommend>✔ I recommend this product </Recommend> : null}
-      <ReviewerName>{review.reviewer_name}</ReviewerName>
-      <DateStyle>{americanDate}</DateStyle>
-    </div>
+    </SingleReview>
   )
 }
+const SingleReview = styled.div`
+  display: grid;
+  border: solid 1px;
+  margin: 2px;
+  padding: 20px;
+  grid-template-columns: 120px 120px 120px 120px;
+  grid-template-rows: auto;
+  grid-template-areas:
+    ". . reviewer date"
+    "title title title title"
+    "review review review review"
+    "recommend recommend helpful helpful"
+`
+const TitleStyle = styled.h1`
+  ${GlobalStyle.sub_title};
+  grid-area: title;
+`
+const Helpful = styled.p`
+  ${GlobalStyle.para_sm};
+  grid-area: helpful;
+`
+const ReviewBody = styled.p`
+  ${GlobalStyle.para_md};
+  flex-grow: 4;
+  grid-area: review;
+`
+const Recommend = styled.p`
+  ${GlobalStyle.para_sm};
+  grid-area: recommend;
+`
+const ReviewerName = styled.p`
+  ${GlobalStyle.para_sm};
+  grid-area: reviewer;
+`
+const DateStyle = styled.p`
+  ${GlobalStyle.para_sm};
+  grid-area: date;
+`
 const YesButton = styled.button`
   width: auto;
   font-size: 10px;
@@ -43,24 +81,4 @@ const YesButton = styled.button`
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19)
   }
 `
-
-const TitleStyle = styled.h1`
-  ${GlobalStyle.sub_title};
-`
-const Helpful = styled.p`
-  ${GlobalStyle.para_sm};
-`
-const ReviewBody = styled.p`
-  ${GlobalStyle.para_md};
-`
-const Recommend = styled.p`
-  ${GlobalStyle.para_sm};
-`
-const ReviewerName = styled.p`
-  ${GlobalStyle.para_sm};
-`
-const DateStyle = styled.p`
-  ${GlobalStyle.para_sm};
-`
-
 export default ReviewsList;

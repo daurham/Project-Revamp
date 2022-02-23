@@ -50,13 +50,15 @@ const BoxOne = styled.div`
   grid-column: 1/ span 1;
   grid-row: span 1;
   min-width: 150px;
-  background-color: #e7e7e7;
+  background-color: #f5f5f5;
   padding: 5px;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
 `
 const BoxTwo = styled.div`
   grid-column: 2/ span 4;
   grid-row: span 2;
-  background-color: #e7e7e7;
+  background-color: #f6f6f6;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
 `
 
 export default RatingsReviews;
