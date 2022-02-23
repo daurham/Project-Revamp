@@ -41,6 +41,7 @@ app.get('/products/:id/relatedinfo', (req, res) => {
     .then(axios.spread((res1, res2) => {
       const firstStyle = res2.data.results[0];
       const thumbnail = firstStyle.photos[0].thumbnail_url || 'https://anthemprep.greatheartsamerica.org/wp-content/uploads/sites/12/2016/12/default-placeholder.png';
+      // 'https://st.depositphotos.com/11872014/54095/v/450/depositphotos_540957050-stock-illustration-photo-coming-soon-picture-frame.jpg'
       const tempObj = {
         ...res1.data,
         thumbnail,

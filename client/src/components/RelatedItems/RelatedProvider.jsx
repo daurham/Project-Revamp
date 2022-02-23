@@ -16,6 +16,8 @@ function RelatedProvider({ children }) {
   const [localData, setLocalData] = useState(
     localStorage.items ? JSON.parse(localStorage.items) : [],
   );
+  const [showModal, setShowModal] = useState(false);
+  const [modalData, setModalData] = useState();
 
   useEffect(() => {
     axios.get(`/products/${productId}/related`)
@@ -31,8 +33,8 @@ function RelatedProvider({ children }) {
   }, [productId]);
 
   const value = useMemo(() => ({
-    relatedItemsInfo, localData, setLocalData,
-  }), [relatedItemsInfo, localData]);
+    relatedItemsInfo, localData, setLocalData, showModal, setShowModal, modalData, setModalData,
+  }), [relatedItemsInfo, localData, showModal, modalData]);
 
   return (
     <RelatedContext.Provider value={value}>

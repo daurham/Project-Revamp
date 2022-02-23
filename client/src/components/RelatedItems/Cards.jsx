@@ -7,12 +7,18 @@ import appcss from '../App.css';
 import StarsRating from '../SharedComponents/StarRating';
 import AddOutfitCard from './AddOutfitCard';
 import CompareButton from './CompareButton';
+import Modal from './Modal';
 
 function Cards(props) {
   const { item } = props;
   const { view } = props;
   const { setProductId } = useData();
   const [relatedView] = useState(view);
+  const [modal, setModal] = useState(false);
+
+  function toggleModal() {
+    setModal((x) => !x);
+  }
 
   let render;
   if (relatedView) {
@@ -20,7 +26,9 @@ function Cards(props) {
       // <AddOutfit item={item} />
       <>
         <AddOutfitCard item={item} />
-        <CompareButton />
+        <CompareButton item={item} />
+        {/* <CompareButton toggleModal={() => toggleModal()} /> */}
+        {/* <Modal show={modal} toggleModal={() => toggleModal()} /> */}
       </>
     );
   } else {

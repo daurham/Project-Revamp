@@ -5,6 +5,7 @@ import RatingsReviews from './RatingsReviews/RatingsReviews';
 import DataProvider, { useData } from './SharedContexts/DataProvider';
 import OverviewProvider from './SharedContexts/OverviewProvider';
 import RelatedItemsParent from './RelatedItems/RelatedItemsParent';
+import RelatedProvider from './RelatedItems/RelatedProvider';
 
 // import styles from './App.css';
 
@@ -17,7 +18,9 @@ function App() {
         <DataProvider>
           <OverviewProvider>
             {/* <Overview /> */}
-            <RelatedItemsParent />
+            <RelatedProvider>
+              <RelatedItemsParent />
+            </RelatedProvider>
           </OverviewProvider>
           <QuestAnswers />
           <RatingsReviews />
