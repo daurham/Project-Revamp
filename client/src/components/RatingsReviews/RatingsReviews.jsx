@@ -16,7 +16,7 @@ function RatingsReviews() {
         <Container>
           <BoxOne>
             <StarRating showAverage currentProduct />
-            <ProgressBar/>
+            <ProgressBar />
           </BoxOne>
           <BoxTwo>
             <OverviewProvider>

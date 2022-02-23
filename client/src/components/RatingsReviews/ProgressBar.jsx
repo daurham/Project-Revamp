@@ -6,13 +6,17 @@ import GlobalStyle from '../GlobalStyle';
 
 function ProgressBar(props) {
   const { value, max } = props;
-  const { reviews, getReviews, meta } = useRatingData();
+  const { reviews, getReviews, meta, filterRatingFunc } = useRatingData();
   const [ratingsObj, setRatingsObj] = useState();
-  // const isFirstRef = useRef(true);
-  // console.log(isFirstRef)
+
   let recommended = 0;
   let ratingsTot;
-  // console.log(reviews)
+
+  const handleClick = () => {
+    let filterRatingNum = Number(event.target.id) + 1;
+    filterRatingFunc(filterRatingNum);
+  }
+
   if (meta) {
     console.log('META from progress', meta)
     recommended = calcPercent(meta, meta.recommended, 'recommended')
@@ -50,7 +54,10 @@ function ProgressBar(props) {
       <Container>
         <BarListBox>
           {ratingsTot.values.map((rating, index) =>
-            <BarList key={index}><ProgDetail>{index + 1}</ProgDetail><progress value={rating} max={ratingsTot.total} />
+            <BarList key={index}>
+              <ProgDetail>{index + 1}</ProgDetail>
+              <ProgButton onClick={handleClick}><progress value={rating} max={ratingsTot.total} id={index}></progress>
+              </ProgButton>
               <ProgDetail>{rating}</ProgDetail>
             </BarList>
           )}
@@ -92,6 +99,9 @@ const BarList = styled.li`
   }
   display: flex;
   align-items: center;
+  &:hover {
+    transition: all .3s ease-in-out;
+  }
 `;
 const Title = styled.h1`
  ${GlobalStyle.para_md};
@@ -105,5 +115,9 @@ const RatingTitle = styled.h1`
 const ProgDetail = styled.span`
   font-size: 12px;
   padding: 3px;
+`
+const ProgButton = styled.button`
+  border: none;
+  cursor: pointer;
 `
 export default ProgressBar;

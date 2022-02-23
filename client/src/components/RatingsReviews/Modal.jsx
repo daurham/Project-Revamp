@@ -1,8 +1,13 @@
 import React from 'react';
 import Form from './Form';
 import styled from 'styled-components';
+import { useRatingData } from '../SharedContexts/RatingProvider';
 
 const Modal = ({ setIsOpen }) => {
+  const { addReviews, formData } = useRatingData();
+  const handleSubmit = () => {
+    addReviews(formData);
+  }
   return (
     <>
       <Background onClick={() => setIsOpen(false)} />
@@ -17,7 +22,7 @@ const Modal = ({ setIsOpen }) => {
                 Close
               </CloseBtn>
               <SubmitBtn
-                onClick={() => setIsOpen(false)}
+                onClick={() => handleSubmit()}
               >
                 Submit
               </SubmitBtn>

@@ -36,7 +36,7 @@ const SingleReview = styled.div`
   border: solid 1px;
   margin: 2px;
   padding: 20px;
-  grid-template-columns: 120px 120px 120px 120px;
+  grid-template-columns: 120px 120px;
   grid-template-rows: auto;
   grid-template-areas:
     ". . reviewer date"
@@ -51,6 +51,7 @@ const TitleStyle = styled.h1`
 const Helpful = styled.p`
   ${GlobalStyle.para_sm};
   grid-area: helpful;
+  justify-self: end;
 `
 const ReviewBody = styled.p`
   ${GlobalStyle.para_md};
@@ -64,10 +65,12 @@ const Recommend = styled.p`
 const ReviewerName = styled.p`
   ${GlobalStyle.para_sm};
   grid-area: reviewer;
+  justify-self: end;
 `
 const DateStyle = styled.p`
   ${GlobalStyle.para_sm};
   grid-area: date;
+  justify-self: end;
 `
 const YesButton = styled.button`
   width: auto;

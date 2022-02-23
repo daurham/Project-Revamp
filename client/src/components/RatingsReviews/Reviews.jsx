@@ -8,13 +8,19 @@ import Modal from './Modal';
 
 function Reviews() {
   const { productId } = useData();
-  const { reviews, getReviews } = useRatingData();
+  const { reviews, getReviews, filterRating } = useRatingData();
   const [isOpen, setIsOpen] = useState(false);
   const [limit, setLimit] = useState(2);
 
   const updateLimit = () => {
     setLimit(reviews.results.length);
   }
+  useEffect(() => {
+    if (filterRating) {
+      console.log('REVIEWS',reviews, filterRating)
+    }
+
+  }, [filterRating]);
 
   return reviews.length !== 0 ? (
     <Container>

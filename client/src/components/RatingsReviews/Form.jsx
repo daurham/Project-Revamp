@@ -7,8 +7,7 @@ import Characteristics from './Characteristics';
 import StarClick from './StarClick';
 
 function Form() {
-  const { addReviews } = useRatingData();
-  const { meta } = useRatingData();
+  const { addReviews, meta } = useRatingData();
   const { prodDetails } = useOverview();
   const [formData, setFormData] = useState({
     email: '',
@@ -22,8 +21,8 @@ function Form() {
   });
 
   const handleSubmit = (e) => {
-    event.preventDefault();
-    console.log('form data from handlesubmit', formData)
+    // e.preventDefault();
+    console.log('addreviews handlesubmit on FORM', formData)
     addReviews(formData);
   }
   const handleChange = (e) => {
@@ -64,12 +63,13 @@ function Form() {
     return metaIds;
   }
 
-  useEffect(() => { }, [formData])
+  // useEffect(() => { }, [formData])
 
   return (
     <>
 
-      <FormStyle onSubmit={handleSubmit}>
+      <FormStyle >
+      <form >
         <h1>Write Your Review</h1>
         <p>About {prodDetails.name}</p>
         <GridContainer>
@@ -145,8 +145,8 @@ function Form() {
           <Characteristics meta={meta} metaIds={getMetaIds()} sendCharacteristics={sendCharacteristics} />
         </Left>
         </GridContainer>
-        <button onClick={handleSubmit}>Submit</button>
-
+        <button type="submit" onClick={()=>{handleSubmit}}>Submit</button>
+        </form>
     </FormStyle>
     </>
   );
