@@ -6,15 +6,7 @@ import { useData } from '../SharedContexts/DataProvider';
 import { useQAData } from './QAContext/DataProvider';
 
 function Answer({ currentAnswer, setAnswers, questionId }) {
-  /* TEST:
-    Describe: 'My Answer component renders all the answer data'
-    Test: 'CurrentAnswer prop length should match a get request of the answer'
-  */
-  // const { setAnswers } = setAnswers;
-  // const { questionId } = questionId;
   if (!setAnswers || !questionId) {
-    console.log(setAnswers);
-    console.log(questionId);
     return null;
   }
 
