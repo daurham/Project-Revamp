@@ -12,9 +12,8 @@ export function useData() {
 function DataProvider({ children }) {
   const [productId, setProductId] = useState(null);
 
-  function updateID(id) {
-    console.log('updateid hit');
-    setProductId(id);
+  function updateID() {
+    setProductId((id) => id + 1);
   }
 
   useEffect(() => (

@@ -1,99 +1,20 @@
-// import axios from 'axios';
-// import React, { useState, useEffect, useRef, useMemo } from 'react';
-// import css from './StarRating.css';
-
-// function StarsRating({ value, productId, showAverage, relatedProduct }) {
-//   const [results, setResults] = useState(null);
-
-//   const [average, setAverage] = useState(0);
-
-//   // ---- use correct endpoint for averages ----
-//   if (relatedProduct) {
-//     useEffect(() => {
-//       const query = { product_id: relatedProduct };
-//       axios.get('/reviews/meta/ratings', { params: query })
-//         .then((response) => {
-//           setResults(response.data);
-//         });
-//       return setResults();
-//     }, [productId]);
-//   }
-
-//   function calcPercent() {
-//     // if (results && results.length !== 0) {
-//     if (results) {
-
-//       // console.log('results in calcpercent', results)
-//       const entries = Object.entries(results);
-//       let total = 0;
-//       let submits = 0;
-//       // eslint-disable-next-line no-restricted-syntax
-//       for (let [key, val] of entries) {
-//         key = Number(key);
-//         val = Number(val);
-//         total += (key * val);
-//         submits += val;
-//       }
-//       // console.log(total, submits);
-//       const avg = total / submits;
-//       // if (showAverage) {
-//         // const rounded = Math.round((avg * 100) / 100);
-//         setAverage(avg.toFixed(1));
-//       // }
-//       // console.log(avg);
-//       return Math.round((avg / 5) * 100, 2);
-//     }
-//   }
-
-//   const percent = useMemo(() => calcPercent(), [results]);
-
-//   const styleStar = {
-//     // width: `${[percentage]}%`,
-//     width: `${[percent]}%`,
-
-//   };
-// // className={css.container}
-//   return (
-//     <div >
-//       {/* {displayAverage && <h1>{average}</h1>} */}
-//       {/* <h1>{average}</h1> */}
-
-//       <div className={css.star_ratings_css}>
-//         <div className={css.star_ratings_css_top} style={styleStar}>
-//           <span>★</span>
-//           <span>★</span>
-//           <span>★</span>
-//           <span>★</span>
-//           <span>★</span>
-//         </div>
-//         <div className={css.star_ratings_css_bottom}>
-//           <span>★</span>
-//           <span>★</span>
-//           <span>★</span>
-//           <span>★</span>
-//           <span>★</span>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default StarsRating;
-
-// ----- bee's working component did it with her -----
-
-import React, {
-  useState, useEffect, useRef, useMemo,
-} from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import { useData } from '../SharedContexts/DataProvider';
+import { useRatingData } from '../SharedContexts/RatingProvider';
 
-function StarsRating({
-  value, productId, showAverage, relatedProduct, currentProduct,
-}) {
+function StarsRating({ value, productId, showAverage, relatedProduct, currentProduct }) {
+  let metaOutside;
+  if (currentProduct) {
+    const { meta } = useRatingData();
+    metaOutside = meta;
+  }
   const [results, setResults] = useState(null);
+  // console.log('meta', meta)
   const [average, setAverage] = useState(0);
 
+  // ----- Austin's copy pasta ----
   if (relatedProduct) {
     useEffect(() => {
       const query = { product_id: relatedProduct };
@@ -105,12 +26,15 @@ function StarsRating({
     }, [productId]);
   }
 
+  // console.log('meta', metaOutside)
+
   if (currentProduct) {
+    // console.log('meta in if b4 useEff', metaOutside)
     useEffect(() => {
-      if (meta && typeof meta === 'object') {
-        setResults(meta.ratings);
+      if (metaOutside && typeof metaOutside === 'object') {
+        setResults(metaOutside.ratings)
       }
-    }, [meta]);
+    }, [metaOutside])
   }
 
   function calcPercent() {
@@ -126,7 +50,6 @@ function StarsRating({
         submits += val;
       }
       const avg = total / submits;
-      console.log('avg', relatedProduct, avg);
 
       setAverage(avg.toFixed(1));
       return Math.round((avg / 5) * 100, 2);
@@ -152,7 +75,7 @@ function StarsRating({
 
   return (
     <Container>
-      {/* {displayAverage ? <h1>{average}</h1> : null} */}
+      {showAverage ? <h1>{average}</h1> : null}
       <StarRatingContainer>
         <StarRatingTop style={styleStar}>
           <span>★</span>

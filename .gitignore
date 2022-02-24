@@ -1,4 +1,4 @@
 node_modules
 apikey.js
-client/dist
-!client/dist/index.html
+client/dist/bundle.js
+coverage
