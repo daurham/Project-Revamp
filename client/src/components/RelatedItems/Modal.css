@@ -219,6 +219,7 @@
   font-weight: 300;
   font-size: 15px;
 
+
 }
 
 .featurerow {
@@ -231,6 +232,8 @@
   font-weight: 400;
   font-size: 15px;
   align-items: flex-end;
+  margin-bottom: 5px;
+
 }
 .modalcolumnright {
   display: flex;

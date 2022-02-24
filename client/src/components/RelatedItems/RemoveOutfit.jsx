@@ -1,7 +1,7 @@
 import React from 'react';
+import styled from 'styled-components';
 import { useRelated } from './RelatedProvider';
-// import appcss from '../App.css';
-import css from './Carousel.css';
+import { ActionButton } from './AddOutfit';
 
 function RemoveOutfit(props) {
   const { item } = props;
@@ -21,22 +21,19 @@ function RemoveOutfit(props) {
   }
 
   return (
-    <div className={css.button_padding}>
-      <button type="button" onClick={removeItem} className={css.add_button}>
-        {/* <div className={css.para_md}> */}
+    <RemoveButtonPadding>
+      <ActionButton onClick={() => removeItem()}>
         x
-        {/* </div> */}
-      </button>
-    </div>
+      </ActionButton>
+    </RemoveButtonPadding>
   );
 }
 
 export default RemoveOutfit;
 
-// implemtation with object:
-// function removeItem() {
-//   const storage = JSON.parse(localStorage.items);
-//   delete storage[item.id];
-//   localStorage.setItem('items', JSON.stringify(storage));
-//   setLocalData(JSON.parse(localStorage.items));
-// }
+const RemoveButtonPadding = styled.div`
+  padding-left: 85%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;

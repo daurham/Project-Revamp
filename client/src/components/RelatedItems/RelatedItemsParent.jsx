@@ -1,105 +1,45 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import Carousel from './Carousel';
 import Modal from './Modal';
-import modalcss from './Modal.css';
-import RelatedProvider, { useRelated } from './RelatedProvider';
+import { useRelated } from './RelatedProvider';
 import { useOverview } from '../SharedContexts/OverviewProvider';
 import ModalComparison from './ModalComparison';
+import { ModalColumnCenter, ModalColumnLeft, ModalColumnRight, ModalFeatureRow, ModalImageRight, ModalRow } from './RelatedItemsCSS';
 
 function RelatedItemsParent() {
-  const [modal, setModal] = useState(false);
   const { showModal, setShowModal } = useRelated();
-  const { modalData, setModalData } = useRelated();
+  const { modalData } = useRelated();
   const { prodDetails, prodStyles } = useOverview();
 
   return (
-    <div style={{
-      maxWidth: 1200, marginLeft: 'auto', marginRight: 'auto', marginTop: 64,
-    }}
-    >
-      {/* <RelatedProvider> */}
-      <Carousel header="Related Products" view shown={4}>
-        <div>
-          <div style={{ padding: 8 }}>
-            <img src="https://via.placeholder.com/300x300" alt="placeholder" style={{ width: '100%' }} />
-            <div>
-              <div>do title werk</div>
-              <div>do money werk</div>
-              <div>do cat werk</div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div style={{ padding: 8 }}>
-            <img src="https://via.placeholder.com/300x300" alt="placeholder" style={{ width: '100%' }} />
-          </div>
-        </div>
-        <div>
-          <div style={{ padding: 8 }}>
-            <img src="https://via.placeholder.com/300x300" alt="placeholder" style={{ width: '100%' }} />
-          </div>
-        </div>
-        <div>
-          <div style={{ padding: 8 }}>
-            <img src="https://via.placeholder.com/300x300" alt="placeholder" style={{ width: '100%' }} />
-          </div>
-        </div>
-        <div>
-          <div style={{ padding: 8 }}>
-            <img src="https://via.placeholder.com/300x300" alt="placeholder" style={{ width: '100%' }} />
-          </div>
-        </div>
-        <div>
-          <div style={{ padding: 8 }}>
-            <img src="https://via.placeholder.com/300x300" alt="placeholder" style={{ width: '100%' }} />
-          </div>
-        </div>
-        <div>
-          <div style={{ padding: 8 }}>
-            <img src="https://via.placeholder.com/300x300" alt="placeholder" style={{ width: '100%' }} />
-          </div>
-        </div>
-        <div>
-          <div style={{ padding: 8 }}>
-            <img src="https://via.placeholder.com/300x300" alt="placeholder" style={{ width: '100%' }} />
-          </div>
-        </div>
-      </Carousel>
-      <Carousel header="Your Outfit" view={false} shown={4} />
+    <Container>
+      <Carousel header="Related Products" view />
+      <Carousel header="Your Outfit" view={false} />
       {showModal && (
       <Modal show={showModal} closeCallback={() => (setShowModal((x) => !x))}>
-        {/* className={modalcss.modalcenter} */}
         <>
-          <div className={modalcss.modalheader}>Comparing</div>
-          <div className={modalcss.modalrow}>
-            {/* <div className={modalcss.modalcolumnleft}> */}
-            <div className={modalcss.imagecolumnleft}>
-            {/* <div className={modalcss.comparecolumnleft}> */}
+          <ModalHeader>Comparing</ModalHeader>
+          <ModalRow>
+            <ModalImageLeft>
+              <ModalImage src={prodStyles[0].photos[0].thumbnail_url || 'https://anthemprep.greatheartsamerica.org/wp-content/uploads/sites/12/2016/12/default-placeholder.png'} alt="Item" />
+            </ModalImageLeft>
+            <ModalImageRight>
+              <ModalImage src={modalData.thumbnail} alt="Item" />
+            </ModalImageRight>
+          </ModalRow>
 
-
-              <img className={modalcss.modalimgsize} src={prodStyles[0].photos[0].thumbnail_url || 'https://anthemprep.greatheartsamerica.org/wp-content/uploads/sites/12/2016/12/default-placeholder.png'} alt="Item" />
-            </div>
-            {/* <div className={modalcss.comparecolumnright}> */}
-            <div className={modalcss.imagecolumnright}>
-
-            {/* <div className={modalcss.modalcolumnright}> */}
-
-              <img className={modalcss.modalimgsize} src={modalData.thumbnail} alt="Item" />
-
-            </div>
-          </div>
-          <div className={modalcss.featurerow}>
-            <div className={modalcss.comparecolumnleft}>
-
+          <ModalFeatureRow>
+            <ModalColumnLeft>
               <div>{prodDetails.name}</div>
-            </div>
-            <div className={modalcss.comparecolumnmiddle}>
+            </ModalColumnLeft>
+            <ModalColumnCenter>
               Feature
-            </div>
-            <div className={modalcss.comparecolumnright}>
+            </ModalColumnCenter>
+            <ModalColumnRight>
               <div>{modalData.name}</div>
-            </div>
-          </div>
+            </ModalColumnRight>
+          </ModalFeatureRow>
         </>
         <ModalComparison
           otherProd={modalData}
@@ -107,9 +47,42 @@ function RelatedItemsParent() {
         />
       </Modal>
       )}
-      {/* </RelatedProvider> */}
-    </div>
+    </Container>
   );
 }
 
 export default RelatedItemsParent;
+
+const Container = styled.div`
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 64px,
+`;
+
+const ModalImage = styled.img`
+  object-fit: cover;
+  width:165px;
+  height:165px;
+  overflow: clip;
+`;
+
+const ModalImageLeft = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-basis: 100%;
+  flex: 10;
+  padding-right: 30px;
+`;
+
+const ModalHeader = styled.div`
+  display:flex;
+  align-self: center;
+  justify-content: center;
+  padding-bottom: 15px;
+  font-style: oblique;
+  font-size: 20px;
+`;
+
+

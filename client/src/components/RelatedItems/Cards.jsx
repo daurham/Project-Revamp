@@ -1,34 +1,25 @@
 import React, { useState } from 'react';
-import AddOutfit from '../SharedComponents/AddOutfit';
+import styled from 'styled-components';
 import { useData } from '../SharedContexts/DataProvider';
 import RemoveOutfit from './RemoveOutfit';
 import css from './Carousel.css';
-import appcss from '../App.css';
 import StarsRating from '../SharedComponents/StarRating';
-import AddOutfitCard from './AddOutfitCard';
+import AddOutfit from './AddOutfit';
 import CompareButton from './CompareButton';
-import Modal from './Modal';
+import { MedText, SmText } from './RelatedItemsCSS';
 
 function Cards(props) {
   const { item } = props;
   const { view } = props;
   const { setProductId } = useData();
   const [relatedView] = useState(view);
-  const [modal, setModal] = useState(false);
-
-  function toggleModal() {
-    setModal((x) => !x);
-  }
 
   let render;
   if (relatedView) {
     render = (
-      // <AddOutfit item={item} />
       <>
-        <AddOutfitCard item={item} />
+        <AddOutfit item={item} />
         <CompareButton item={item} />
-        {/* <CompareButton toggleModal={() => toggleModal()} /> */}
-        {/* <Modal show={modal} toggleModal={() => toggleModal()} /> */}
       </>
     );
   } else {
@@ -52,42 +43,55 @@ function Cards(props) {
     );
   }
   return (
-    <div className={css.card_holder}>
-      <div className={css.card} role="presentation">
+    <div>
+      <CardContainer>
         {render}
-        <div className={css.card_itself} role="presentation" onClick={() => setProductId(item.id)}>
-          <img className={css.imgsize} src={item.thumbnail} alt="Item" />
-          <div className={css.card_info_holder}>
-            <div className={appcss.para_sm}>{item.category}</div>
-            <div className={css.para_md}>{item.name}</div>
-            {/* <div className={css.flexrow}>{item.default_price }</div> */}
-            {/* &nbsp; */}
-            {/* <div className={css.flexrow}>{item.default_price}</div> */}
-            <div className={css.pricecontainer}>
+        <CardInfoContainer onClick={() => setProductId(item.id)}>
+          <ImgContainer src={item.thumbnail} alt="Item" />
+          <CardInfoHolder>
+            <SmText>
+              {item.category}
+            </SmText>
+            <MedText>
+              {item.name}
+            </MedText>
+            <PriceContainer>
               {price}
-              {/* <div>hi</div>
-              &nbsp;
-              <div>there</div> */}
-            </div>
+            </PriceContainer>
             <StarsRating relatedProduct={item.id} />
-          </div>
-        </div>
-      </div>
+          </CardInfoHolder>
+        </CardInfoContainer>
+      </CardContainer>
     </div>
   );
 }
 
 export default Cards;
-// (
-// <>
-// {render}
-// <div role="presentation" onClick={() => setProductId(item.id)}>
-//   <div>beg of card</div>
-//   <div>{item.category}</div>
-//   <div>{item.name}</div>
-//   <div>{item.default_price}</div>
-//   <img src={item.thumbnail} alt="item" />
-//   <div>end of card</div>
-// </div>
-// </>
-// )
+
+const PriceContainer = styled.div`
+  font-size: 11px;
+  font-weight: 200;
+  display: flex;
+  flex-direction: row;
+`;
+
+const CardInfoHolder = styled.div`
+  padding-left: 8px;
+  padding-bottom: 7px;
+`;
+
+const ImgContainer = styled.img`
+  object-fit: cover;
+  width:230px;
+  height:230px;
+  overflow: clip;
+`;
+
+const CardInfoContainer = styled.div`
+  box-shadow: rgb(0 0 0 / 12%) 4px 4px 4px 0px;
+`;
+
+export const CardContainer = styled.div`
+  padding: 8px;
+  width: 230px;
+`;
