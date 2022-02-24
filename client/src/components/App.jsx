@@ -1,6 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
-// import Overview from './Overview/Overview';
+
+import Overview from './Overview/Overview';
+import RelatedItems from './RelatedItems/RelatedItems';
 import QuestAnswers from './QuestAnswers/QuestAnswers';
 import RatingsReviews from './RatingsReviews/RatingsReviews';
 import DataProvider, { useData } from './SharedContexts/DataProvider';
@@ -11,15 +12,16 @@ import QuestionProvider from './QuestAnswers/QAContext/DataProvider';
 import GlobalStyle from './GlobalStyle';
 
 function App() {
-  // const { productId } = useData();
+  const { productId } = useData();
 
   return (
-    <div>
-      {/* {productId ? ( */}
+    <>
+      {productId ? (
         <DataProvider>
           <AppStyle>
           <OverviewProvider>
-            {/* <Overview /> */}
+            <Overview />
+            <RelatedItems />
             <RelatedProvider>
               <RelatedItemsParent />
             </RelatedProvider>
@@ -30,8 +32,8 @@ function App() {
           <RatingsReviews />
           </AppStyle>
         </DataProvider>
-     {/* ) : (<div>loading</div>)} */}
-    </div>
+      ) : (<div>loading</div>)}
+    </>
   );
 }
 

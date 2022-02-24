@@ -15,6 +15,14 @@ function OverviewProvider({ children }) {
 
   const [prodDetails, setProdDetails] = useState({});
   const [prodStyles, setProdStyles] = useState([]);
+  const [currentStyleId, setCurrentStyleId] = useState();
+  const [currentStyle, setCurrentStyle] = useState();
+
+  // console.log('ProdID', productId)
+  // console.log('prodDetails', prodDetails)
+  // console.log('prodStyles', prodStyles)
+  // console.log('currentStyleID', currentStyleId)
+  // console.log('currentStyle', currentStyle)
 
   useEffect(() => {
     axios.get(`/products/${productId}`)
@@ -26,11 +34,25 @@ function OverviewProvider({ children }) {
       });
   }, [productId]);
 
-  const value = useMemo(() => ({
-    prodDetails, prodStyles,
-  }), [prodDetails, prodStyles]);
+  useEffect(() => {
+    if (prodStyles.length > 0) {
+      setCurrentStyleId(prodStyles[0].style_id);
+    }
+  }, [prodStyles]);
 
-  return (
+  useEffect(() => {
+    prodStyles.forEach((style) => {
+      if (style.style_id === currentStyleId) {
+        setCurrentStyle(style);
+      }
+    })
+  }, [currentStyleId]);
+
+  const value = useMemo(() => ({
+    prodDetails, prodStyles, currentStyleId, setCurrentStyleId, currentStyle, setCurrentStyle,
+  }), [prodDetails, prodStyles, currentStyleId, setCurrentStyleId, currentStyle, setCurrentStyle]);
+
+  return !prodDetails && !prodStyles && !currentStyleId && !currentStyle ? null : (
     <OverviewContext.Provider value={value}>
       {children}
     </OverviewContext.Provider>
