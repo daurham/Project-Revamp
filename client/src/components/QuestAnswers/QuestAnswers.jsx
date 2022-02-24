@@ -19,7 +19,7 @@ function QuestAnswers() {
 
   useEffect(() => {
   }, [productId]); // should auto update when id changes.
-
+  console.log('am i rerendering from questionAnswers?');
   return !questions ? <SpinnerContainer><Spinner /></SpinnerContainer> : (
     <div>
       <button style={{ backgroundColor: 'orange' }} type="button" onClick={updateID}> Get Another Product ID {productId} </button>

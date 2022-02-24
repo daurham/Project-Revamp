@@ -44,6 +44,7 @@ function SearchBar() {
   }, [input]);
 
   useEffect(() => {
+    console.log('am i rerendering from searchbar?');
     setInput('');
   }, [productId]);
 

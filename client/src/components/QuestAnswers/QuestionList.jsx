@@ -17,26 +17,32 @@ function QuestionList() {
   const filteredList = [];
   const { productId } = useData();
   const { questions, setQuestions, searchResults } = useQAData();
-  const [loadLimit, updateLoadLimit] = useState(2);
+  // let loadLimit = 4;
+  const [loadLimit, updateLoadLimit] = useState(4);
 
   // modal input:
   const [modal, setModal] = useState(false);
-  const [input, setInput] = useState('');
-  const [userName, setUserName] = useState('');
-  const [userEmail, setUserEmail] = useState('');
+  // let modal = false;
+  // const [input, setInput] = useState('');
+  let input = '';
+  // const [userName, setUserName] = useState('');
+  let userName = '';
+  // const [userEmail, setUserEmail] = useState('');
+  let userEmail = '';
   const [attachment, setAttachment] = useState();
   const [post, setPost] = useState(false);
   const [collapsed, setCollapsed] = useState(true);
+  let isCollapsed = true;
   let noResults = true;
+  let test = true;
 
-  // only allow 4 questions at a time.
   function renderList() {
     searchResults.sort((a, b) => (a.question_helpfulness < b.question_helpfulness
-      ? 1 : -1)); // sort by helpfulness
+      ? 1 : -1));
     if (searchResults && searchResults.length > 0) {
       noResults = false;
       for (let i = 0; i < loadLimit; i += 1) {
-        if (searchResults[i]) { // if truthy
+        if (searchResults[i]) {
           filteredList.push(searchResults[i]);
         }
       }
@@ -48,24 +54,31 @@ function QuestionList() {
   }
 
   function toggleQuestionAccordian() {
-    updateLoadLimit(loadLimit === 4 ? searchResults.length : 4);
+    updateLoadLimit(loadLimit === 4 ? searchResults.length - 1 : 4);
+    // loadLimit = loadLimit === 4 ? searchResults.length - 1 : 4;
+    isCollapsed = !isCollapsed;
     setCollapsed(!collapsed);
   }
 
   function toggleModal() {
     setModal(!modal);
+    // modal = !modal;
+    console.log('attempt modal');
   }
-
   function handleInput(e) {
-    setInput(e.target.value);
+    console.log('typing on modal body');
+    // setInput(e.target.value);
+    input = e.target.value;
   }
 
   function handleUserName(e) {
-    setUserName(e.target.value);
+    // setUserName(e.target.value);
+    userName = e.target.value;
   }
 
   function handleUserEmail(e) {
-    setUserEmail(e.target.value);
+    // setUserEmail(e.target.value);
+    userEmail = e.target.value;
   }
 
   function handleSubmit() {
@@ -87,17 +100,17 @@ function QuestionList() {
   }
 
   useEffect(() => {
-    renderList();
+    console.log('am i rerendering from prodId?');
+    // renderList();
     updateLoadLimit(4); // restores the limit after each item selected
+    // loadLimit = 4;
+    isCollapsed = true;
     setCollapsed(true);
   }, [productId]);
 
-  useEffect(() => {
-    renderList();
-  }, [searchResults]);
-
   return (
-    <div>
+    <div className="testname">
+      {/* <p className="ptest">test</p> */}
       <QuestionListContainer>
         {noResults ? (<NoQuestions>No Questions</NoQuestions>) : filteredList.map((question) => (
           <div
