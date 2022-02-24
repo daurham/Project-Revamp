@@ -28,7 +28,6 @@ function SearchBar() {
         }
         return false;
       });
-      console.log('q: should be full ', questions);
       setSearchResults(filteredSearchResults);
     }
   }
@@ -44,7 +43,6 @@ function SearchBar() {
   }, [input]);
 
   useEffect(() => {
-    console.log('am i rerendering from searchbar?');
     setInput('');
   }, [productId]);
 
