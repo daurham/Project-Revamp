@@ -4,14 +4,13 @@ import axios from 'axios';
 import { useData } from '../SharedContexts/DataProvider';
 import { useRatingData } from '../SharedContexts/RatingProvider';
 
-function StarsRating({ value, productId, showAverage, relatedProduct, currentProduct }) {
+function StarsRating({ value, productId, showAverage, relatedProduct, currentProduct}) {
   let metaOutside;
-  if (currentProduct) {
+  if (currentProduct || value) {
     const { meta } = useRatingData();
     metaOutside = meta;
   }
   const [results, setResults] = useState(null);
-  // console.log('meta', meta)
   const [average, setAverage] = useState(0);
 
   // ----- Austin's copy pasta ----
@@ -26,13 +25,17 @@ function StarsRating({ value, productId, showAverage, relatedProduct, currentPro
     }, [productId]);
   }
 
-  // console.log('meta', metaOutside)
-
   if (currentProduct) {
-    // console.log('meta in if b4 useEff', metaOutside)
     useEffect(() => {
       if (metaOutside && typeof metaOutside === 'object') {
         setResults(metaOutside.ratings)
+      }
+    }, [metaOutside])
+  }
+  if (value) {
+    useEffect(() => {
+      if (metaOutside && typeof metaOutside === 'object') {
+        setAverage(value * 20)
       }
     }, [metaOutside])
   }
@@ -42,7 +45,6 @@ function StarsRating({ value, productId, showAverage, relatedProduct, currentPro
       const entries = Object.entries(results);
       let total = 0;
       let submits = 0;
-      // eslint-disable-next-line no-restricted-syntax
       for (let [key, val] of entries) {
         key = Number(key);
         val = Number(val);
@@ -56,9 +58,8 @@ function StarsRating({ value, productId, showAverage, relatedProduct, currentPro
     }
   }
   const percent = useMemo(() => calcPercent(), [results]);
-
   const styleStar = {
-    width: `${percent}%`,
+    width: value ? `${average}%` : `${percent}%`,
   };
 
   const StarRatingContainer = styled.div`
@@ -74,32 +75,32 @@ function StarsRating({ value, productId, showAverage, relatedProduct, currentPro
 `;
 
   return (
-    <Container>
-      {showAverage ? <h1>{average}</h1> : null}
-      <StarRatingContainer>
-        <StarRatingTop style={styleStar}>
-          <span>★</span>
-          <span>★</span>
-          <span>★</span>
-          <span>★</span>
-          <span>★</span>
-        </StarRatingTop>
-        <StarRatingBottom>
-          <span>★</span>
-          <span>★</span>
-          <span>★</span>
-          <span>★</span>
-          <span>★</span>
-        </StarRatingBottom>
-      </StarRatingContainer>
-    </Container>
-  );
+    <>
+      <Container>
+      <Average>{showAverage ? <h1>{average}</h1> : null}</Average>
+        <StarRatingContainer>
+          <StarRatingTop style={styleStar}><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></StarRatingTop>
+          <StarRatingBottom><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></StarRatingBottom>
+        </StarRatingContainer>
+      </Container>
+    </>
+  )
 }
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+  display: grid;
+`
+const StarRatingContainer = styled.div`
+  z-index: 0;
+  unicode-bidi: bidi-override;
+  color: #363636bf;
+  width: max-width;
+
+  margin: 0 auto;
+  position: relative;
+  padding: 0;
+  text-shadow: 0px 1px 0 #a2a2a2;
+`
 const StarRatingTop = styled.div`
   color: #f1e312;
   padding: 0;
@@ -109,11 +110,16 @@ const StarRatingTop = styled.div`
   top: 0;
   left: 0;
   overflow: hidden;
-`;
+`
+
 const StarRatingBottom = styled.div`
   padding: 0;
   display: block;
   z-index: 0;
-`;
-
+`
+const Average = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 export default StarsRating;

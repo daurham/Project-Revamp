@@ -11,6 +11,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(express.static(DIST_DIR));
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json());
 
 const headers = { Authorization };
 const config = { headers };
@@ -95,6 +97,33 @@ app.get('/reviews/meta', (req, res) => {
     .catch(() => { res.sendStatus(500); });
 });
 
+app.post('/reviews', (req, res) => {
+  postConfig = {
+    headers: {
+      Authorization,
+      'Content-Type': 'application/json'
+    }
+  }
+
+  axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews', JSON.stringify(req.body), postConfig)
+    .then((result) => {
+      res.send(result.data);
+    })
+    .catch((error) => {res.sendStatus(500)});
+});
+
+app.put('/reviews/:review_id/helpful', (req, res) => {
+  console.log(req.params.review_id)
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/${req.params.review_id}/helpful`, null, config)
+  .then((result) => {
+    res.send(result.data)
+  })
+  .catch((error) => {res.sendStatus(500)})
+});
+// app.get('/questions', (req, res) => {
+//   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions', params)
+//     .then((result) => { res.send(result.data); });
+// });
 // Questions / Answers
 // get questions(productId)
 app.get('/questions/:id', (req, res) => {

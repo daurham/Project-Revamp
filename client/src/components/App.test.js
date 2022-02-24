@@ -5,7 +5,6 @@ import React from 'react';
 import { render, screen } from "@testing-library/react";
 import App from './App';
 // import RatingsReviews from './RatingsReviews/RatingsReviews';
-import RelatedItems from './RelatedItems/RelatedItems';
 import DataProvider from './SharedContexts/DataProvider';
 // import DataProvider from './SharedContexts/DataProvider'
 // import RatingsReviews from './RatingsReviews/RatingsReviews';
