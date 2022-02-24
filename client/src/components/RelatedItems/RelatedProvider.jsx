@@ -24,11 +24,9 @@ function RelatedProvider({ children }) {
       .then((result1) => {
         result1.data.forEach((item) => {
           axios.get(`/products/${item}/relatedinfo`)
-          // .then((result2) => setRelatedItemsInfo((prevItems) => prevItems.concat(result2.data)));
             .then((result2) => setRelatedItemsInfo((prevItems) => [...prevItems, ...result2.data]));
         });
       });
-    // return () => (setRelatedItemsInfo([]));
     return setRelatedItemsInfo([]);
   }, [productId]);
 

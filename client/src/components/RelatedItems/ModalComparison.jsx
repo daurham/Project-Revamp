@@ -1,7 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
-import modalcss from './Modal.css';
-import { ModalColumnCenter, ModalColumnLeft, ModalColumnRight, ModalRow } from './RelatedItemsCSS';
+import {
+  ModalColumnCenter, ModalColumnLeft, ModalColumnRight, ModalRow,
+} from './RelatedItemsCSS';
 import { useRelated } from './RelatedProvider';
 
 function ModalComparison(props) {
@@ -47,4 +47,3 @@ function ModalComparison(props) {
 }
 
 export default ModalComparison;
-

@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useData } from '../SharedContexts/DataProvider';
 import RemoveOutfit from './RemoveOutfit';
-import css from './Carousel.css';
 import StarsRating from '../SharedComponents/StarRating';
 import AddOutfit from './AddOutfit';
 import CompareButton from './CompareButton';
-import { MedText, SmText } from './RelatedItemsCSS';
+import { CardContainer, MedText, SmText } from './RelatedItemsCSS';
 
 function Cards(props) {
   const { item } = props;
@@ -32,9 +31,13 @@ function Cards(props) {
   if (item.sale_price) {
     price = (
       <>
-        <div className={css.saleprice}>{`$${item.sale_price}`}</div>
+        <SalePrice>
+          {`$${item.sale_price}`}
+        </SalePrice>
         &nbsp;
-        <div className={css.originalPriceStriked}>{`$${item.original_price}`}</div>
+        <StrikedPrice>
+          {`$${item.original_price}`}
+        </StrikedPrice>
       </>
     );
   } else {
@@ -91,7 +94,10 @@ const CardInfoContainer = styled.div`
   box-shadow: rgb(0 0 0 / 12%) 4px 4px 4px 0px;
 `;
 
-export const CardContainer = styled.div`
-  padding: 8px;
-  width: 230px;
+const SalePrice = styled.div`
+  color: red;
+`;
+
+const StrikedPrice = styled.div`
+  text-decoration: line-through;
 `;

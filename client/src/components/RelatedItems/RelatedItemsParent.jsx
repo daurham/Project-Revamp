@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Carousel from './Carousel';
 import Modal from './Modal';
 import { useRelated } from './RelatedProvider';
 import { useOverview } from '../SharedContexts/OverviewProvider';
 import ModalComparison from './ModalComparison';
-import { ModalColumnCenter, ModalColumnLeft, ModalColumnRight, ModalFeatureRow, ModalImageRight, ModalRow } from './RelatedItemsCSS';
+import {
+  ModalColumnCenter, ModalColumnLeft, ModalColumnRight, ModalRow,
+} from './RelatedItemsCSS';
 
 function RelatedItemsParent() {
   const { showModal, setShowModal } = useRelated();
@@ -85,4 +87,24 @@ const ModalHeader = styled.div`
   font-size: 20px;
 `;
 
+const ModalFeatureRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-bottom: 5px;
+  border-bottom: solid;
+  border-width: thin;
+  font-weight: 400;
+  font-size: 15px;
+  align-items: flex-end;
+  margin-bottom: 5px;
+`;
 
+const ModalImageRight = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-basis: 100%;
+  flex: 10;
+  padding-left: 30px;
+`;

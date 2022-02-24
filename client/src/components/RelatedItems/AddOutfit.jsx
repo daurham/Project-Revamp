@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useRelated } from './RelatedProvider';
 import { useOverview } from '../SharedContexts/OverviewProvider';
-import { CardContainer } from './Cards';
+import { CardContainer } from './RelatedItemsCSS';
 
 function AddOutfitCard(props) {
   const { setLocalData } = useRelated();
@@ -50,7 +50,6 @@ function AddOutfitCard(props) {
       <div>
         <CardContainer>
           <AddCardContainer>
-
             <AddCard>
               <div>Add To</div>
               <div>Outfit</div>
@@ -59,8 +58,6 @@ function AddOutfitCard(props) {
               </AddOutfitButton>
             </AddCard>
           </AddCardContainer>
-
-
         </CardContainer>
       </div>
     );

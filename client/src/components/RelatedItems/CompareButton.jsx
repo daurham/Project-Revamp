@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useRelated } from './RelatedProvider';
-// import appcss from '../App.css';
 
 function CompareButton(props) {
   const { item } = props;
-  const { showModal, setShowModal } = useRelated();
-  const { modalData, setModalData } = useRelated();
+  const { setShowModal } = useRelated();
+  const { setModalData } = useRelated();
 
   function onButtonClick() {
     setModalData(item);

@@ -10,6 +10,11 @@ export const SmText = styled.div`
   font-weight: 200;
 `;
 
+export const CardContainer = styled.div`
+  padding: 8px;
+  width: 230px;
+`;
+
 export const ModalRow = styled.div`
   display: flex;
   flex-direction: row;
@@ -41,26 +46,4 @@ export const ModalColumnCenter = styled.div`
   align-items: center;
   flex-basis: 100%;
   flex: 1;
-`;
-
-export const ModalFeatureRow = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  padding-bottom: 5px;
-  border-bottom: solid;
-  border-width: thin;
-  font-weight: 400;
-  font-size: 15px;
-  align-items: flex-end;
-  margin-bottom: 5px;
-`;
-
-export const ModalImageRight = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex-basis: 100%;
-  flex: 10;
-  padding-left: 30px;
 `;
