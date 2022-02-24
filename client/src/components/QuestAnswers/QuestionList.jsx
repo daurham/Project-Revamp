@@ -66,6 +66,7 @@ function QuestionList() {
     console.log('attempt modal');
   }
   function handleInput(e) {
+    e.preventDefault();
     console.log('typing on modal body');
     // setInput(e.target.value);
     input = e.target.value;
@@ -149,32 +150,32 @@ function QuestionList() {
           {!post
             ? (
               <div>
-                <h2>Ask A Question</h2>
+                <LModalHeader>Ask A Question</LModalHeader>
 
                 <form>
                   <ModalTextarea
                     placeholder="What do you want to ask other buyers?"
                     onChange={handleInput}
                   />
-                  <span>
-                    <input
+                  <LModalBottomSpan>
+                    <LModalBottomInput
                       type="text"
                       onChange={handleUserName}
                       placeholder="Name"
                     />
-                    <input
+                    <LModalBottomInput
                       type="text"
                       onChange={handleUserEmail}
                       placeholder="Email"
                     />
-                  </span>
+                  </LModalBottomSpan>
                 </form>
-                <button
+                <SmButton
                   onClick={handleSubmit}
                   type="button"
                 >
                   Submit
-                </button>
+                </SmButton>
               </div>
             )
             : (
@@ -221,4 +222,19 @@ const ModalTextarea = styled.textarea`
   resize: none;
   width: 90%;
   height: 90%;
+  min-height: 75px
+`;
+
+const LModalHeader = styled.h2`
+  margin: 0px;
+`;
+
+const LModalBottomSpan = styled.span`
+  display: flex;
+  justify-content: space-evenly;
+  margin: 0px;
+`;
+
+const LModalBottomInput = styled.input`
+  border: light-grey;
 `;
