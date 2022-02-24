@@ -5,8 +5,9 @@ import QuestAnswers from './QuestAnswers/QuestAnswers';
 import RatingsReviews from './RatingsReviews/RatingsReviews';
 import DataProvider, { useData } from './SharedContexts/DataProvider';
 import OverviewProvider from './SharedContexts/OverviewProvider';
-import styled from 'styled-components';
+import QuestionProvider from './QuestAnswers/QA - Context/DataProvider';
 import GlobalStyle from './GlobalStyle';
+import styled from 'styled-components';
 
 function App() {
   const { productId } = useData();
@@ -20,8 +21,10 @@ function App() {
             <Overview />
             <RelatedItems />
           </OverviewProvider>
-          <QuestAnswers />
-          {/* <RatingsReviews /> */}
+          <QuestionProvider>
+            <QuestAnswers />
+          </QuestionProvider>
+          <RatingsReviews />
           </AppStyle>
         </DataProvider>
       ) : (<div>loading</div>)}
