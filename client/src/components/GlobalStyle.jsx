@@ -30,6 +30,7 @@ const GlobalStyle = {
     background-color: rgb(255, 255, 255);
     color: black;
     box-sizing: content-box;
+    font-size: para_md;
   `,
 }
 

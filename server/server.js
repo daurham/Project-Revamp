@@ -62,16 +62,12 @@ app.post('/reviews', (req, res) => {
       'Content-Type': 'application/json'
     }
   }
-  console.log('post config',postConfig);
-  console.log('req body from post server',req.body);
-  // console.log(JSON.stringify(req.body));
 
   axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews', JSON.stringify(req.body), postConfig)
     .then((result) => {
-      console.log("post review WORKED server");
       res.send(result.data);
     })
-    .catch((error) => {res.send(error)});
+    .catch((error) => {res.sendStatus(500)});
 });
 
 app.put('/reviews/:review_id/helpful', (req, res) => {
@@ -80,10 +76,7 @@ app.put('/reviews/:review_id/helpful', (req, res) => {
   .then((result) => {
     res.send(result.data)
   })
-  .catch((error) => {
-    console.error(error.status)
-    console.error(error.message)
-  })
+  .catch((error) => {res.sendStatus(500)})
 });
 // app.get('/questions', (req, res) => {
 //   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions', params)

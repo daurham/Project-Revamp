@@ -18,12 +18,18 @@ function RatingProvider({ children }) {
   const [meta, setMeta] = useState(null);
   const [filterRating, setFilterRating] = useState(null);
 
-  console.log(filterRating, 'filter rating from provider')
+  // console.log(filterRating, 'filter rating from provider')
   function getReviews() {
     const query_params = {product_id: productId, count: 100, sort: "newest"}
     axios.get('/reviews', {params: query_params})
     .then((response) => setReviews(response.data))
     .catch((error)=>{console.log('get error',error)});
+  }
+  function sortReviews(sortParam) {
+    const query_params = {product_id: productId, count: 30, sort: sortParam}
+    axios.get('/reviews', {params: query_params})
+    .then((response) => setReviews(response.data))
+    .catch((error)=>{console.log('get error from sort',error)});
   }
 
   function addReviews(review) {
@@ -35,7 +41,6 @@ function RatingProvider({ children }) {
   }
 
   function updateHelpful(review_id) {
-    // const query_params = {review_id: reviewId}
     axios.put(`/reviews/${review_id}/helpful`)
     .then((response) => {
       getReviews(productId)
@@ -59,7 +64,7 @@ function RatingProvider({ children }) {
   }, [productId])
 
   const value = useMemo(() => ({
-    reviews, meta, getReviews, addReviews, updateHelpful, filterRatingFunc
+    reviews, meta, getReviews, addReviews, updateHelpful, filterRatingFunc, sortReviews
   }), [reviews, meta]);
 
   return reviews, meta ? (

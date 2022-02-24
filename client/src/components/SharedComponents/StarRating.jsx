@@ -5,8 +5,11 @@ import styled from 'styled-components';
 import axios from 'axios';
 
 function StarsRating({ value, productId, showAverage, relatedProduct, currentProduct}) {
-
-  const { reviews, getReviews, meta } = useRatingData()
+  let metaOutside;
+  if (currentProduct || value) {
+    const { meta } = useRatingData();
+    metaOutside = meta;
+  }
   const [results, setResults] = useState(null);
   const [average, setAverage] = useState(0);
 
@@ -24,17 +27,17 @@ function StarsRating({ value, productId, showAverage, relatedProduct, currentPro
 
   if (currentProduct) {
     useEffect(() => {
-      if (meta && typeof meta === 'object') {
-        setResults(meta.ratings)
+      if (metaOutside && typeof metaOutside === 'object') {
+        setResults(metaOutside.ratings)
       }
-    }, [meta])
+    }, [metaOutside])
   }
   if (value) {
     useEffect(() => {
-      if (meta && typeof meta === 'object') {
+      if (metaOutside && typeof metaOutside === 'object') {
         setAverage(value * 20)
       }
-    }, [meta])
+    }, [metaOutside])
   }
 
   function calcPercent() {

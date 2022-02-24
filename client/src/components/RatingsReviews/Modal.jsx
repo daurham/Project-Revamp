@@ -50,19 +50,6 @@ const ModalContent = styled.div`
   text-align: center;
 
 `
-// const ModalActions = styled.div`
-//   position: absolute;
-//   bottom: 2px;
-//   margin-bottom: 10px;
-//   width: 100%;
-// `
-// const ActionsContainer = styled.div`
-//   display: flex;
-//   justify-content: space-around;
-//   align-items: center;
-//   margin: auto;
-// `
-
 const CloseBtn = styled.button`
   margin-top: 10px;
   cursor: pointer;

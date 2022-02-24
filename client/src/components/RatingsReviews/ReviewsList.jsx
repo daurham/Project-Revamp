@@ -21,7 +21,7 @@ function ReviewsList({review}) {
   }
   return (
     <SingleReview>
-      <StarRating value={review.rating} />
+      <Star><StarRating value={review.rating} /></Star>
       <ReviewerName>{review.reviewer_name}</ReviewerName>
       <DateStyle>{americanDate}</DateStyle>
       <TitleStyle>{review.summary}</TitleStyle>
@@ -36,17 +36,22 @@ const SingleReview = styled.div`
   border-bottom: solid 1px;
   margin: 2px;
   padding: 20px;
-  grid-template-columns: 120px 120px;
+  width: 550px;
+  // grid-template-columns: 120px 120px;
+  grid-template-columns: 1fr fit-content(10%);
   grid-template-rows: auto;
   grid-template-areas:
-    ". . reviewer date"
-    "title title title title"
-    "review review review review"
+    "star . reviewer date"
+    "title title title . "
+    "review review review . "
     "recommend recommend helpful helpful"
 `
 const TitleStyle = styled.h1`
   ${GlobalStyle.sub_title};
   grid-area: title;
+`
+const Star = styled.span`
+  justify-self: start
 `
 const Helpful = styled.p`
   ${GlobalStyle.para_sm};
@@ -55,8 +60,9 @@ const Helpful = styled.p`
 `
 const ReviewBody = styled.p`
   ${GlobalStyle.para_md};
-  flex-grow: 4;
+  // flex-grow: 4;
   grid-area: review;
+  grid-template-columns: fit-content(40%);
 `
 const Recommend = styled.p`
   ${GlobalStyle.para_sm};

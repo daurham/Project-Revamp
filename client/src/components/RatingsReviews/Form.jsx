@@ -22,7 +22,6 @@ function Form() {
   });
 
   const handleAddForm = (e) => {
-    // e.preventDefault();
     addReviews(formData);
   }
   const handleChange = (e) => {
@@ -217,11 +216,4 @@ const Required = styled.span`
   display:inline;
   padding-right: 5px;
 `
-// const StarWrapper = styled.div`
-//   top: 50%;
-//   left: 50%;
-//   transform: translate(-50%, -50%);
-//   position: absolute;
-//   direction: rtl;
-// `
 export default Form;
