@@ -19,6 +19,7 @@ function QuestionProvider({ children }) {
     axios.get(`/questions/${productId}`)
       .then((result) => {
         setQuestions(result.data.results);
+        setSearchResults(result.data.results);
       })
       .catch((err) => console.log(err));
   }
@@ -26,7 +27,7 @@ function QuestionProvider({ children }) {
   useEffect(() => {
     getQuestions();
   }, [productId]); // should auto update when id changes.
-
+  // console.log('am i rerendering from DataProvider?');
   const value = useMemo(() => ({
     questions, searchResults, setSearchResults, setQuestions, getQuestions,
   }), [questions, searchResults]);

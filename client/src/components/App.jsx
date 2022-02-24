@@ -5,7 +5,7 @@ import QuestAnswers from './QuestAnswers/QuestAnswers';
 import RatingsReviews from './RatingsReviews/RatingsReviews';
 import DataProvider, { useData } from './SharedContexts/DataProvider';
 import OverviewProvider from './SharedContexts/OverviewProvider';
-import QuestionProvider from './QuestAnswers/QA - Context/DataProvider';
+import QuestionProvider from './QuestAnswers/QAContext/DataProvider';
 import GlobalStyle from './GlobalStyle';
 import styled from 'styled-components';
 
@@ -13,7 +13,7 @@ function App() {
   // const { productId } = useData();
 
   return (
-    <>
+    <div>
       {/* {productId ? ( */}
         <DataProvider>
           <AppStyle>
@@ -28,7 +28,7 @@ function App() {
           </AppStyle>
         </DataProvider>
      {/* ) : (<div>loading</div>)} */}
-    </>
+    </div>
   );
 }
 
@@ -36,4 +36,4 @@ export default App;
 
 const AppStyle = styled.div`
  ${GlobalStyle.body}
-`
+`;

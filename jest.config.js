@@ -7,5 +7,3 @@ setupFilesAfterEnv: ['<rootDir>/jest-setup.js']
 //     ".+\\.(css|styl|less|sass|scss)$": "jest-transform-css"
 //   }
 // }
-
-
