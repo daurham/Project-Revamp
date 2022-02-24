@@ -1,104 +1,114 @@
-import React, {
-  useState, useMemo, useContext, useEffect,
-} from 'react';
+import React from 'react';
 import styled from 'styled-components';
+import {
+  FaInstagram, FaFacebookF, FaTwitter, FaPinterestP,
+} from 'react-icons/fa';
 import GlobalStyle from '../GlobalStyle';
 import ImageGallery from './ImageGallery/ImageGallery';
 import ProductDetail from './ProductDetail';
 import StyleSelector from './StyleSelector/StyleSelector';
-import Test from './Test';
+// import Test from './Test';
 import Cart from './Cart';
 import OverviewProvider, { useOverview } from '../SharedContexts/OverviewProvider';
 
 function Overview() {
   const { prodDetails } = useOverview();
-  const { prodStyles } = useOverview();
-  const { currentStyleId, setCurrentStyleId } = useOverview();
-  const { currentStyle, setCurrentStyle } = useOverview();
+  // const { prodStyles } = useOverview();
+  // const { currentStyleId } = useOverview();
+  // const { currentStyle } = useOverview();
 
-  // console.log('prodDetails', prodDetails);
-  // console.log('prodStyles', prodStyles)
-  // console.log('currentStyleID', currentStyleId)
-  // console.log('currentStyle', currentStyle)
+  // console.log('prodD', prodDetails)
+  // console.log('prodS', prodStyles)
+  // console.log('ID', currentStyleId)
+  // console.log('Styles', currentStyle)
 
-  // useEffect(() => {
-  //   if (prodStyles.length > 0) {
-  //     setCurrentStyleId(prodStyles[0].style_id);
-  //   }
-  // }, [prodStyles]);
-
-  // useEffect(() => {
-  //   prodStyles.forEach((style) => {
-  //     if (style.style_id === currentStyleId) {
-  //       setCurrentStyle(style);
-  //     }
-  //   })
-  // }, [currentStyleId]);
-
-  // function toSetCurrentStyleId(newId) {
-  //   setCurrentStyleId(newId)
-  // }
+  if (Object.keys(prodDetails).length === 0) {
+    return null;
+  }
 
   return (
-    <>
-      {/* <Test /> */}
-      <div className="Overview">
-        {prodDetails && prodStyles && currentStyle && currentStyleId ? (
-          <Container>
-            <OverviewProvider>
-              <ImageGalleryContainer>
-                <ImageGallery />
-              </ImageGalleryContainer>
+    <div className="Overview">
+      {prodDetails ? (
+        <Container>
+          <OverviewProvider>
+            <ImageGalleryContainer>
+              <ImageGallery />
+            </ImageGalleryContainer>
 
-              <ProductDetailsContainer>
-                <ProductDetail />
-              </ProductDetailsContainer>
+            <ProductDetailsContainer>
+              <ProductDetail />
+            </ProductDetailsContainer>
 
-              <StyleSelectorContainer>
-                <StyleSelector />
-              </StyleSelectorContainer>
+            <StyleSelectorContainer>
+              <StyleSelector />
+            </StyleSelectorContainer>
 
-              <CartContainer>
-                <Cart />
-              </CartContainer>
+            <CartContainer>
+              <Cart />
+              <a href="https://www.instagram.com">
+                <FaInstagram
+                  className="instagram"
+                  style={{
+                    margin: '10px', height: '20px', width: '20px', color: 'black',
+                  }}
+                />
+              </a>
+              <a href="https://www.facebook.com">
+                <FaFacebookF style={{
+                  margin: '10px', height: '20px', width: '20px', color: 'black',
+                }}
+                />
+              </a>
+              <a href="https://www.twitter.com">
+                <FaTwitter style={{
+                  margin: '10px', height: '20px', width: '20px', color: 'black',
+                }}
+                />
+              </a>
+              <a href="https://www.pinterest.com">
+                <FaPinterestP style={{
+                  margin: '10px', height: '20px', width: '20px', color: 'black',
+                }}
+                />
+              </a>
+            </CartContainer>
 
-              <ProductDescriptionContainer>
-                <DesriptionHead>Product Description</DesriptionHead>
-                <Row>
-                  <Column>
-                    <DesTitle>Description</DesTitle>
-                  </Column>
-                  <Column>
-                    <DesTitle>Features</DesTitle>
-                  </Column>
-                </Row>
+            <ProductDescriptionContainer>
+              <DesriptionHead>Product Description</DesriptionHead>
+              <Row>
+                <Column>
+                  <DesTitle>Description</DesTitle>
+                </Column>
+                <Column>
+                  <DesTitle>Features</DesTitle>
+                </Column>
+              </Row>
 
-                <Row>
-                  <Column>
-                    <DescriptionBody>
-                      <p>{prodDetails.description}</p>
-                    </DescriptionBody>
-                  </Column>
-                  <Column>
-                    <DescriptionBody>
-                      {(prodDetails.features.map((feature1, index) => (
-                        <List>
-                          <li>
-                            {`${feature1.feature} :
+              <Row>
+                <Column>
+                  <DescriptionBody>
+                    <p>{prodDetails.description}</p>
+                  </DescriptionBody>
+                </Column>
+                <Column>
+                  <DescriptionBody>
+                    {(prodDetails.features.map((feature1, index) => (
+                      <List key={index}>
+                        <li>
+                          {`${feature1.feature} :
                         ${feature1.value}`}
-                          </li>
-                        </List>
-                      )))}
-                    </DescriptionBody>
-                  </Column>
-                </Row>
-              </ProductDescriptionContainer>
+                        </li>
+                      </List>
+                    )))}
+                  </DescriptionBody>
+                </Column>
+              </Row>
+            </ProductDescriptionContainer>
 
-            </OverviewProvider>
-          </Container>
-        ) : (<div>loading</div>)}
-      </div>
-    </>
+          </OverviewProvider>
+        </Container>
+      ) : (<div>loading</div>)}
+    </div>
   );
 }
 
@@ -133,6 +143,7 @@ const DesTitle = styled.h3`
 
 const DescriptionBody = styled.div`
   ${GlobalStyle.para_md};
+  margin-right: 20px;
 `;
 
 const List = styled.ul`
@@ -146,7 +157,7 @@ const Container = styled.div`
   grid-template-columns: 50% 50%;
   grid-template-rows: [row1-start] 200px
   [row1-end] 200px
-  [third-line] 200px
+  [third-line] 250px
   [fourth-line] 200px
   [last-line];
 `;
@@ -177,7 +188,7 @@ const CartContainer = styled.div`
 
 const ProductDescriptionContainer = styled.div`
   grid-column-start: 1;
-  grid-column-end: end;
+  grid-column-end: 3;
   grid-row-start: 4;
 `;
 

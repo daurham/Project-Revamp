@@ -37,8 +37,7 @@ function ProductDetail() {
     </div>
   );
 }
-// prodStyles.length === 0 ? null :
-// Object.keys(objKey).length === 0
+
 export default ProductDetail;
 
 const Title = styled.h1`

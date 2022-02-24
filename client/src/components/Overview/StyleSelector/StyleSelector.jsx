@@ -1,12 +1,10 @@
-import React, {
-  useState, useMemo, useContext, useEffect,
-} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import GlobalStyle from '../../GlobalStyle';
 import { useOverview } from '../../SharedContexts/OverviewProvider';
 import Style from './Style';
 
-function StyleSelector(props) {
+function StyleSelector() {
   const { prodStyles } = useOverview();
   const { currentStyle } = useOverview();
   // console.log(props)
@@ -24,12 +22,10 @@ function StyleSelector(props) {
             <Style eachStyle={eachStyle} id={eachStyle.style_id} key={index} />),
         )}
       </Selectors>
-
     </div>
   );
 }
-// prodStyles.length === 0 ? null :
-// Object.keys(objKey).length === 0
+
 export default StyleSelector;
 
 const Title = styled.h2`

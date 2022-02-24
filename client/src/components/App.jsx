@@ -9,11 +9,11 @@ import styled from 'styled-components';
 import GlobalStyle from './GlobalStyle';
 
 function App() {
-  // const { productId } = useData();
+  const { productId } = useData();
 
   return (
     <>
-      {/* {productId ? ( */}
+      {productId ? (
         <DataProvider>
           <AppStyle>
           <OverviewProvider>
@@ -24,7 +24,7 @@ function App() {
           {/* <RatingsReviews /> */}
           </AppStyle>
         </DataProvider>
-     {/* ) : (<div>loading</div>)} */}
+      ) : (<div>loading</div>)}
     </>
   );
 }
