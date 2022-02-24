@@ -1,7 +1,6 @@
 import React, {
   useState, useMemo, useContext, useEffect,
 } from 'react';
-// import custom hook created on line 9 of DataProvider
 import axios from 'axios';
 import { useData } from './DataProvider';
 
@@ -23,9 +22,6 @@ function OverviewProvider({ children }) {
 
     axios.get(`/products/${productId}/styles`)
       .then((result2) => {
-        // result2.data.results.forEach((item) => {
-        //   setProdStyles((prevItems) => prevItems.concat(item));
-        // });
         setProdStyles(result2.data.results);
       });
   }, [productId]);

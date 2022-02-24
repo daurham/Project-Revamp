@@ -26,7 +26,7 @@ function DataProvider({ children }) {
   ), []);
 
   const value = useMemo(() => ({
-    productId, updateID,
+    productId, setProductId, updateID,
   }), [productId]);
 
   return !productId ? null : (
