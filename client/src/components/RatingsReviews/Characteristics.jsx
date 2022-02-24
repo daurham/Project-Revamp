@@ -10,7 +10,6 @@ function Characteristics({ meta, metaIds, sendCharacteristics }) {
     const tempArr = []
     for (const key in meta.characteristics) {
       tempArr.push(meta.characteristics[key]['id'])
-      // console.log(tempArr)
     }
     setIdArray([...idArray], tempArr)
   }

@@ -18,7 +18,7 @@ function ProgressBar(props) {
   }
 
   if (meta) {
-    console.log('META from progress', meta)
+    // console.log('META from progress', meta)
     recommended = calcPercent(meta, meta.recommended, 'recommended')
     calcPercent(meta, meta.ratings);
 

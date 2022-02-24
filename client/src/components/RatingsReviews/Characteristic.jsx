@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 
 function Characteristic({ character, id, sendCharacteristic }) {
   const [characteristic, setCharacteristic] = useState({});
@@ -25,11 +23,8 @@ function Characteristic({ character, id, sendCharacteristic }) {
             name={character}
             type="radio"
             value="1"
-
-            // defaultChecked={characteristic.size}
           onClick={handleChange}
           />
-
             1
           </label>
         <label>
@@ -37,10 +32,8 @@ function Characteristic({ character, id, sendCharacteristic }) {
             name={character}
             type="radio"
             value="2"
-            // defaultChecked={characteristic.size}
             onClick={handleChange}
           />
-
             2
           </label>
         <label>
@@ -48,7 +41,6 @@ function Characteristic({ character, id, sendCharacteristic }) {
             name={character}
             type="radio"
             value="3"
-            // defaultChecked={characteristic.size}
             onClick={handleChange}
           />
             3
@@ -58,7 +50,6 @@ function Characteristic({ character, id, sendCharacteristic }) {
             name={character}
             type="radio"
             value="4"
-            // defaultChecked={characteristic.size}
             onClick={handleChange}
           />
             4
@@ -68,7 +59,6 @@ function Characteristic({ character, id, sendCharacteristic }) {
             name={character}
             type="radio"
             value="5"
-            // defaultChecked={characteristic.size}
             onClick={handleChange}
           />
           5
@@ -101,7 +91,6 @@ const LabelStyle = styled.div`
 `
 const RadioButton = styled.input`
   cursor: pointer;
-
 `
 
 
