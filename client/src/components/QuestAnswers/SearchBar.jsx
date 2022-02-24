@@ -28,7 +28,7 @@ function SearchBar() {
         }
         return false;
       });
-      console.log('q: should be full ', questions);
+      // console.log('q: should be full ', questions);
       setSearchResults(filteredSearchResults);
     }
   }

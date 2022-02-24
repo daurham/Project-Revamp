@@ -34,7 +34,7 @@ function QuestionList() {
   const [collapsed, setCollapsed] = useState(true);
   let isCollapsed = true;
   let noResults = true;
-  let test = true;
+  // let test = true;
 
   function renderList() {
     searchResults.sort((a, b) => (a.question_helpfulness < b.question_helpfulness
@@ -100,7 +100,7 @@ function QuestionList() {
   }
 
   useEffect(() => {
-    console.log('am i rerendering from prodId?');
+    // console.log('am i rerendering from prodId?');
     // renderList();
     updateLoadLimit(4); // restores the limit after each item selected
     // loadLimit = 4;
