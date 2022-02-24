@@ -97,7 +97,6 @@ app.get('/reviews/meta', (req, res) => {
     .catch(() => { res.sendStatus(500); });
 });
 
-<<<<<<< HEAD
 app.post('/reviews', (req, res) => {
   postConfig = {
     headers: {
@@ -125,7 +124,6 @@ app.put('/reviews/:review_id/helpful', (req, res) => {
 //   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions', params)
 //     .then((result) => { res.send(result.data); });
 // });
-=======
 // Questions / Answers
 // get questions(productId)
 app.get('/questions/:id', (req, res) => {
@@ -231,7 +229,6 @@ app.put('/answers/:id/report', (req, res) => {
     .then(() => { res.sendStatus(204); })
     .catch((err) => { res.status(500).send(err); });
 });
->>>>>>> main
 
 // app.get('/user-cart', (req, res) => {
 //   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/cart', params)

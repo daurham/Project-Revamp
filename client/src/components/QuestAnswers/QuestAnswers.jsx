@@ -44,10 +44,9 @@ const TitleStyle = styled.h1`
   ${GlobalStyle.Title};
 `;
 
+// border: solid 2px rgb(238, 238, 238);
 const QAFlexContainer = styled.div`
   display: flex;
-  border: solid 2px rgb(238, 238, 238);
-  border: solid black 6px;
   justify-self: center;
   min-width: 90%;
   margin-left: 5%;
