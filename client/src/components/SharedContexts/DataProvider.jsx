@@ -12,8 +12,8 @@ export function useData() {
 function DataProvider({ children }) {
   const [productId, setProductId] = useState(null);
 
-  function updateID(id) {
-    setProductId(id);
+  function updateID() {
+    setProductId((id) => id + 1);
   }
 
   useEffect(() => (
@@ -26,10 +26,10 @@ function DataProvider({ children }) {
   ), []);
 
   const value = useMemo(() => ({
-    productId, updateID,
+    productId, setProductId, updateID,
   }), [productId]);
 
-  return !productId ? null :(
+  return !productId ? null : (
     <DataContext.Provider value={value}>
       {children}
     </DataContext.Provider>

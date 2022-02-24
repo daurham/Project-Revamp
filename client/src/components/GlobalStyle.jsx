@@ -1,5 +1,5 @@
 const GlobalStyle = {
-  title : `
+  title: `
   font-size: 30px;
   font-weight: 400;
   `,
@@ -32,6 +32,6 @@ const GlobalStyle = {
     box-sizing: content-box;
     font-size: para_md;
   `,
-}
+};
 
 export default GlobalStyle;

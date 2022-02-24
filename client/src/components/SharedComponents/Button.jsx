@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import GlobalStyle from '../GlobalStyle';
 
-function Button({label, handleClick}) {
+function Button({ label, handleClick }) {
   return (
     <>
     <ButtonStyled onClick={handleClick}>{label || 'add label'}</ButtonStyled>

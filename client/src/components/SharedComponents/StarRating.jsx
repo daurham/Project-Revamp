@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { useData } from '../SharedContexts/DataProvider';
-import { useRatingData } from '../SharedContexts/RatingProvider';
 import styled from 'styled-components';
 import axios from 'axios';
+import { useData } from '../SharedContexts/DataProvider';
+import { useRatingData } from '../SharedContexts/RatingProvider';
 
 function StarsRating({ value, productId, showAverage, relatedProduct, currentProduct}) {
   let metaOutside;
@@ -17,7 +17,7 @@ function StarsRating({ value, productId, showAverage, relatedProduct, currentPro
   if (relatedProduct) {
     useEffect(() => {
       const query = { product_id: relatedProduct };
-      axios.get('/reviews/meta', { params: query })
+      axios.get('/reviews/meta/ratings', { params: query })
         .then((response) => {
           setResults(response.data);
         });
@@ -45,7 +45,6 @@ function StarsRating({ value, productId, showAverage, relatedProduct, currentPro
       const entries = Object.entries(results);
       let total = 0;
       let submits = 0;
-      // eslint-disable-next-line no-restricted-syntax
       for (let [key, val] of entries) {
         key = Number(key);
         val = Number(val);
@@ -62,6 +61,18 @@ function StarsRating({ value, productId, showAverage, relatedProduct, currentPro
   const styleStar = {
     width: value ? `${average}%` : `${percent}%`,
   };
+
+  const StarRatingContainer = styled.div`
+  unicode-bidi: bidi-override;
+  color: #363636bf;
+  width: ${relatedProduct ? '75px' : 'max-width'};
+  font-size: ${relatedProduct && '15px'};
+  height: ${relatedProduct ? '15px' : 'auto'};
+  margin: ${!relatedProduct && '0 auto'};
+  position: relative;
+  padding: 0;
+  text-shadow: 0px 1px 0 #a2a2a2;
+`;
 
   return (
     <>
@@ -111,5 +122,4 @@ const Average = styled.div`
   justify-content: center;
   align-items: center;
 `
-
 export default StarsRating;

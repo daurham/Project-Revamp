@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 import { useRatingData } from '../SharedContexts/RatingProvider';
 import { useData } from '../SharedContexts/DataProvider';
 import ReviewsList from './ReviewsList';
 import Button from '../SharedComponents/Button';
-import styled from 'styled-components';
 import Modal from './Modal';
 
 function Reviews() {

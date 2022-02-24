@@ -1,11 +1,14 @@
 import React from 'react';
-// import Overview from './Overview/Overview';
+
+import Overview from './Overview/Overview';
 import RelatedItems from './RelatedItems/RelatedItems';
 import QuestAnswers from './QuestAnswers/QuestAnswers';
 import RatingsReviews from './RatingsReviews/RatingsReviews';
 import DataProvider, { useData } from './SharedContexts/DataProvider';
 import OverviewProvider from './SharedContexts/OverviewProvider';
-import styled from 'styled-components';
+import RelatedItemsParent from './RelatedItems/RelatedItemsParent';
+import RelatedProvider from './RelatedItems/RelatedProvider';
+import QuestionProvider from './QuestAnswers/QAContext/DataProvider';
 import GlobalStyle from './GlobalStyle';
 
 function App() {
@@ -17,8 +20,13 @@ function App() {
           <AppStyle>
           <OverviewProvider>
             <RelatedItems />
+            <RelatedProvider>
+              <RelatedItemsParent />
+            </RelatedProvider>
           </OverviewProvider>
-          <QuestAnswers />
+          <QuestionProvider>
+            <QuestAnswers />
+          </QuestionProvider>
           <RatingsReviews />
           </AppStyle>
         </DataProvider>
