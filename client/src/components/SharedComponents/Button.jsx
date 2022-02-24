@@ -4,8 +4,10 @@ import GlobalStyle from '../GlobalStyle';
 
 function Button({ label, handleClick }) {
   return (
-    <ButtonStyled onClick={handleClick}>{label || 'label'}</ButtonStyled>
-  );
+    <>
+    <ButtonStyled onClick={handleClick}>{label || 'add label'}</ButtonStyled>
+    </>
+  )
 }
 
 const ButtonStyled = styled.button`
@@ -15,8 +17,10 @@ const ButtonStyled = styled.button`
   box-shadow: 2px 2px 1px 2px #8888;
   min-width: 140px;
   height: 40px;
-  cursor: pointer;
-  ${GlobalStyle.body};
-`; // DELETE ME: added GlobalStyle.body so the btn font is poppins
+  transition-duration: 0.2s;
+  &:hover{
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19)
+  }
+`
 
 export default Button;
