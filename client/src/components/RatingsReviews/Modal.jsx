@@ -1,14 +1,8 @@
 import React from 'react';
 import Form from './Form';
 import styled from 'styled-components';
-import { useRatingData } from '../SharedContexts/RatingProvider';
 
 const Modal = ({ setIsOpen }) => {
-  const { addReviews } = useRatingData();
-
-  // const handleSubmit = () => {
-  //  console.log(formDataForm)
-  // }
   return (
     <>
       <Background onClick={() => setIsOpen(false)} />
@@ -17,18 +11,6 @@ const Modal = ({ setIsOpen }) => {
           <ModalContent>
             <Form />
           </ModalContent>
-          <ModalActions>
-            {/* <ActionsContainer>
-              <CloseBtn onClick={() => setIsOpen(false)}>
-                Close
-              </CloseBtn>
-              <SubmitBtn
-                onClick={() => handleSubmit()}
-              >
-                Submit
-              </SubmitBtn>
-            </ActionsContainer> */}
-          </ModalActions>
         </ModalDiv>
       </Centered>
     </>
@@ -68,18 +50,18 @@ const ModalContent = styled.div`
   text-align: center;
 
 `
-const ModalActions = styled.div`
-  position: absolute;
-  bottom: 2px;
-  margin-bottom: 10px;
-  width: 100%;
-`
-const ActionsContainer = styled.div`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin: auto;
-`
+// const ModalActions = styled.div`
+//   position: absolute;
+//   bottom: 2px;
+//   margin-bottom: 10px;
+//   width: 100%;
+// `
+// const ActionsContainer = styled.div`
+//   display: flex;
+//   justify-content: space-around;
+//   align-items: center;
+//   margin: auto;
+// `
 
 const CloseBtn = styled.button`
   margin-top: 10px;

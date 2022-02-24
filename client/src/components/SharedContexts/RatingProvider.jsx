@@ -17,33 +17,21 @@ function RatingProvider({ children }) {
   const [reviews, setReviews] = useState([]);
   const [meta, setMeta] = useState(null);
   const [filterRating, setFilterRating] = useState(null);
-  const [formData, setFormData] = useState({
-    email: '',
-    name: '',
-    summary: '',
-    body: '',
-    recommend: true,
-    photos: [],
-    characteristics: {},
-    rating: ''
-  });
 
-  console.log(filterRating, 'from provider')
-  function getReviews(productId) {
-    const query_params = {product_id: productId, count: 15}
+  console.log(filterRating, 'filter rating from provider')
+  function getReviews() {
+    const query_params = {product_id: productId, count: 100, sort: "newest"}
     axios.get('/reviews', {params: query_params})
-    .then((response) => setReviews(response.data));
+    .then((response) => setReviews(response.data))
+    .catch((error)=>{console.log('get error',error)});
   }
 
   function addReviews(review) {
     review.product_id = productId;
-    console.log('addreview from provider',JSON.stringify(review))
+    console.log('addreview from provider',review)
     axios.post('/reviews', review)
-    .then((response) => {
-      console.log('setReviews', response)
-      setReviews([...reviews], response.data)
-    })
-    .catch((error) => console.error(error));
+    .then(()=>{getReviews()})
+    .catch((error) => console.error('add error',error));
   }
 
   function updateHelpful(review_id) {
@@ -57,9 +45,7 @@ function RatingProvider({ children }) {
   function filterRatingFunc(filter_rating) {
     setFilterRating(filter_rating);
   }
-  function addFormData(form_data) {
-    setFormData(form_data);
-  }
+
   useEffect(() => {
     if (reviews.length === 0) {
       getReviews(productId)
@@ -73,10 +59,10 @@ function RatingProvider({ children }) {
   }, [productId])
 
   const value = useMemo(() => ({
-    reviews, meta, getReviews, addReviews, updateHelpful, filterRatingFunc, addFormData
+    reviews, meta, getReviews, addReviews, updateHelpful, filterRatingFunc
   }), [reviews, meta]);
 
-  return reviews, meta, formData ? (
+  return reviews, meta ? (
     <RatingContext.Provider value={value}>
       {children}
     </RatingContext.Provider>

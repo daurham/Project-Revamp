@@ -23,7 +23,6 @@ function Form() {
 
   const handleAddForm = (e) => {
     // e.preventDefault();
-    console.log('addreviews handlesubmit on FORM', formData)
     addReviews(formData);
   }
   const handleChange = (e) => {
@@ -66,7 +65,7 @@ function Form() {
   return (
     <>
       <FormStyle >
-      <form >
+      <form  onSubmit={handleAddForm}>
         <h1>Write Your Review</h1>
         <p>About {prodDetails.name}</p>
         <GridContainer>
@@ -143,7 +142,7 @@ function Form() {
           <Characteristics meta={meta} metaIds={getMetaIds()} sendCharacteristics={sendCharacteristics} />
         </Left>
         </GridContainer>
-        <Button label="Submit" onClick={()=>{handleSubmit}}></Button>
+        <Button label="POST REVIEW"><input type="submit">Post</input></Button>
         </form>
     </FormStyle>
     </>

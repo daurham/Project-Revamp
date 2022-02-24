@@ -62,8 +62,8 @@ app.post('/reviews', (req, res) => {
       'Content-Type': 'application/json'
     }
   }
-  // console.log(postConfig);
-  // console.log(req.body);
+  console.log('post config',postConfig);
+  console.log('req body from post server',req.body);
   // console.log(JSON.stringify(req.body));
 
   axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews', JSON.stringify(req.body), postConfig)

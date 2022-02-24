@@ -26,7 +26,7 @@ function ReviewsList({review}) {
       <DateStyle>{americanDate}</DateStyle>
       <TitleStyle>{review.summary}</TitleStyle>
       <ReviewBody>{review.body}</ReviewBody>
-     <Helpful>Was this review helpful?<YesButton onClick={handleClick}>Yes</YesButton> {review.helpfulness} </Helpful>
+     <Helpful>Was this review helpful? <YesButton onClick={handleClick}>Yes</YesButton> {review.helpfulness} </Helpful>
       {review.recommend ? <Recommend>✔ I recommend this product </Recommend> : null}
     </SingleReview>
   )
