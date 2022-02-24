@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Modal.css';
+// import styles from './Modal.css';
 import Form from './Form';
 
 const Modal = ({ setIsOpen }) => {

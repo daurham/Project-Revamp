@@ -13,7 +13,7 @@ function App() {
   // const { productId } = useData();
 
   return (
-    <>
+    <div>
       {/* {productId ? ( */}
         <DataProvider>
           <AppStyle>
@@ -28,7 +28,7 @@ function App() {
           </AppStyle>
         </DataProvider>
      {/* ) : (<div>loading</div>)} */}
-    </>
+    </div>
   );
 }
 
@@ -36,4 +36,4 @@ export default App;
 
 const AppStyle = styled.div`
  ${GlobalStyle.body}
-`
+`;
