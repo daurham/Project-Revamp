@@ -26,7 +26,7 @@ app.get('/products', (req, res) => {
 app.get('/products/:id', (req, res) => {
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products/${req.params.id}`, config)
     .then((result) => { res.send(result.data); })
-    .catch(() => { res.sendStatus(500); });
+    .catch((err) => { console.log(err); res.sendStatus(500); });
 });
 
 // returns all the styles available for the given product
@@ -59,12 +59,12 @@ app.get('/reviews/meta', (req, res) => {
 // Questions / Answers
 // get questions(productId)
 app.get('/questions/:id', (req, res) => {
-  const body = { product_id: Number(req.params.id), page: 1, count: 100 };
+  const params = { product_id: Number(req.params.id), page: 1, count: 100 };
   // console.log('QA-localConfig', body);
   axios({
     url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions',
-    headers: headers,
-    params: body,
+    headers,
+    params,
     method: 'GET',
   })
   // axios(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions?product_id=${req.params.id}&count=100`, config)
@@ -142,13 +142,14 @@ app.put('/questions/:id/report', (req, res) => {
 
 // put answer as helpful(answerId)
 app.put('/answers/:id/helpful', (req, res) => {
+  // console.log('req', req.params.id);
   axios({
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/answers/${req.params.id}/helpful`,
     headers: headers,
     method: 'PUT',
   })
     .then(() => { res.sendStatus(204); })
-    .catch((err) => { res.status(500).send(err); });
+    .catch((err) => { console.log(err); res.status(500).send(err); });
 });
 
 // put report a answer(answerId)

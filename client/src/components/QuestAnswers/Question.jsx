@@ -106,7 +106,7 @@ function Question({ currentQuestion }) {
   }
 
   function uploadAttachment() {
-    // setAttachment(e.file?);l
+    // setAttachment(e.file?);
     console.log('upload a pic');
     // logic
   }
@@ -136,7 +136,6 @@ function Question({ currentQuestion }) {
   const putStyles = { cursor: 'pointer' };
 
   useEffect(() => {
-    // renderList();
     hasReported(false);
     hasVoted(false);
   }, [productId]);
@@ -181,13 +180,15 @@ function Question({ currentQuestion }) {
         filteredList.length > 0 ? ((filteredList.map((currentAnswer) => (
           <Answer
             currentAnswer={currentAnswer}
+            setAnswers={setAnswers}
+            questionId={questionId}
             key={currentAnswer.answer_id}
           />
         ))))
           : <NoAnswer>{noAnswers}</NoAnswer>
       }
       {
-        filteredList.length > 2 ? (
+        answers.length > 2 ? (
           <SmButton
             type="button"
             onClick={() => { toggleAnswerAccordian(); }}

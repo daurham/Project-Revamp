@@ -2,16 +2,29 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import GlobalStyle from '../GlobalStyle';
-// import css from './QuestAnswers.css';
 import { useData } from '../SharedContexts/DataProvider';
-// import appcss from '../App.css';
+import { useQAData } from './QAContext/DataProvider';
 
-function Answer({ currentAnswer }) {
+function Answer({ currentAnswer, setAnswers, questionId }) {
   /* TEST:
     Describe: 'My Answer component renders all the answer data'
     Test: 'CurrentAnswer prop length should match a get request of the answer'
   */
-  const { productId } = useData();
+  // const { setAnswers } = setAnswers;
+  // const { questionId } = questionId;
+  if (!setAnswers || !questionId) {
+    console.log(setAnswers);
+    console.log(questionId);
+    return null;
+  }
+
+  function getAnswers(id) {
+    axios.get(`/answers/${id}`)
+      .then((result) => {
+        setAnswers(result.data.results);
+      });
+  }
+
   const { answer_id } = currentAnswer;
   const [voted, hasVoted] = useState(false);
   const [reported, hasReported] = useState(false);
@@ -32,10 +45,11 @@ function Answer({ currentAnswer }) {
       hasVoted(true);
       axios.put(`/answers/${answer_id}/helpful`)
         .then(() => console.log('upvoted!'))
+        .then(() => getAnswers(questionId))
         .catch((err) => console.log(err));
     }
   }
-
+  // console.log('qId: ', ;
   const { answerer_name } = currentAnswer;
   const { body } = currentAnswer;
   const { date } = currentAnswer;
