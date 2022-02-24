@@ -59,7 +59,7 @@ app.get('/reviews/meta', (req, res) => {
 // Questions / Answers
 // get questions(productId)
 app.get('/questions/:id', (req, res) => {
-  const body = { product_id: Number(req.params.id), page: 1, count: 5 };
+  const body = { product_id: Number(req.params.id), page: 1, count: 100 };
   // console.log('QA-localConfig', body);
   axios({
     url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions',
@@ -67,8 +67,10 @@ app.get('/questions/:id', (req, res) => {
     params: body,
     method: 'GET',
   })
+  // axios(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions?product_id=${req.params.id}&count=100`, config)
     .then((result) => { res.status(200).send(result.data); })
-    .catch((err) => { res.status(500).send(err); });
+    .catch((err) => { console.log('server err: ', err); res.status(500).send(err); });
+  // );
 });
 
 // get answers(questionId)

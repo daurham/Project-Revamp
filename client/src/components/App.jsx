@@ -5,7 +5,7 @@ import QuestAnswers from './QuestAnswers/QuestAnswers';
 import RatingsReviews from './RatingsReviews/RatingsReviews';
 import DataProvider, { useData } from './SharedContexts/DataProvider';
 import OverviewProvider from './SharedContexts/OverviewProvider';
-import QuestionProvider from './QuestAnswers/QA - Context/DataProvider';
+import QuestionProvider from './QuestAnswers/QAContext/DataProvider';
 import GlobalStyle from './GlobalStyle';
 import styled from 'styled-components';
 
@@ -36,4 +36,4 @@ export default App;
 
 const AppStyle = styled.div`
  ${GlobalStyle.body}
-`
+`;

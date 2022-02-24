@@ -1,28 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useQAData } from './QA - Context/DataProvider';
+import { useQAData } from './QAContext/DataProvider';
 import { useData } from '../SharedContexts/DataProvider';
 
 function SearchBar() {
-/* TEST:
-  Describe: 'My SearchBar component should capture the user input data'
-  Test: 'input state should match the string "TesTinG"'
-
-*/
+  /* TEST:
+    Describe: 'My SearchBar component should capture the user input data'
+    Test: 'input state should match the string "TesTinG"'
+  */
 
   const { productId } = useData();
-  const { questions, setQuestions, getQuestions } = useQAData();
+  const {
+    questions,
+    setQuestions,
+    getQuestions,
+    setSearchResults,
+  } = useQAData();
   const [input, setInput] = useState('');
 
-  // filter the questions
   function filterQuestions(query) {
-    const filteredSearchResults = questions.filter((q) => {
-      if (q.question_body.toLowerCase().includes(query.toLowerCase())) {
-        return true;
-      }
-      return false;
-    });
-    setQuestions(filteredSearchResults);
+    if (input.length < 2) {
+      setSearchResults(questions);
+    } else {
+      const filteredSearchResults = questions.filter((q) => {
+        if (q.question_body.toLowerCase().includes(query.toLowerCase())) {
+          return true;
+        }
+        return false;
+      });
+      setSearchResults(filteredSearchResults);
+    }
   }
 
   function handleInput(e) {
@@ -30,7 +37,7 @@ function SearchBar() {
   }
 
   useEffect(() => {
-    if (input.length > 2 && questions.length > 0) {
+    if ((input.length > 2 || input.length === 0) && questions.length > 0) {
       filterQuestions(input);
     }
   }, [input]);

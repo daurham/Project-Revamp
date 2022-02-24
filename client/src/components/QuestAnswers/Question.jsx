@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import GlobalStyle from '../GlobalStyle';
 import Answer from './Answer';
 import Modal from '../SharedComponents/Modal';
-import modalcss from '../SharedComponents/Modal.css';
 import Button from '../SharedComponents/Button';
 import Spinner from '../SharedComponents/Spinner';
 import { useData } from '../SharedContexts/DataProvider';
+import { useQAData } from './QAContext/DataProvider';
 
 function Question({ currentQuestion }) {
   /* TEST:
@@ -16,6 +16,7 @@ function Question({ currentQuestion }) {
   */
 
   const filteredList = [];
+  const { questions, getQuestions } = useQAData();
   const { question_id } = currentQuestion;
   const { question_body } = currentQuestion;
   const { question_helpfulness } = currentQuestion;
@@ -46,10 +47,9 @@ function Question({ currentQuestion }) {
   }
 
   function renderList() {
-    if (answers) { // sort
+    if (answers) {
       answers.sort((a, b) => (a.helpfulness > b.helpfulness ? 1 : -1));
       answers.sort((a, b) => ((a.answerer_name.toLowerCase() === 'seller' && b.answerer_name.toLowerCase() !== 'seller') ? 1 : -1));
-      // repopulate
       for (let i = 0; i < loadLimit; i += 1) {
         if (answers[i]) {
           filteredList.push(answers[i]);
@@ -81,9 +81,9 @@ function Question({ currentQuestion }) {
         email: userEmail,
       };
       if (attachment) {
-        body.photos = [attachment]; // its an array
+        body.photos = [attachment];
       }
-      postMade(true); // may not need
+      postMade(true);
       console.log(body);
       axios.post(`/answers/${question_id}`, body)
         .then(() => console.log('Answer posted!'))
@@ -106,7 +106,7 @@ function Question({ currentQuestion }) {
   }
 
   function uploadAttachment() {
-    // setAttachment(e.file?);
+    // setAttachment(e.file?);l
     console.log('upload a pic');
     // logic
   }
@@ -126,6 +126,7 @@ function Question({ currentQuestion }) {
       hasVoted(true);
       axios.put(`/questions/${questionId}/helpful`)
         .then(() => console.log('upvoted!'))
+        .then(() => getQuestions())
         .catch((err) => console.log(err));
     }
   }
@@ -140,6 +141,13 @@ function Question({ currentQuestion }) {
     hasVoted(false);
   }, [productId]);
 
+  useEffect(() => {
+    if (post || voted) {
+      getQuestions();
+      renderList();
+    }
+  }, [post]);
+  // console.log('am i rerendering from questions?');
   return !answers ? <SpinnerContainer><Spinner /></SpinnerContainer> : (
     <div>
       <AQuestion>
@@ -199,8 +207,7 @@ function Question({ currentQuestion }) {
                 <h2>Answer A Question</h2>
 
                 <form>
-                  <textarea
-                    className={modalcss.qa_textarea}
+                  <ModalTextarea
                     placeholder="What do you want to say?"
                     onChange={handleInput}
                   />
@@ -294,4 +301,10 @@ const NoAnswer = styled.div`
 const SpinnerContainer = styled.div`
   display: flex;
   justify-content: center;
+`;
+
+const ModalTextarea = styled.textarea`
+  resize: none;
+  width: 90%;
+  height: 90%;
 `;

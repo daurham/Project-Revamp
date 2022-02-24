@@ -5,11 +5,8 @@ import Question from './Question';
 import Modal from '../SharedComponents/Modal';
 import GlobalStyle from '../GlobalStyle';
 import { useData } from '../SharedContexts/DataProvider';
-import { useQAData } from './QA - Context/DataProvider';
-import modalcss from '../SharedComponents/Modal.css';
+import { useQAData } from './QAContext/DataProvider';
 import Button from '../SharedComponents/Button';
-// spinner: <i class="fa-solid fa-spinner"></i>
-// spinner: ~
 
 function QuestionList() {
   /* TEST:
@@ -19,56 +16,70 @@ function QuestionList() {
 
   const filteredList = [];
   const { productId } = useData();
-  const { questions, setQuestions } = useQAData();
-  const [loadLimit, updateLoadLimit] = useState(2);
+  const { questions, setQuestions, searchResults } = useQAData();
+  // let loadLimit = 4;
+  const [loadLimit, updateLoadLimit] = useState(4);
 
   // modal input:
   const [modal, setModal] = useState(false);
-  const [input, setInput] = useState('');
-  const [userName, setUserName] = useState('');
-  const [userEmail, setUserEmail] = useState('');
+  // let modal = false;
+  // const [input, setInput] = useState('');
+  let input = '';
+  // const [userName, setUserName] = useState('');
+  let userName = '';
+  // const [userEmail, setUserEmail] = useState('');
+  let userEmail = '';
   const [attachment, setAttachment] = useState();
   const [post, setPost] = useState(false);
   const [collapsed, setCollapsed] = useState(true);
+  let isCollapsed = true;
   let noResults = true;
+  // let test = true;
 
-  // only allow 4 questions at a time.
   function renderList() {
-    questions.sort((a, b) => (a.question_helpfulness < b.question_helpfulness
-      ? 1 : -1)); // sort by helpfulness
-    if (questions && questions.length > 0) {
+    searchResults.sort((a, b) => (a.question_helpfulness < b.question_helpfulness
+      ? 1 : -1));
+    if (searchResults && searchResults.length > 0) {
       noResults = false;
       for (let i = 0; i < loadLimit; i += 1) {
-        if (questions[i]) { // if truthy
-          filteredList.push(questions[i]);
+        if (searchResults[i]) {
+          filteredList.push(searchResults[i]);
         }
       }
     }
   }
 
-  if (questions) {
+  if (searchResults) {
     renderList();
   }
 
   function toggleQuestionAccordian() {
-    updateLoadLimit(loadLimit === 4 ? questions.length : 4);
+    updateLoadLimit(loadLimit === 4 ? searchResults.length - 1 : 4);
+    // loadLimit = loadLimit === 4 ? searchResults.length - 1 : 4;
+    isCollapsed = !isCollapsed;
     setCollapsed(!collapsed);
   }
 
   function toggleModal() {
     setModal(!modal);
+    // modal = !modal;
+    console.log('attempt modal');
   }
-
   function handleInput(e) {
-    setInput(e.target.value);
+    e.preventDefault();
+    console.log('typing on modal body');
+    // setInput(e.target.value);
+    input = e.target.value;
   }
 
   function handleUserName(e) {
-    setUserName(e.target.value);
+    // setUserName(e.target.value);
+    userName = e.target.value;
   }
 
   function handleUserEmail(e) {
-    setUserEmail(e.target.value);
+    // setUserEmail(e.target.value);
+    userEmail = e.target.value;
   }
 
   function handleSubmit() {
@@ -83,21 +94,25 @@ function QuestionList() {
       console.log(body);
       axios.post(`/questions/${productId}`, body)
         .then(() => console.log('Question posted!'))
+        .catch((err) => console.log(err));
     } else {
       alert('Please fill in the form to submit a post.');
     }
   }
 
   useEffect(() => {
-    renderList();
+    // console.log('am i rerendering from prodId?');
+    // renderList();
     updateLoadLimit(4); // restores the limit after each item selected
+    // loadLimit = 4;
+    isCollapsed = true;
     setCollapsed(true);
   }, [productId]);
 
   return (
-    <div>
+    <div className="testname">
+      {/* <p className="ptest">test</p> */}
       <QuestionListContainer>
-
         {noResults ? (<NoQuestions>No Questions</NoQuestions>) : filteredList.map((question) => (
           <div
             key={question.question_id}
@@ -108,7 +123,7 @@ function QuestionList() {
 
           </div>
         ))}
-        {(!noResults && questions.length > 4)
+        {(!noResults && searchResults.length > 4)
           ? (
             <SmButton
               type="button"
@@ -124,7 +139,6 @@ function QuestionList() {
       <ButtonContainer>
         <Button
           type="button"
-          className="modal_opener"
           handleClick={toggleModal}
           label="Ask a Question?"
         />
@@ -136,33 +150,32 @@ function QuestionList() {
           {!post
             ? (
               <div>
-                <h2>Ask A Question</h2>
+                <LModalHeader>Ask A Question</LModalHeader>
 
                 <form>
-                  <textarea
-                    className={modalcss.qa_textarea}
+                  <ModalTextarea
                     placeholder="What do you want to ask other buyers?"
                     onChange={handleInput}
                   />
-                  <span>
-                    <input
+                  <LModalBottomSpan>
+                    <LModalBottomInput
                       type="text"
                       onChange={handleUserName}
                       placeholder="Name"
                     />
-                    <input
+                    <LModalBottomInput
                       type="text"
                       onChange={handleUserEmail}
                       placeholder="Email"
                     />
-                  </span>
+                  </LModalBottomSpan>
                 </form>
-                <button
+                <SmButton
                   onClick={handleSubmit}
                   type="button"
                 >
                   Submit
-                </button>
+                </SmButton>
               </div>
             )
             : (
@@ -205,3 +218,23 @@ const NoQuestions = styled.h1`
   margin-left: 5%;
 `;
 
+const ModalTextarea = styled.textarea`
+  resize: none;
+  width: 90%;
+  height: 90%;
+  min-height: 75px
+`;
+
+const LModalHeader = styled.h2`
+  margin: 0px;
+`;
+
+const LModalBottomSpan = styled.span`
+  display: flex;
+  justify-content: space-evenly;
+  margin: 0px;
+`;
+
+const LModalBottomInput = styled.input`
+  border: light-grey;
+`;

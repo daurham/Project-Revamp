@@ -4,7 +4,7 @@ import GlobalStyle from '../GlobalStyle';
 import SearchBar from './SearchBar';
 import QuestionList from './QuestionList';
 import { useData } from '../SharedContexts/DataProvider';
-import { useQAData } from './QA - Context/DataProvider';
+import { useQAData } from './QAContext/DataProvider';
 import Spinner from '../SharedComponents/Spinner';
 
 function QuestAnswers() {
@@ -19,7 +19,6 @@ function QuestAnswers() {
 
   useEffect(() => {
   }, [productId]); // should auto update when id changes.
-
   return !questions ? <SpinnerContainer><Spinner /></SpinnerContainer> : (
     <div>
       <button style={{ backgroundColor: 'orange' }} type="button" onClick={updateID}> Get Another Product ID {productId} </button>

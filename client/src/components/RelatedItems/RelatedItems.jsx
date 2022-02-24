@@ -10,7 +10,7 @@ function RelatedItems() {
   // notice that we are accessing a property ".name" of the product object. only render a property,
   // otherwise you'll get an error. only using below example as proof of concept.
   return (
-    <div>
+    <div className="test">
       Related Items
     </div>
   );
