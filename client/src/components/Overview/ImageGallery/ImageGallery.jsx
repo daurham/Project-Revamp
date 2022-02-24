@@ -78,7 +78,7 @@ function ImageGallery() {
         <div
           className="Thumbnail"
           style={{
-            width: 'auto',
+            width: '500px',
             marginLeft: 'auto',
             marginRight: 'auto',
           }}
@@ -88,6 +88,7 @@ function ImageGallery() {
               (photo, index) => (
                 <Thumbnail
                   src={photo.thumbnail_url}
+                  key={index}
                   name={index}
                   onClick={handleClick}
                 />
