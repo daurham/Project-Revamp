@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 
 function Characteristic({ character, id, sendCharacteristic }) {
   const [characteristic, setCharacteristic] = useState({});
@@ -19,27 +21,30 @@ function Characteristic({ character, id, sendCharacteristic }) {
         <Character>{character}</Character>
         <LabelStyle>
           <label>
-          <input
+          <RadioButton
             name={character}
             type="radio"
             value="1"
+
             // defaultChecked={characteristic.size}
           onClick={handleChange}
           />
+
             1
           </label>
         <label>
-          <input
+          <RadioButton
             name={character}
             type="radio"
             value="2"
             // defaultChecked={characteristic.size}
             onClick={handleChange}
           />
+
             2
           </label>
         <label>
-          <input
+          <RadioButton
             name={character}
             type="radio"
             value="3"
@@ -49,7 +54,7 @@ function Characteristic({ character, id, sendCharacteristic }) {
             3
           </label>
         <label>
-          <input
+          <RadioButton
             name={character}
             type="radio"
             value="4"
@@ -59,7 +64,7 @@ function Characteristic({ character, id, sendCharacteristic }) {
             4
           </label>
         <label>
-          <input
+          <RadioButton
             name={character}
             type="radio"
             value="5"
@@ -88,10 +93,16 @@ const Character = styled.p`
   grid-column-end: 1;
   justify-content: start;
 `
-const LabelStyle = styled.label`
+const LabelStyle = styled.div`
   display: flex;
   grid-column-start: 2;
   grid-column-end: 4;
   align-items: center;
 `
+const RadioButton = styled.input`
+  cursor: pointer;
+
+`
+
+
 export default Characteristic;

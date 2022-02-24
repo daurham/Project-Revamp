@@ -4,20 +4,21 @@ import styled from 'styled-components';
 import { useRatingData } from '../SharedContexts/RatingProvider';
 
 const Modal = ({ setIsOpen }) => {
-  const { addReviews, formData } = useRatingData();
-  const handleSubmit = () => {
-    addReviews(formData);
-  }
+  const { addReviews } = useRatingData();
+
+  // const handleSubmit = () => {
+  //  console.log(formDataForm)
+  // }
   return (
     <>
       <Background onClick={() => setIsOpen(false)} />
       <Centered>
         <ModalDiv>
           <ModalContent>
-            <Form/>
+            <Form />
           </ModalContent>
           <ModalActions>
-            <ActionsContainer>
+            {/* <ActionsContainer>
               <CloseBtn onClick={() => setIsOpen(false)}>
                 Close
               </CloseBtn>
@@ -26,7 +27,7 @@ const Modal = ({ setIsOpen }) => {
               >
                 Submit
               </SubmitBtn>
-            </ActionsContainer>
+            </ActionsContainer> */}
           </ModalActions>
         </ModalDiv>
       </Centered>
@@ -59,7 +60,7 @@ const ModalDiv = styled.div`
   box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
 `
 const ModalContent = styled.div`
-width: 800px;
+  width: 800px;
   z-index: 1000;
   padding: 10px;
   font-size: 14px;

@@ -4,7 +4,8 @@ import { useRatingData } from '../SharedContexts/RatingProvider';
 import styled from 'styled-components';
 import axios from 'axios';
 
-function StarsRating({ value, productId, showAverage, relatedProduct, currentProduct }) {
+function StarsRating({ value, productId, showAverage, relatedProduct, currentProduct}) {
+
   const { reviews, getReviews, meta } = useRatingData()
   const [results, setResults] = useState(null);
   const [average, setAverage] = useState(0);
@@ -80,6 +81,7 @@ const StarRatingContainer = styled.div`
   unicode-bidi: bidi-override;
   color: #363636bf;
   width: max-width;
+
   margin: 0 auto;
   position: relative;
   padding: 0;
@@ -95,6 +97,7 @@ const StarRatingTop = styled.div`
   left: 0;
   overflow: hidden;
 `
+
 const StarRatingBottom = styled.div`
   padding: 0;
   display: block;

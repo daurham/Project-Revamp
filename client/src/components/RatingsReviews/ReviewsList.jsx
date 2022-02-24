@@ -33,7 +33,7 @@ function ReviewsList({review}) {
 }
 const SingleReview = styled.div`
   display: grid;
-  border: solid 1px;
+  border-bottom: solid 1px;
   margin: 2px;
   padding: 20px;
   grid-template-columns: 120px 120px;

@@ -5,6 +5,7 @@ import { useRatingData } from '../SharedContexts/RatingProvider';
 import { useOverview } from '../SharedContexts/OverviewProvider';
 import Characteristics from './Characteristics';
 import StarClick from './StarClick';
+import Button from '../SharedComponents/Button';
 
 function Form() {
   const { addReviews, meta } = useRatingData();
@@ -20,7 +21,7 @@ function Form() {
     rating: ''
   });
 
-  const handleSubmit = (e) => {
+  const handleAddForm = (e) => {
     // e.preventDefault();
     console.log('addreviews handlesubmit on FORM', formData)
     addReviews(formData);
@@ -32,7 +33,6 @@ function Form() {
   }
   const handleRadio = (e) => {
     const isChecked = e.currentTarget.value === 'true' ? true : false;
-    // formData.recommend = isChecked;
     setFormData({
       ...formData, [event.target.name]: isChecked
     })
@@ -63,11 +63,8 @@ function Form() {
     return metaIds;
   }
 
-  // useEffect(() => { }, [formData])
-
   return (
     <>
-
       <FormStyle >
       <form >
         <h1>Write Your Review</h1>
@@ -104,6 +101,7 @@ function Form() {
                 placeholder="“Example: Best purchase ever!”"
                 onChange={handleChange}
                 maxLength={60}
+
                 required />
             </Label>
             <Label>
@@ -145,7 +143,7 @@ function Form() {
           <Characteristics meta={meta} metaIds={getMetaIds()} sendCharacteristics={sendCharacteristics} />
         </Left>
         </GridContainer>
-        <button type="submit" onClick={()=>{handleSubmit}}>Submit</button>
+        <Button label="Submit" onClick={()=>{handleSubmit}}></Button>
         </form>
     </FormStyle>
     </>
@@ -153,7 +151,7 @@ function Form() {
 }
 
 const FormStyle = styled.div`
-  margin: 30px;
+  margin: 40px;
   font-size: 12px;
 `
 const GridContainer = styled.div`
@@ -161,6 +159,7 @@ const GridContainer = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-gap: 20px;
   padding: 15px;
+  jusify-content: start-end;
 `
 const Left = styled.div`
   display: grid;
@@ -168,9 +167,11 @@ const Left = styled.div`
   float: left;
   padding: 20px;
   border-left: 1px solid grey;
+
 `
 const Right = styled.div`
   display: grid;
+  padding-top: 30px;
 `
 const Input = styled.input`
   width: 200px;
@@ -181,18 +182,20 @@ const Input = styled.input`
   border: 1px solid #d6d1d5;
 `
 const TextAreaReview = styled.textarea`
-  height: 50px;
-  width: 300px;
-  padding: 10px 10px;
+  resize: none;
+  height: 60px;
+  width: 260px;
+  padding: 8px;
   border-radius: 5px;
   outline: none;
   border: 1px solid #d6d1d5;
 `
 const TextAreaSummary = styled.textarea`
-font-size: 12px;
+  resize: none;
+  font-size: 12px;
   height: 20px;
-  width: 300px;
-  padding: 10px 10px;
+  width: 260px;
+  padding: 8px;
   border-radius: 5px;
   outline: none;
   border: 1px solid #d6d1d5;
