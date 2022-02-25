@@ -90,6 +90,7 @@ function StarsRating({
 
 const Container = styled.div`
   display: grid;
+  justify-content: center;
 `;
 
 const StarRatingContainer = styled.div`

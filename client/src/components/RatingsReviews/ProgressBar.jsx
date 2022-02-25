@@ -102,7 +102,6 @@ const BarList = styled.li`
   &:hover {
     transition: all .3s ease-in-out;
   }
-
 `;
 const Title = styled.h1`
  ${GlobalStyle.para_md};
@@ -123,5 +122,6 @@ const ProgDetail = styled.span`
 const ProgButton = styled.button`
   border: none;
   cursor: pointer;
+  padding: 0;
 `;
 export default ProgressBar;
