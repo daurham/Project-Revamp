@@ -13,6 +13,7 @@ import Spinner from './SharedComponents/Spinner';
 
 function App() {
   const { productId } = useData();
+  console.log('going rogue!')
   return (
     <>
       {productId ? (
