@@ -30,13 +30,19 @@ export default StyleSelector;
 
 const Title = styled.h2`
   ${GlobalStyle.sub_title};
+  margin-top: 0;
+  margin-bottom: 10px;
 `;
 
 const StyleTitle = styled.h3`
   ${GlobalStyle.para_title};
+  margin-top: 0;
+  margin-bottom: 10px;
 `;
 
 const Selectors = styled.div`
   display: flex;
   flex-direction: row;
+  margin-top: 0;
+  margin-bottom: 25px;
 `;

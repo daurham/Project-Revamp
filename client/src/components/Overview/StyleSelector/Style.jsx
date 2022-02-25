@@ -32,7 +32,7 @@ function Style(props) {
       {currentStyleId === props.id
         ? (
           <FaCheck style={{
-            position: 'absolute', height: '15px', width: '15px', color: 'black', paddingLeft: '38px',
+            position: 'absolute', height: '15px', width: '15px', color: 'black', paddingLeft: '45px',
           }}
           />
         ) : null}
@@ -44,9 +44,9 @@ function Style(props) {
 export default Style;
 
 const StyleImg = styled.img`
-  height: 50px;
-  width: 50px;
-  padding: 5px;
-  border-radius: 50%;
-  object-fit: cover;
+height: 50px;
+width: 50px;
+margin: 0 10px;
+border-radius: 50%;
+object-fit: cover;
 `;

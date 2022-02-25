@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 
 import axios from 'axios';
-import { useData } from '../SharedContexts/DataProvider';
+import { useData } from './DataProvider';
 
 const RatingContext = React.createContext();
 
@@ -20,32 +20,32 @@ function RatingProvider({ children }) {
 
   // console.log(filterRating, 'filter rating from provider')
   function getReviews() {
-    const query_params = {product_id: productId, count: 100, sort: "newest"}
-    axios.get('/reviews', {params: query_params})
-    .then((response) => setReviews(response.data))
-    .catch((error)=>{console.log('get error',error)});
+    const query_params = { product_id: productId, count: 100, sort: 'newest' };
+    axios.get('/reviews', { params: query_params })
+      .then((response) => setReviews(response.data))
+      .catch((error) => { console.log('get error', error); });
   }
   function sortReviews(sortParam) {
-    const query_params = {product_id: productId, count: 30, sort: sortParam}
-    axios.get('/reviews', {params: query_params})
-    .then((response) => setReviews(response.data))
-    .catch((error)=>{console.log('get error from sort',error)});
+    const query_params = { product_id: productId, count: 30, sort: sortParam };
+    axios.get('/reviews', { params: query_params })
+      .then((response) => setReviews(response.data))
+      .catch((error) => { console.log('get error from sort', error); });
   }
 
   function addReviews(review) {
     review.product_id = productId;
-    console.log('addreview from provider',review)
+    console.log('addreview from provider', review);
     axios.post('/reviews', review)
-    .then(()=>{getReviews()})
-    .catch((error) => console.error('add error',error));
+      .then(() => { getReviews(); })
+      .catch((error) => console.error('add error', error));
   }
 
   function updateHelpful(review_id) {
     axios.put(`/reviews/${review_id}/helpful`)
-    .then((response) => {
-      getReviews(productId)
-    })
-    .catch((error) => console.error(error))
+      .then((response) => {
+        getReviews(productId);
+      })
+      .catch((error) => console.error(error));
   }
   function filterRatingFunc(filter_rating) {
     setFilterRating(filter_rating);
@@ -53,18 +53,18 @@ function RatingProvider({ children }) {
 
   useEffect(() => {
     if (reviews.length === 0) {
-      getReviews(productId)
+      getReviews(productId);
     }
   }, [productId]);
 
   useEffect(() => {
-    const query_params = {product_id: productId}
-    axios.get('/reviews/meta', {params: query_params})
-    .then((response) => setMeta(response.data))
-  }, [productId])
+    const query_params = { product_id: productId };
+    axios.get('/reviews/meta', { params: query_params })
+      .then((response) => setMeta(response.data));
+  }, [productId]);
 
   const value = useMemo(() => ({
-    reviews, meta, getReviews, addReviews, updateHelpful, filterRatingFunc, sortReviews
+    reviews, meta, getReviews, addReviews, updateHelpful, filterRatingFunc, sortReviews,
   }), [reviews, meta]);
 
   return reviews, meta ? (

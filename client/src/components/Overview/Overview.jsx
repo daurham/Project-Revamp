@@ -37,13 +37,13 @@ function Overview() {
 
             <ProductDetailsContainer>
               <ProductDetail />
-            </ProductDetailsContainer>
+            {/* </ProductDetailsContainer> */}
 
-            <StyleSelectorContainer>
+            {/* <StyleSelectorContainer> */}
               <StyleSelector />
-            </StyleSelectorContainer>
+            {/* </StyleSelectorContainer> */}
 
-            <CartContainer>
+            {/* <CartContainer> */}
               <Cart />
               <a href="https://www.instagram.com">
                 <FaInstagram
@@ -71,7 +71,8 @@ function Overview() {
                 }}
                 />
               </a>
-            </CartContainer>
+            {/* </CartContainer> */}
+            </ProductDetailsContainer>
 
             <ProductDescriptionContainer>
               <DesriptionHead>Product Description</DesriptionHead>
@@ -87,14 +88,14 @@ function Overview() {
               <Row>
                 <Column>
                   <DescriptionBody>
-                    <p>{prodDetails.description}</p>
+                    <p style={{ margin: '0' }}>{prodDetails.description}</p>
                   </DescriptionBody>
                 </Column>
                 <Column>
                   <DescriptionBody>
                     {(prodDetails.features.map((feature1, index) => (
                       <List key={index}>
-                        <li>
+                        <li style={{ margin: '0' }}>
                           {`${feature1.feature} :
                         ${feature1.value}`}
                         </li>
@@ -115,7 +116,9 @@ function Overview() {
 export default Overview;
 
 const DesriptionHead = styled.h2`
-  ${GlobalStyle.sub_title};
+  ${GlobalStyle.sub_title2};
+  margin-top: 0;
+  margin-bottom: 10px;
 `;
 
 const Row = styled.div`
@@ -132,126 +135,101 @@ const Column = styled.div`
   flex: 1;
 `;
 
-// const DesriptionTitle = styled.div`
-//   display: flex;
-//   flex-direction: row;
-// `;
-
 const DesTitle = styled.h3`
   ${GlobalStyle.para_title};
+  margin-top: 0;
+  margin-bottom: 10px;
+  margin-left: 10px
 `;
 
 const DescriptionBody = styled.div`
   ${GlobalStyle.para_md};
   margin-right: 20px;
+  margin-top: 0;
+  margin-left: 20px;
 `;
 
 const List = styled.ul`
   list-style-type: none;
+  margin: 0;
   padding: 0;
 `;
 
 const Container = styled.div`
   display: grid;
-  margin: 100px 200px;
+  margin-top: 3%;
   grid-template-columns: 50% 50%;
-  grid-template-rows: [row1-start] 200px
-  [row1-end] 200px
-  [third-line] 250px
-  [fourth-line] 200px
+  grid-template-rows: [row1-start] auto
+  [row1-end] 25%
   [last-line];
 `;
+
+// const Container = styled.div`
+//   display: grid;
+//   margin-top: 3%;
+//   grid-template-columns: 50% 50%;
+//   grid-template-rows: [row1-start] 20%
+//   [row1-end] 25%
+//   [third-line] 30%
+//   [fourth-line] 25%
+//   [last-line]
+// ';
 
 const ImageGalleryContainer = styled.div`
   grid-column-start: 1;
   grid-row-start: 1;
-  grid-row-end: span 3;
 `;
 
+// const ImageGalleryContainer = styled.div`
+//   grid-column-start: 1;
+//   grid-row-start: 1;
+//   grid-row-end: span 3;
+// `;
+
 const ProductDetailsContainer = styled.div`
-  margin-left: 10px;
   grid-column-start: 2;
   grid-row-start: 1;
 `;
 
-const StyleSelectorContainer = styled.div`
-  margin-left: 10px;
-  grid-column-start: 2;
-  grid-row-start: 2;
-`;
+// const ProductDetailsContainer = styled.div`
+//   margin-left: 10px;
+//   grid-column-start: 2;
+//   grid-row-start: 1;
+// `;
 
-const CartContainer = styled.div`
-  margin-left: 10px;
-  grid-column-start: 2;
-  grid-row-start: 3;
-`;
+// const StyleSelectorContainer = styled.div`
+// margin-left: 10px;
+// grid-column-start: 2;
+// grid-row-start: 1;
+// `;
+
+// const StyleSelectorContainer = styled.div`
+//   margin-left: 10px;
+//   grid-column-start: 2;
+//   grid-row-start: 2;
+// `;
+
+// const CartContainer = styled.div`
+// margin-left: 10px;
+// grid-column-start: 2;
+// grid-row-start: 1;
+// `;
+
+// const CartContainer = styled.div`
+//   margin-left: 10px;
+//   grid-column-start: 2;
+//   grid-row-start: 3;
+// `;
 
 const ProductDescriptionContainer = styled.div`
   grid-column-start: 1;
   grid-column-end: 3;
-  grid-row-start: 4;
+  grid-row-start: 2;
+  margin-top: 3%;
 `;
 
-//   <p className={appcss.title}>Title</p>
-//   <p className={appcss.sub_title}>Sub Title</p>
-//   <p className={appcss.para_title}>para title</p>
-//   <p className={appcss.para_md}>para md</p>
-//   <p className={appcss.para_sm}>para sm</p>
-//   <p>Default</p>
-
-//   {/* {prodStyles.map( (eachStyle) => <div>{eachStyle.name}</div>)}
-// {prodStyles[0].name} */}
-
-// {prodStyles.length && prodStyles[2].name}
-// {!prodStyles.length && (<div>loading</div>)}
-
-// setCurrentId(prodStyles[0]);
-// setCurrentProdName(prodStyles[0]);
-// setCurrentProdSlogan
-// setCurrentProdDes
-// setCurrentProdCategory
-// setCurrentStyleName
-// setCurrentStyleOrgPrice
-// setCurrentStyleSalePrice
-// setCurrentStylePhotos
-// setCurrentStyleSku
-
-// const [currentStyle, setCurrentStyle] = useState()
-
-// const [currentId, setCurrentId] = useState();
-// const [currentProdName, setCurrentProdName] = useState();
-// const [currentProdSlogan, setCurrentProdSlogan] = useState();
-// const [currentProdDes, setCurrentProdDes] = useState();
-// const [currentProdCategory, setCurrentProdCategory] = useState();
-// const [currentStyleId, setCurrentStyleId] = useState();
-// const [currentStyleName, setCurrentStyleName] = useState();
-// const [currentStyleOrgPrice, setCurrentStyleOrgPrice] = useState();
-// const [currentStyleSalePrice, setCurrentStyleSalePrice] = useState();
-// const [currentStylePhotos, setCurrentStylePhotos] = useState([]);
-// const [currentStyleSku, setCurrentStyleSku] = useState({});
-
-// useEffect(() => {
-//   setCurrentId(prodDetails.id);
-//   setCurrentProdName(prodDetails.name);
-//   setCurrentProdSlogan(prodDetails.slogan);
-//   setCurrentProdDes(prodDetails.description);
-//   setCurrentProdCategory(prodDetails.category);
-//   // setCurrentStyleId(prodStyles[0].style_id);
-//   // setCurrentStyleName(prodStyles[0].name);
-//   // setCurrentStyleOrgPrice(prodStyles[0].original_price);
-//   // setCurrentStyleSalePrice(prodStyles[0].sale_price);
-//   // setCurrentStylePhotos(prodStyles[0].photos);
-//   // setCurrentStyleSku(prodStyles[0].sku);
-// }, [prodDetails]);
-
-// {/* {prodStyles.length ? prodStyles[0].style_id : <div>loading</div>} <br/>
-// {prodStyles.length ? prodStyles[0].name : <div>loading</div>} <br/>
-// {prodStyles.length ? prodStyles[0].original_price : <div>loading</div>} <br/>
-// {prodStyles.length ? prodStyles[0].sale_price : <div>loading</div>} <br/> */}
-// {/* {prodStyles.length ? prodStyles[0].photos : <div>loading</div>} <br/>
-// {prodStyles.length ? prodStyles[0].sku : <div>loading</div>} <br/> */}
-// {/* {currentProdName !== undefined ? currentProdName : <div>loading</div>} */}
-// {/* {currentStyleName !== undefined ? currentStyleName : <div>loading</div>} */}
-
-// prodStyles.length === 0 ? null :
-// Object.keys(objKey).length === 0
+// const ProductDescriptionContainer = styled.div`
+//   grid-column-start: 1;
+//   grid-column-end: 3;
+//   grid-row-start: 4;
+// `;
