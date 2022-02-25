@@ -11,6 +11,18 @@ const GlobalStyle = {
     font-size: 15px;
     font-weight: 300;
   `,
+  sub_title2: `
+    font-size: 20px;
+    font-weight: 300;
+    border-bottom: solid;
+    border-width: thin;
+    border-color: lightgray;
+`,
+  // text-decoration: underline;
+  para_xmd: `
+    font-size: 16px;
+    font-weight: 400;
+`,
   para_md: `
     font-size: 14px;
     font-weight: 300;

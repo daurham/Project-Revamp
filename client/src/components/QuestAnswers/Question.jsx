@@ -259,15 +259,15 @@ const SmButton = styled.button`
   background-color: white;
   height: 20px;
   cursor: pointer;
-  ${GlobalStyle.para_md};
+  ${GlobalStyle.para_sm};
   `;
 const TitleStyle = styled.h1`
-  ${GlobalStyle.sub_title};
+  ${GlobalStyle.para_xmd};
   display: inline;
   margin: 0px;
 `;
 const TitleAStyle = styled.h1`
-  ${GlobalStyle.sub_title}
+  ${GlobalStyle.para_xmd}
   margin: 0px;
   padding: 0% 2% 0% 2%;
 `;
@@ -279,8 +279,8 @@ const Helpful = styled.p`
   white-space: nowrap;
 `;
 const AQuestion = styled.div`
-  border-top: grey 3px solid;
-  border-bottom: light-grey 2px solid;
+  border-top: grey 2px solid;
+  border-bottom: black 1px solid;
   padding: 0% 2% 0% 2%;
   margin: 0px;
   box-shadow: 2px 0px 1px 0px #8888;

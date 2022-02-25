@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import Cards from './Cards';
 import { useRelated } from './RelatedProvider';
 import AddOutfit from './AddOutfit';
+import GlobalStyle from '../GlobalStyle';
 
 function Carousel(props) {
   const { view } = props;
@@ -114,9 +115,10 @@ function Carousel(props) {
 export default Carousel;
 
 const CarouselHeader = styled.div`
-  font-size: 15px;
-  font-weight: 300;
-  padding-left: 8px;
+  // font-size: 20px;
+  // font-weight: 300;
+  // padding-left: 8px;
+  ${GlobalStyle.sub_title2}
 `;
 
 const CarouselContainer = styled.div`

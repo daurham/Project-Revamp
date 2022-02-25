@@ -6,10 +6,12 @@ import styled from 'styled-components';
 import GlobalStyle from '../GlobalStyle';
 import StarRating from '../SharedComponents/StarRating';
 import { useOverview } from '../SharedContexts/OverviewProvider';
+import RatingProvider from '../SharedContexts/RatingProvider';
 
 function ProductDetail() {
   const { prodDetails } = useOverview();
   const { currentStyle } = useOverview();
+
 
   return (
     <div className="ProductDetails">
@@ -31,7 +33,9 @@ function ProductDetail() {
                 </P>
               )}
           </Price>
-          {/* <StarRating currentProduct /> */}
+          <RatingProvider>
+            <StarRating currentProduct />
+          </RatingProvider>
         </div>
       )}
     </div>

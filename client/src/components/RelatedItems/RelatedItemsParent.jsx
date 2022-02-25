@@ -56,11 +56,14 @@ function RelatedItemsParent() {
 export default RelatedItemsParent;
 
 const Container = styled.div`
-  max-width: 1200px;
+  max-width: 100%;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 64px,
+  margin-top: 3%;
 `;
+  // justify-content: center;
+  // display: flex;
+// max-width: 1200px;
 
 const ModalImage = styled.img`
   object-fit: cover;

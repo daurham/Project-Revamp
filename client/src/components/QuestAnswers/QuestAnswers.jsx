@@ -18,10 +18,10 @@ function QuestAnswers() {
   const { questions } = useQAData();
 
   useEffect(() => {
-  }, [productId]); // should auto update when id changes.
+  }, [productId]);
   return !questions ? <SpinnerContainer><Spinner /></SpinnerContainer> : (
     <div>
-      <button style={{ backgroundColor: 'orange' }} type="button" onClick={updateID}> Get Another Product ID {productId} </button>
+      {/* <button style={{ backgroundColor: 'orange' }} type="button" onClick={updateID}> Get Another Product ID {productId} </button> */}
       <QAFlexContainer>
         <QASection>
           <QAHeader><TitleStyle>Questions and Answers</TitleStyle></QAHeader>
@@ -36,22 +36,24 @@ function QuestAnswers() {
 export default QuestAnswers;
 
 const QAHeader = styled.div`
-  display: flex;
-  justify-content: center;
+
 `;
+// display: flex;
+// justify-content: center;
 
 const TitleStyle = styled.h1`
-  ${GlobalStyle.Title};
+  ${GlobalStyle.sub_title2};
 `;
 
 // border: solid 2px rgb(238, 238, 238);
 const QAFlexContainer = styled.div`
+  margin-top: 3%;
   display: flex;
   justify-self: center;
   min-width: 90%;
-  margin-left: 5%;
-  margin-right: 5%;
   `;
+  // margin-left: 10%;
+  // margin-right: 10%;
 
 const QASection = styled.div`
 justify-content: center;
