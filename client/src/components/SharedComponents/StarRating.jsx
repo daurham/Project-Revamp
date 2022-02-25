@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import { useData } from '../SharedContexts/DataProvider';
+// import { useData } from '../SharedContexts/DataProvider';
 import { useRatingData } from '../SharedContexts/RatingProvider';
 
 function StarsRating({
@@ -17,7 +17,6 @@ function StarsRating({
   const [results, setResults] = useState(null);
   const [average, setAverage] = useState(0);
 
-  // ----- Austin's copy pasta ----
   if (relatedProduct) {
     useEffect(() => {
       const query = { product_id: relatedProduct };
@@ -66,18 +65,6 @@ function StarsRating({
     width: value ? `${average}%` : `${percent}%`,
   };
 
-  const StarRatingContainer = styled.div`
-  unicode-bidi: bidi-override;
-  color: #363636bf;
-  width: ${relatedProduct ? '75px' : 'max-width'};
-  font-size: ${relatedProduct && '15px'};
-  height: ${relatedProduct ? '15px' : 'auto'};
-  margin: ${!relatedProduct && '0 auto'};
-  position: relative;
-  padding: 0;
-  text-shadow: 0px 1px 0 #a2a2a2;
-`;
-
   return (
     <Container>
       <Average>{showAverage ? <h1>{average}</h1> : null}</Average>
@@ -104,17 +91,29 @@ function StarsRating({
 const Container = styled.div`
   display: grid;
 `;
+
 const StarRatingContainer = styled.div`
-  z-index: 0;
   unicode-bidi: bidi-override;
   color: #363636bf;
-  width: max-width;
-
-  margin: 0 auto;
+  width: ${(relatedProduct) => (relatedProduct ? '75px' : 'max-width')};
+  font-size: ${(relatedProduct) => (relatedProduct && '15px')};
+  height: ${(relatedProduct) => (relatedProduct ? '15px' : 'auto')};
+  margin: ${(relatedProduct) => (!relatedProduct && '0 auto')};
   position: relative;
   padding: 0;
   text-shadow: 0px 1px 0 #a2a2a2;
 `;
+// const StarRatingContainer = styled.div`
+//   z-index: 0;
+//   unicode-bidi: bidi-override;
+//   color: #363636bf;
+//   width: max-width;
+
+//   margin: 0 auto;
+//   position: relative;
+//   padding: 0;
+//   text-shadow: 0px 1px 0 #a2a2a2;
+// `;
 const StarRatingTop = styled.div`
   color: #f1e312;
   padding: 0;
