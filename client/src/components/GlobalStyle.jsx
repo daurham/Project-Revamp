@@ -13,7 +13,7 @@ const GlobalStyle = {
   `,
   sub_title2: `
     font-size: 20px;
-    font-weight: 300;
+    font-weight: 400;
     border-bottom: solid;
     border-width: thin;
     border-color: lightgray;

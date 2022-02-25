@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useOverview } from '../../SharedContexts/OverviewProvider';
 // import Thumbnail from './Thumbnail';
-// import Slider from '../Test';
-// import Carousel, { CarouselItem } from '../Test';
 import Carousel from './Carousel';
 import './Carousel.css';
 
@@ -68,7 +66,7 @@ function ImageGallery() {
       >
         <Carousel show={1} infiniteLoop>
           {(currentStyle.photos.map(
-            (photo, index) => (<MainImage src={photo.url} key={index} />),
+            (photo, index) => (<MainImage src={photo.url || 'https://anthemprep.greatheartsamerica.org/wp-content/uploads/sites/12/2016/12/default-placeholder.png'} key={index} />),
           ))}
         </Carousel>
       </div>
@@ -87,7 +85,7 @@ function ImageGallery() {
             {(currentStyle.photos.map(
               (photo, index) => (
                 <Thumbnail
-                  src={photo.thumbnail_url}
+                  src={photo.thumbnail_url || 'https://anthemprep.greatheartsamerica.org/wp-content/uploads/sites/12/2016/12/default-placeholder.png'}
                   key={index}
                   name={index}
                   onClick={handleClick}
@@ -112,7 +110,7 @@ function ImageGallery() {
           {(currentStyle.photos.map(
             (photo, index) => (
               <Thumbnail
-                src={photo.thumbnail_url}
+                src={photo.thumbnail_url || 'https://anthemprep.greatheartsamerica.org/wp-content/uploads/sites/12/2016/12/default-placeholder.png'}
                 key={index}
                 name={index}
                 onClick={handleClick}
@@ -199,15 +197,6 @@ function ImageGallery() {
       )} */ }
 export default ImageGallery;
 
-// const MainImageContainer = styled.div`
-//   grid-row-start: 1;
-//   grid-row-end: span 2;
-// `;
-
-// const ThumbnailContainer = styled.div`
-//   grid-row-start: 3;
-// `;
-
 const Gallery = styled.div`
   maxWidth: '100%';
   maxHeight: '100%';
@@ -231,31 +220,3 @@ const Thumbnail = styled.img`
   height: 50px;
   object-fit: cover;
 `;
-
-// console.log('props', props); // what am i?
-// if (Array.isArray(props.images) && props.images.length > 0) {
-// console.log('props img', props.images[0].photos);
-
-// //   const [currentImage, setCurrentImage] = useState(props.images[0]);
-// //   console.log('props curImg: ', currentImage); // so its less nested
-
-// //   console.log('props im', props.images[0])
-// }
-// return !(props.images.length > 0) ? null : (
-//   <div>
-//   {props.images[0].photos.map((photo) => (<img src={photo.thumbnail_url} /> ))}
-//   </div>
-
-// <>
-//   {(props.images.length > 0) ?
-//   (<div>{props.images[0].photos.map((photo) => (<img src={photo.url} /> ))}</div>)
-//   : (<div>loading</div>)}
-// </>
-
-// { /* {(props.style !== undefined)
-// ? (<img src={props.style.photos[0].url} />)
-// : (<div>loading</div>)} */ }
-
-// { /* {(props.style !== undefined)
-// ? (<div>{props.style.photos.map((photo) => (<img src={photo.thumbnail_url} />))}</div>)
-// : (<div>loading</div>)} */ }

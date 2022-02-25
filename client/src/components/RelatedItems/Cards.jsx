@@ -52,15 +52,17 @@ function Cards(props) {
         <CardInfoContainer onClick={() => setProductId(item.id)}>
           <ImgContainer src={item.thumbnail} alt="Item" />
           <CardInfoHolder>
-            <SmText>
-              {item.category}
-            </SmText>
-            <MedText>
-              {item.name}
-            </MedText>
-            <PriceContainer>
-              {price}
-            </PriceContainer>
+            <MouseCursor>
+              <SmText>
+                {item.category}
+              </SmText>
+              <MedText>
+                {item.name}
+              </MedText>
+              <PriceContainer>
+                {price}
+              </PriceContainer>
+            </MouseCursor>
             <StarsRating relatedProduct={item.id} />
           </CardInfoHolder>
         </CardInfoContainer>
@@ -100,4 +102,8 @@ const SalePrice = styled.div`
 
 const StrikedPrice = styled.div`
   text-decoration: line-through;
+`;
+
+const MouseCursor = styled.div`
+  cursor: pointer;
 `;

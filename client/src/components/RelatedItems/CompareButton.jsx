@@ -42,4 +42,7 @@ const CompareButtonStyle = styled.button`
   font-size: 7px;
   font-weight: 300;
   font-family: inherit;
+  &:hover {
+    background-color: #e0e1e0c9;
+  }
 `;

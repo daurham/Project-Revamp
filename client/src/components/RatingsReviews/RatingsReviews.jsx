@@ -13,7 +13,6 @@ function RatingsReviews() {
   return (
     <RatingProvider>
       <Title>Reviews and Ratings</Title>
-      <ContainerWrapper>
         <Container>
           <BoxOne>
             <StarRating showAverage currentProduct />
@@ -25,31 +24,24 @@ function RatingsReviews() {
             </OverviewProvider>
           </BoxTwo>
         </Container>
-      </ContainerWrapper>
     </RatingProvider>
   );
 }
-const ContainerWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 3%;
-`;
 
 const Container = styled.div`
+  margin-top: 3%;
   display: grid;
   grid-auto-flow: dense;
   grid-gap: 13px;
-  grid-template-columns: 2fr 4fr;
+  grid-template-columns: 1.5fr 3fr;
   max-width: 1000px;
+  margin-left: 20px;
 `;
 const BoxOne = styled.div`
-  // display: fit-content;
   justify-self: start;
-  // align-items: center;
   grid-column: 1/ span 1;
   padding: 5px;
-  // box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+
 `;
 const BoxTwo = styled.div`
   grid-column: 2/ span 4;

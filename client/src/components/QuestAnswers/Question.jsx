@@ -176,7 +176,7 @@ function Question({ currentQuestion }) {
           </Helpful>
         </HelpfulBtnBlock>
       </AQuestion>
-      <TitleAStyle>A:</TitleAStyle>
+      {/* <TitleAStyle>A:</TitleAStyle> */}
       {
         filteredList.length > 0 ? ((filteredList.map((currentAnswer) => (
           <Answer
@@ -255,11 +255,15 @@ export default Question;
 
 const SmButton = styled.button`
   box-shadow: 2px 0px 1px 0px #8888;
+  width: 100px;
   margin-left: 10px;
   background-color: white;
   height: 20px;
-  cursor: pointer;
   ${GlobalStyle.para_sm};
+  &:hover{
+    cursor: pointer;
+    box-shadow: 0 6px 10px 0 rgba(0,0,0,0.24), 0 7px 10px 0 rgba(0,0,0,0.19)
+  }
   `;
 const TitleStyle = styled.h1`
   ${GlobalStyle.para_xmd};
@@ -267,9 +271,9 @@ const TitleStyle = styled.h1`
   margin: 0px;
 `;
 const TitleAStyle = styled.h1`
-  ${GlobalStyle.para_xmd}
+  ${GlobalStyle.para_xmd};
   margin: 0px;
-  padding: 0% 2% 0% 2%;
+  padding: 0% 2%;
 `;
 const Helpful = styled.p`
   ${GlobalStyle.para_sm};
@@ -279,9 +283,9 @@ const Helpful = styled.p`
   white-space: nowrap;
 `;
 const AQuestion = styled.div`
-  border-top: grey 2px solid;
-  border-bottom: black 1px solid;
-  padding: 0% 2% 0% 2%;
+  border-top: grey 1px solid;
+  border-bottom: grey 1px solid;
+  padding: 5px 2%;
   margin: 0px;
   box-shadow: 2px 0px 1px 0px #8888;
   min-width: 50%;
@@ -291,8 +295,9 @@ const AQuestion = styled.div`
 
 const HelpfulBtnBlock = styled.span`
   float: right;
-  display: inline-grid;
+  display: flex;
   `;
+  // display: inline-grid;
 
 const NoAnswer = styled.div`
   margin-left: 5%;

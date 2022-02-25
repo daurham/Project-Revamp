@@ -56,7 +56,7 @@ const AppStyle = styled.div`
 `;
 
 const Header = styled.h1`
-  font-size: 32px;
+  font-size: 30px;
   font-weight: 400;
   padding-left: 2%;
   padding-bottom: 1px;
@@ -67,17 +67,11 @@ const Header = styled.h1`
 
 const Container = styled.div`
   display: grid;
-  margin: 0 15%;
+  margin: 0 auto;
   margin-bottom: 100px;
-  grid-template-rows:
-  [row1-start] 2%
-  [row1-end] 24%
-  [third-line] 24%
-  [fourth-line] 24%
-  [fifth-line] 24%
-  [sixth-line] 2%
-  [last-line]
-  `;
+  grid-template-columns: 1200px;
+  justify-content: center;
+`;
 
 const Head = styled.div`
   grid-row-start: 1;

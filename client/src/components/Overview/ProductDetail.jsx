@@ -34,7 +34,9 @@ function ProductDetail() {
               )}
           </Price>
           <RatingProvider>
-            <StarRating currentProduct />
+            <StarContainer>
+              <StarRating currentProduct />
+            </StarContainer>
           </RatingProvider>
         </div>
       )}
@@ -46,19 +48,30 @@ export default ProductDetail;
 
 const Title = styled.h1`
   ${GlobalStyle.title};
-  margin: 0;
+  margin-top: 0;
+  margin-bottom: 10px;
 `;
 
 const Category = styled.h2`
   ${GlobalStyle.para_sm};
-  margin: 10px 0;
+  margin-top: 0;
+  margin-bottom: 10px;
 `;
 
 const Price = styled.div`
   ${GlobalStyle.para_title};
+  margin-top: 0;
+  margin-bottom: 10px;
 `;
 
 const P = styled.div`
   ${GlobalStyle.para_title};
-  margin: 10px 0;
+  margin-top: 0;
+  margin-bottom: 10px;
+`;
+
+const StarContainer = styled.div`
+  width: 0;
+  margin-top: 0;
+  margin-bottom: 25px;
 `;

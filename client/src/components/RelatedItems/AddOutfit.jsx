@@ -94,6 +94,9 @@ export const ActionButton = styled.button`
   font-size: 13px;
   font-weight: 300;
   font-family: inherit;
+  &:hover {
+    background-color: #e0e1e0c9;
+  }
 `;
 
 const AddCardContainer = styled.div`

@@ -18,7 +18,7 @@ function ReviewsList({review}) {
     // console.log('click yes button')
     updateHelpful(review.review_id);
     // setCount(count + 1)
-  }
+  };
   return (
     <SingleReview>
       <Star><StarRating value={review.rating} /></Star>
@@ -29,55 +29,55 @@ function ReviewsList({review}) {
      <Helpful>Was this review helpful? <YesButton onClick={handleClick}>Yes</YesButton> {review.helpfulness} </Helpful>
       {review.recommend ? <Recommend>✔ I recommend this product </Recommend> : null}
     </SingleReview>
-  )
+  );
 }
 const SingleReview = styled.div`
   display: grid;
   border-bottom: solid 1px;
   margin: 2px;
   padding: 20px;
-  width: 550px;
+  width: 650px;
   // grid-template-columns: 120px 120px;
   grid-template-columns: 1fr fit-content(10%);
   grid-template-rows: auto;
   grid-template-areas:
-    "star . reviewer date"
-    "title title title . "
-    "review review review . "
-    "recommend recommend helpful helpful"
-`
+    "star . . reviewer date"
+    "title title title . ."
+    "review review review . ."
+    "recommend recommend . helpful helpful"
+`;
 const TitleStyle = styled.h1`
   ${GlobalStyle.sub_title};
   grid-area: title;
-`
+`;
 const Star = styled.span`
   justify-self: start
-`
+`;
 const Helpful = styled.p`
   ${GlobalStyle.para_sm};
   grid-area: helpful;
   justify-self: end;
-`
+`;
 const ReviewBody = styled.p`
   ${GlobalStyle.para_md};
   // flex-grow: 4;
   grid-area: review;
   grid-template-columns: fit-content(40%);
-`
+`;
 const Recommend = styled.p`
   ${GlobalStyle.para_sm};
   grid-area: recommend;
-`
+`;
 const ReviewerName = styled.p`
   ${GlobalStyle.para_sm};
   grid-area: reviewer;
   justify-self: end;
-`
+`;
 const DateStyle = styled.p`
   ${GlobalStyle.para_sm};
   grid-area: date;
   justify-self: end;
-`
+`;
 const YesButton = styled.button`
   width: auto;
   font-size: 10px;
@@ -89,5 +89,5 @@ const YesButton = styled.button`
   &:hover{
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19)
   }
-`
+`;
 export default ReviewsList;

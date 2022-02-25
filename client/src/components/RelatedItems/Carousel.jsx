@@ -118,6 +118,8 @@ const CarouselHeader = styled.div`
   // font-size: 20px;
   // font-weight: 300;
   // padding-left: 8px;
+  margin-top: 0;
+  margin-bottom: 10px;
   ${GlobalStyle.sub_title2}
 `;
 
@@ -131,7 +133,8 @@ const CarouselWrapper = styled.div`
   display: flex;
   width: 100%;
   position: relative;
-`;
+  `;
+  // justify-content: center;
 
 const CarouselContentWrapper = styled.div`
   overflow: clip;
@@ -148,7 +151,9 @@ const CarouselContent = styled.div`
     width: calc(100% / 4);
     flex-shrink: 0;
   }
-`;
+  `;
+  // min-width: 10px;
+  // max-width: 300px;
 
 const BothArrows = css`
   position: absolute;

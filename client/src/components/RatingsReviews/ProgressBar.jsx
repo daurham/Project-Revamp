@@ -64,7 +64,7 @@ function ProgressBar(props) {
         </BarListBox>
       </Container>
     </>
-  )
+  );
 };
 
 ProgressBar.propTypes = {
@@ -113,13 +113,15 @@ const Title = styled.h1`
 const RatingTitle = styled.h1`
   font-size: 17px;
   font-weight: 300;
+  justify-content: center;
+  display: flex;
 `;
 const ProgDetail = styled.span`
   font-size: 12px;
   padding: 3px;
-`
+`;
 const ProgButton = styled.button`
   border: none;
   cursor: pointer;
-`
+`;
 export default ProgressBar;

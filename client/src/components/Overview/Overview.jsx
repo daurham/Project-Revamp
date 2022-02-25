@@ -37,13 +37,13 @@ function Overview() {
 
             <ProductDetailsContainer>
               <ProductDetail />
-            </ProductDetailsContainer>
+            {/* </ProductDetailsContainer> */}
 
-            <StyleSelectorContainer>
+            {/* <StyleSelectorContainer> */}
               <StyleSelector />
-            </StyleSelectorContainer>
+            {/* </StyleSelectorContainer> */}
 
-            <CartContainer>
+            {/* <CartContainer> */}
               <Cart />
               <a href="https://www.instagram.com">
                 <FaInstagram
@@ -71,7 +71,8 @@ function Overview() {
                 }}
                 />
               </a>
-            </CartContainer>
+            {/* </CartContainer> */}
+            </ProductDetailsContainer>
 
             <ProductDescriptionContainer>
               <DesriptionHead>Product Description</DesriptionHead>
@@ -87,14 +88,14 @@ function Overview() {
               <Row>
                 <Column>
                   <DescriptionBody>
-                    <p>{prodDetails.description}</p>
+                    <p style={{ margin: '0' }}>{prodDetails.description}</p>
                   </DescriptionBody>
                 </Column>
                 <Column>
                   <DescriptionBody>
                     {(prodDetails.features.map((feature1, index) => (
                       <List key={index}>
-                        <li>
+                        <li style={{ margin: '0' }}>
                           {`${feature1.feature} :
                         ${feature1.value}`}
                         </li>
@@ -116,6 +117,8 @@ export default Overview;
 
 const DesriptionHead = styled.h2`
   ${GlobalStyle.sub_title2};
+  margin-top: 0;
+  margin-bottom: 10px;
 `;
 
 const Row = styled.div`
@@ -134,56 +137,99 @@ const Column = styled.div`
 
 const DesTitle = styled.h3`
   ${GlobalStyle.para_title};
+  margin-top: 0;
+  margin-bottom: 10px;
+  margin-left: 10px
 `;
 
 const DescriptionBody = styled.div`
   ${GlobalStyle.para_md};
   margin-right: 20px;
+  margin-top: 0;
+  margin-left: 20px;
 `;
 
 const List = styled.ul`
   list-style-type: none;
+  margin: 0;
   padding: 0;
 `;
 
 const Container = styled.div`
   display: grid;
   margin-top: 3%;
-
   grid-template-columns: 50% 50%;
-  grid-template-rows: [row1-start] 200px
-  [row1-end] 200px
-  [third-line] 250px
-  [fourth-line] 200px
+  grid-template-rows: [row1-start] auto
+  [row1-end] 25%
   [last-line];
 `;
+
+// const Container = styled.div`
+//   display: grid;
+//   margin-top: 3%;
+//   grid-template-columns: 50% 50%;
+//   grid-template-rows: [row1-start] 20%
+//   [row1-end] 25%
+//   [third-line] 30%
+//   [fourth-line] 25%
+//   [last-line]
+// ';
 
 const ImageGalleryContainer = styled.div`
   grid-column-start: 1;
   grid-row-start: 1;
-  grid-row-end: span 3;
 `;
 
+// const ImageGalleryContainer = styled.div`
+//   grid-column-start: 1;
+//   grid-row-start: 1;
+//   grid-row-end: span 3;
+// `;
+
 const ProductDetailsContainer = styled.div`
-  margin-left: 10px;
   grid-column-start: 2;
   grid-row-start: 1;
 `;
 
-const StyleSelectorContainer = styled.div`
-  margin-left: 10px;
-  grid-column-start: 2;
-  grid-row-start: 2;
-`;
+// const ProductDetailsContainer = styled.div`
+//   margin-left: 10px;
+//   grid-column-start: 2;
+//   grid-row-start: 1;
+// `;
 
-const CartContainer = styled.div`
-  margin-left: 10px;
-  grid-column-start: 2;
-  grid-row-start: 3;
-`;
+// const StyleSelectorContainer = styled.div`
+// margin-left: 10px;
+// grid-column-start: 2;
+// grid-row-start: 1;
+// `;
+
+// const StyleSelectorContainer = styled.div`
+//   margin-left: 10px;
+//   grid-column-start: 2;
+//   grid-row-start: 2;
+// `;
+
+// const CartContainer = styled.div`
+// margin-left: 10px;
+// grid-column-start: 2;
+// grid-row-start: 1;
+// `;
+
+// const CartContainer = styled.div`
+//   margin-left: 10px;
+//   grid-column-start: 2;
+//   grid-row-start: 3;
+// `;
 
 const ProductDescriptionContainer = styled.div`
   grid-column-start: 1;
   grid-column-end: 3;
-  grid-row-start: 4;
+  grid-row-start: 2;
+  margin-top: 3%;
 `;
+
+// const ProductDescriptionContainer = styled.div`
+//   grid-column-start: 1;
+//   grid-column-end: 3;
+//   grid-row-start: 4;
+// `;

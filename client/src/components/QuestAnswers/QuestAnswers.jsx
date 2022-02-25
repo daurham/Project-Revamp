@@ -17,8 +17,8 @@ function QuestAnswers() {
   const { updateID } = useData();
   const { questions } = useQAData();
 
-  useEffect(() => {
-  }, [productId]);
+  // useEffect(() => {
+  // }, [productId]);
   return !questions ? <SpinnerContainer><Spinner /></SpinnerContainer> : (
     <div>
       {/* <button style={{ backgroundColor: 'orange' }} type="button" onClick={updateID}> Get Another Product ID {productId} </button> */}
