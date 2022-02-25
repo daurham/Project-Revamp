@@ -64,7 +64,7 @@ function ProgressBar(props) {
         </BarListBox>
       </Container>
     </>
-  )
+  );
 };
 
 ProgressBar.propTypes = {
@@ -93,15 +93,16 @@ const BarListBox = styled.ul`
 `;
 const BarList = styled.li`
   progress[value] {
-    width: ${props => props.width};
+    width: 200px;
     appearance: none;
-    height: 10px;
+    height: 20px;
   }
   display: flex;
   align-items: center;
   &:hover {
     transition: all .3s ease-in-out;
   }
+
 `;
 const Title = styled.h1`
  ${GlobalStyle.para_md};
@@ -110,14 +111,17 @@ const Title = styled.h1`
  justify-content: center;
 `;
 const RatingTitle = styled.h1`
- ${GlobalStyle.sub_title};
+  font-size: 17px;
+  font-weight: 300;
+  justify-content: center;
+  display: flex;
 `;
 const ProgDetail = styled.span`
   font-size: 12px;
   padding: 3px;
-`
+`;
 const ProgButton = styled.button`
   border: none;
   cursor: pointer;
-`
+`;
 export default ProgressBar;

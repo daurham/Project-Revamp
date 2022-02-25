@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import Cards from './Cards';
 import { useRelated } from './RelatedProvider';
 import AddOutfit from './AddOutfit';
+import GlobalStyle from '../GlobalStyle';
 
 function Carousel(props) {
   const { view } = props;
@@ -114,9 +115,12 @@ function Carousel(props) {
 export default Carousel;
 
 const CarouselHeader = styled.div`
-  font-size: 15px;
-  font-weight: 300;
-  padding-left: 8px;
+  // font-size: 20px;
+  // font-weight: 300;
+  // padding-left: 8px;
+  margin-top: 0;
+  margin-bottom: 10px;
+  ${GlobalStyle.sub_title2}
 `;
 
 const CarouselContainer = styled.div`
@@ -129,7 +133,8 @@ const CarouselWrapper = styled.div`
   display: flex;
   width: 100%;
   position: relative;
-`;
+  `;
+  // justify-content: center;
 
 const CarouselContentWrapper = styled.div`
   overflow: clip;
@@ -146,7 +151,9 @@ const CarouselContent = styled.div`
     width: calc(100% / 4);
     flex-shrink: 0;
   }
-`;
+  `;
+  // min-width: 10px;
+  // max-width: 300px;
 
 const BothArrows = css`
   position: absolute;

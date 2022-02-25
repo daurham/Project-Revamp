@@ -19,7 +19,7 @@ const Modal = ({ setIsOpen }) => {
 const Background = styled.div`
   background-color: rgba(0, 0, 0, 0.2);
   width: 500vw;
-  height: 500vh;
+  height: 1000vh;
   z-index: 0;
   top: 50%;
   left: 50%;
