@@ -64,9 +64,9 @@ function AddOutfitCard(props) {
   }
 
   return (
-    <>
+    <div>
       {render}
-    </>
+    </div>
   );
 }
 
