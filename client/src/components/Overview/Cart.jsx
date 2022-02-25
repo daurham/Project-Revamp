@@ -61,9 +61,9 @@ function Cart() {
         {sizes && sizes.length > 0 ? sizes.map((size, index) => <ButtonStyled key={index}>{size}</ButtonStyled>) : 'Out Of Stock'}
       </div>
       <div id="quantity">
-        <select style={{ margin: '10px' }}>
+        <select style={{ margin: '0 10px' }}>
           {/* {quantities.length > 0 ? quantities.map((quantity, index) => <option>{quantity}</option>) : 'Out Of Stock'} */}
-          {quantitiesArray.map((quantity, index) => <option key={index}>{quantity}</option>)}
+          {quantitiesArray.map((quantity, index) => <FancyOption key={index}>{quantity}</FancyOption>)}
         </select>
       </div>
       <Button label="Add To Cart" handleClick={() => handleClick} />
@@ -75,13 +75,23 @@ export default Cart;
 
 const Title = styled.h2`
   ${GlobalStyle.sub_title};
+  margin-top: 0;
+  margin-bottom: 10px;
+`;
+
+const FancyOption = styled.option`
+  cursor: pointer;
 `;
 
 const ButtonStyled = styled.button`
-  margin: 10px;
+  margin: 0 10px 10px 10px;
   background-color: white;
   border: 2px solid black;
   box-shadow: 2px 2px 1px 2px #8888;
   width: 50px;
   height: 40px;
+  &:hover{
+    cursor: pointer;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19)
+  }
 `;

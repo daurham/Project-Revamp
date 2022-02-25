@@ -115,10 +115,10 @@ app.post('/reviews', (req, res) => {
 app.put('/reviews/:review_id/helpful', (req, res) => {
   console.log(req.params.review_id)
   axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/${req.params.review_id}/helpful`, null, config)
-  .then((result) => {
-    res.send(result.data)
-  })
-  .catch((error) => {res.sendStatus(500)})
+    .then((result) => {
+      res.send(result.data);
+    })
+    .catch((error) => res.status(500).send(error));
 });
 // app.get('/questions', (req, res) => {
 //   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions', params)
@@ -127,12 +127,12 @@ app.put('/reviews/:review_id/helpful', (req, res) => {
 // Questions / Answers
 // get questions(productId)
 app.get('/questions/:id', (req, res) => {
-  const params = { product_id: Number(req.params.id), page: 1, count: 100 };
+  const body = { product_id: Number(req.params.id), page: 1, count: 50 };
   // console.log('QA-localConfig', body);
   axios({
     url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions',
     headers,
-    params,
+    params: body,
     method: 'GET',
   })
   // axios(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions?product_id=${req.params.id}&count=100`, config)
@@ -160,7 +160,7 @@ app.post('/questions/:id', (req, res) => {
   // console.log(body);
   axios({
     url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions',
-    headers: headers,
+    headers,
     data: body,
     method: 'POST',
   })
@@ -178,7 +178,7 @@ app.post('/answers/:id', (req, res) => {
   req.body.photos ? body.photos = req.body.photos : null;
   axios({
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${req.params.id}/answers`,
-    headers: headers,
+    headers,
     data: body,
     method: 'POST',
   })
@@ -190,7 +190,7 @@ app.post('/answers/:id', (req, res) => {
 app.put('/questions/:id/helpful', (req, res) => {
   axios({
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${req.params.id}/helpful`,
-    headers: headers,
+    headers,
     method: 'PUT',
   })
     .then(() => { res.sendStatus(204); })
@@ -201,7 +201,7 @@ app.put('/questions/:id/helpful', (req, res) => {
 app.put('/questions/:id/report', (req, res) => {
   axios({
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${req.params.id}/report`,
-    headers: headers,
+    headers,
     method: 'PUT',
   })
     .then(() => { res.sendStatus(204); })

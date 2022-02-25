@@ -57,18 +57,23 @@ function Answer({ currentAnswer, setAnswers, questionId }) {
     <div>
       <span>
         <AnAnswer>
-          <ReviewBody>{body}</ReviewBody>
-          <NameAndDate>
-            -
-            {answerer_name === 'Seller' ? <b>{answerer_name}</b> : answerer_name}, {newDate}
-          </NameAndDate>
-          <Helpful>
-            Helpful?
-            {' '}
-            <ins onClick={upvoteUser}>Yes? ({helpfulness})</ins>
-            {' | '}
-            <ins onClick={reportUser}>{!reported ? 'Report' : 'Reported'}</ins>
-          </Helpful>
+          <AnswerOpener>
+            <TitleAStyle>A:</TitleAStyle>
+            <ReviewBody>{body}</ReviewBody>
+          </AnswerOpener>
+          <AnswerBottom>
+            <NameAndDate>
+              -
+              {answerer_name === 'Seller' ? <b>{answerer_name}</b> : answerer_name}, {newDate}
+            </NameAndDate>
+            <Helpful>
+              Helpful?
+              {' '}
+              <ins onClick={upvoteUser}>Yes? ({helpfulness})</ins>
+              {' | '}
+              <ins onClick={reportUser}>{!reported ? 'Report' : 'Reported'}</ins>
+            </Helpful>
+          </AnswerBottom>
         </AnAnswer>
       </span>
       {/* {photos.length > 0
@@ -98,18 +103,22 @@ const ReviewBody = styled.p`
   ${GlobalStyle.para_md};
   margin: 0px;
   margin-left: 1%;
+  display: inline-line;
 `;
 const NameAndDate = styled.p`
   ${GlobalStyle.para_sm};
   margin: 0px;
   margin-left: 2%;
+  display: inline-line;
 `;
 const Helpful = styled.p`
   ${GlobalStyle.para_sm};
+  display: inline-line;
   margin: 0px;
   margin-left: 2%;
   cursor: pointer;
-`;
+  `;
+  // margin-right: 20px;
 const Recommend = styled.p`
   ${GlobalStyle.para_sm};
 `;
@@ -120,12 +129,23 @@ const DateStyle = styled.p`
   ${GlobalStyle.para_sm};
 `;
 // border-top: grey 1px solid;
+const TitleAStyle = styled.h1`
+  ${GlobalStyle.para_xmd};
+`;
+const AnswerOpener = styled.span`
+display: inline-block;
+`;
+const AnswerBottom = styled.span`
+display: -webkit-inline-box;
+`;
 
 const AnAnswer = styled.div`
+  display: flex;
   border-bottom: light-grey 2px solid;
-  padding: 0px;
+  padding: 0 2%;
   margin: 0px;
   box-shadow: 2px 0px 1px 0px #8888;
+  justify-content: space-between;
 `;
 
 const Gallery = styled.div`
@@ -139,7 +159,7 @@ const Gallery = styled.div`
     border: 1px solid #777;
   }
   `;
-  // width: 180px;
+// width: 180px;
 
 const Image = styled.img`
   width: 100%;

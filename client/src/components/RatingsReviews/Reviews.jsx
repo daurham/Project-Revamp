@@ -22,46 +22,50 @@ function Reviews() {
 
   useEffect(() => {
     if (filterRating) {
-      console.log('REVIEWS',reviews, filterRating)
+      console.log('REVIEWS', reviews, filterRating);
     }
   }, [filterRating, reviews]);
 
   return reviews.length !== 0 ? (
     <Container>
-       <SortDiv>
-       <span>{reviews.count} reviews </span>
-         <SortedBy>Sort By</SortedBy>
-      <select onClick={handleSortClick}>
-        <option value="newest" >Newest</option>
-        <option value="helpful">Helpful</option>
-        <option value="relevant">Relevant</option>
-      </select>
-    </SortDiv>
+      <SortDiv>
+        <span>
+          {reviews.count}
+          reviews
+        </span>
+        <SortedBy>Sort By</SortedBy>
+        <select onClick={handleSortClick}>
+          <option value="newest">Newest</option>
+          <option value="helpful">Helpful</option>
+          <option value="relevant">Relevant</option>
+        </select>
+      </SortDiv>
       <ReviewStyled>
         {reviews.results.slice(0, limit ? limit : items.length).map((review, id, summary, rating, recommend, body, date, photos) => (
           <ReviewsList review={review} key={id} />))}
       </ReviewStyled>
       <div>
-        <Button label="MORE REVIEWS" handleClick={updateLimit}></Button>
-        <Button label="ADD A REVIEW" handleClick={() => setIsOpen(true)}></Button>
+        <Button label="MORE REVIEWS" handleClick={updateLimit} />
+        <Button label="ADD A REVIEW" handleClick={() => setIsOpen(true)} />
         {isOpen && <Modal setIsOpen={setIsOpen} />}
       </div>
     </Container>
-  ) : <div>Loading</div>
+  ) : <div>Loading</div>;
 }
 
 const Container = styled.div`
   display: grid;
-  margin: 10px;
-  padding: 10px;
-`
-const ReviewStyled = styled.div`
+  overflow-y: scroll;
+  max-height: 800px;
 
-`
+`;
+const ReviewStyled = styled.div`
+  margin: 0;
+`;
 const SortDiv = styled.div`
   font-size: 12px;
-`
+`;
 const SortedBy = styled.span`
   padding: 5px;
-`
+`;
 export default Reviews;
