@@ -127,7 +127,7 @@ app.put('/reviews/:review_id/helpful', (req, res) => {
 // Questions / Answers
 // get questions(productId)
 app.get('/questions/:id', (req, res) => {
-  const body = { product_id: Number(req.params.id), page: 1, count: 50 };
+  const body = { product_id: Number(req.params.id), page: 1, count: 35 };
   // console.log('QA-localConfig', body);
   axios({
     url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions',
@@ -143,7 +143,7 @@ app.get('/questions/:id', (req, res) => {
 
 // get answers(questionId)
 app.get('/answers/:id', (req, res) => {
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${req.params.id}/answers/?page=1&count=5`, config)
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${req.params.id}/answers/?page=1&count=10`, config)
     .then((result) => { res.status(200).send(result.data); })
     .catch((err) => { res.status(500).send(err); });
 });
@@ -213,7 +213,7 @@ app.put('/answers/:id/helpful', (req, res) => {
   // console.log('req', req.params.id);
   axios({
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/answers/${req.params.id}/helpful`,
-    headers: headers,
+    headers,
     method: 'PUT',
   })
     .then(() => { res.sendStatus(204); })
@@ -224,7 +224,7 @@ app.put('/answers/:id/helpful', (req, res) => {
 app.put('/answers/:id/report', (req, res) => {
   axios({
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/answers/${req.params.id}/report`,
-    headers: headers,
+    headers,
     method: 'PUT',
   })
     .then(() => { res.sendStatus(204); })

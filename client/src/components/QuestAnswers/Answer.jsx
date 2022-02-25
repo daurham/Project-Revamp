@@ -41,7 +41,7 @@ function Answer({ currentAnswer, setAnswers, questionId }) {
         .catch((err) => console.log(err));
     }
   }
-  // console.log('qId: ', ;
+
   const { answerer_name } = currentAnswer;
   const { body } = currentAnswer;
   const { date } = currentAnswer;
@@ -76,17 +76,20 @@ function Answer({ currentAnswer, setAnswers, questionId }) {
           </AnswerBottom>
         </AnAnswer>
       </span>
-      {/* {photos.length > 0
-        && (
-          <TheGallery>
-            {
-              photos.length > 0
-                ? (
-                  photos.map((pic) => (<Gallery><Image key={ keyVal += 1 } src={pic.url} alt="Shared Pic" /></Gallery>))
-                ) : null
-            }
-          </TheGallery>
-        )} */}
+
+      <ImgBlock>
+        {photos.length > 0
+          && (
+            <TheGallery>
+              {
+                photos.length > 0
+                  ? (
+                    photos.map((pic) => (<Gallery><Image key={keyVal += 1} src={pic.url} alt="Shared Pic" /></Gallery>))
+                  ) : null
+              }
+            </TheGallery>
+          )}
+      </ImgBlock>
     </div>
   );
 }
@@ -118,7 +121,7 @@ const Helpful = styled.p`
   margin-left: 2%;
   cursor: pointer;
   `;
-  // margin-right: 20px;
+// margin-right: 20px;
 const Recommend = styled.p`
   ${GlobalStyle.para_sm};
 `;
@@ -167,7 +170,11 @@ const Image = styled.img`
 `;
 
 const TheGallery = styled.div`
-  display: block;
+  display: inline-flex;
   max-height: 400px;
   max-width: 100%;
+`;
+
+const ImgBlock = styled.div`
+  display: inline-flex;
 `;
