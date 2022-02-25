@@ -51,8 +51,8 @@ function AddOutfitCard(props) {
         <CardContainer>
           <AddCardContainer>
             <AddCard>
-              <div>Add To</div>
-              <div>Outfit</div>
+              <div>Add Current</div>
+              <div>Product</div>
               <AddOutfitButton onClick={() => onButtonClick()}>
                 +
               </AddOutfitButton>
@@ -64,9 +64,9 @@ function AddOutfitCard(props) {
   }
 
   return (
-    <>
+    <div>
       {render}
-    </>
+    </div>
   );
 }
 
@@ -111,9 +111,8 @@ const AddCard = styled.div`
   width:230px;
   height:311px;
   overflow: clip;
-  font-size: 27px;
-  font-weight: 100;
-  font-style:oblique;
+  font-size: 20px;
+  font-weight: 200;
   display: flex;
   flex-direction: column;
   justify-content: center;
