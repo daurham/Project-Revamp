@@ -38,9 +38,10 @@ const Container = styled.div`
   margin-left: 20px;
 `;
 const BoxOne = styled.div`
-  justify-self: start;
   grid-column: 1/ span 1;
   padding: 5px;
+  display: grid;
+  justify-items: center;
 
 `;
 const BoxTwo = styled.div`
