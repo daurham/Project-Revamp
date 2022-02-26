@@ -55,6 +55,9 @@ function Reviews() {
 
 const Container = styled.div`
   display: grid;
+  overflow-y: scroll;
+  max-height: 800px;
+
 `;
 const ReviewStyled = styled.div`
   margin: 0;

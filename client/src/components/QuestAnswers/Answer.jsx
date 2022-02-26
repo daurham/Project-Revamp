@@ -3,9 +3,20 @@ import axios from 'axios';
 import styled from 'styled-components';
 import GlobalStyle from '../GlobalStyle';
 import { useData } from '../SharedContexts/DataProvider';
+import { useQAData } from './QAContext/DataProvider';
 
-function Answer({ currentAnswer }) {
-  const { productId } = useData();
+function Answer({ currentAnswer, setAnswers, questionId }) {
+  if (!setAnswers || !questionId) {
+    return null;
+  }
+
+  function getAnswers(id) {
+    axios.get(`/answers/${id}`)
+      .then((result) => {
+        setAnswers(result.data.results);
+      });
+  }
+
   const { answer_id } = currentAnswer;
   const [voted, hasVoted] = useState(false);
   const [reported, hasReported] = useState(false);
@@ -26,6 +37,7 @@ function Answer({ currentAnswer }) {
       hasVoted(true);
       axios.put(`/answers/${answer_id}/helpful`)
         .then(() => console.log('upvoted!'))
+        .then(() => getAnswers(questionId))
         .catch((err) => console.log(err));
     }
   }
@@ -64,17 +76,20 @@ function Answer({ currentAnswer }) {
           </AnswerBottom>
         </AnAnswer>
       </span>
-      {/* {photos.length > 0
-        && (
-          <TheGallery>
-            {
-              photos.length > 0
-                ? (
-                  photos.map((pic) => (<Gallery><Image key={ keyVal += 1 } src={pic.url} alt="Shared Pic" /></Gallery>))
-                ) : null
-            }
-          </TheGallery>
-        )} */}
+
+      <ImgBlock>
+        {photos.length > 0
+          && (
+            <TheGallery>
+              {
+                photos.length > 0
+                  ? (
+                    photos.map((pic) => (<Gallery><Image key={keyVal += 1} src={pic.url} alt="Shared Pic" /></Gallery>))
+                  ) : null
+              }
+            </TheGallery>
+          )}
+      </ImgBlock>
     </div>
   );
 }
@@ -106,7 +121,7 @@ const Helpful = styled.p`
   margin-left: 2%;
   cursor: pointer;
   `;
-  // margin-right: 20px;
+// margin-right: 20px;
 const Recommend = styled.p`
   ${GlobalStyle.para_sm};
 `;
@@ -155,7 +170,11 @@ const Image = styled.img`
 `;
 
 const TheGallery = styled.div`
-  display: block;
+  display: inline-flex;
   max-height: 400px;
   max-width: 100%;
+`;
+
+const ImgBlock = styled.div`
+  display: inline-flex;
 `;

@@ -34,17 +34,18 @@ const Container = styled.div`
   grid-auto-flow: dense;
   grid-gap: 13px;
   grid-template-columns: 1.5fr 3fr;
-  max-width: 1000px;
+  max-width: 1200px;
   margin-left: 20px;
 `;
 const BoxOne = styled.div`
-  justify-self: start;
   grid-column: 1/ span 1;
   padding: 5px;
+  display: grid;
+  justify-items: center;
 
 `;
 const BoxTwo = styled.div`
-  grid-column: 2/ span 4;
+  grid-column: 2/ span 5;
   grid-row: span 2;
 `;
 const Title = styled.h1`

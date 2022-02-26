@@ -106,7 +106,7 @@ function Question({ currentQuestion }) {
   }
 
   function uploadAttachment() {
-    // setAttachment(e.file?);l
+    // setAttachment(e.file?);
     console.log('upload a pic');
     // logic
   }
@@ -136,7 +136,6 @@ function Question({ currentQuestion }) {
   const putStyles = { cursor: 'pointer' };
 
   useEffect(() => {
-    // renderList();
     hasReported(false);
     hasVoted(false);
   }, [productId]);
@@ -156,12 +155,12 @@ function Question({ currentQuestion }) {
           {question_body}
         </TitleStyle>
         <HelpfulBtnBlock>
-          <SmButton
+          <QSmButton
             type="button"
             onClick={() => { toggleModal(); }}
           >
             Add Answer
-          </SmButton>
+          </QSmButton>
           <Helpful>
             Helpful?
             {' '}
@@ -181,13 +180,15 @@ function Question({ currentQuestion }) {
         filteredList.length > 0 ? ((filteredList.map((currentAnswer) => (
           <Answer
             currentAnswer={currentAnswer}
+            setAnswers={setAnswers}
+            questionId={questionId}
             key={currentAnswer.answer_id}
           />
         ))))
           : <NoAnswer>{noAnswers}</NoAnswer>
       }
       {
-        filteredList.length > 2 ? (
+        answers.length > 2 ? (
           <SmButton
             type="button"
             onClick={() => { toggleAnswerAccordian(); }}
@@ -199,17 +200,17 @@ function Question({ currentQuestion }) {
       <span>
         <Modal
           show={modal}
-          closeCallback={toggleModal}
+          closeCallback={() => { toggleModal(); }}
         >
           {!post
             ? (
-              <div>
+              <ModalContainer>
                 <h2>Answer A Question</h2>
 
                 <form>
                   <ModalTextarea
                     placeholder="What do you want to say?"
-                    onChange={handleInput}
+                    onChange={() => { handleInput(); }}
                   />
                   <span>
                     <input
@@ -226,17 +227,17 @@ function Question({ currentQuestion }) {
                 </form>
                 <span>
                   <Button
-                    handleClick={handleSubmit}
+                    handleClick={() => { handleSubmit(); }}
                     type="button"
                     label="Submit"
                   />
                   <Button
-                    handleClick={uploadAttachment}
+                    handleClick={() => { uploadAttachment(); }}
                     type="button"
                     label="Upload an Image"
                   />
                 </span>
-              </div>
+              </ModalContainer>
             )
             : (
               <div>
@@ -253,12 +254,26 @@ export default Question;
 
 // Styles:
 
-const SmButton = styled.button`
+const QSmButton = styled.button`
   box-shadow: 2px 0px 1px 0px #8888;
-  width: 100px;
+  width: 130px;
   margin-left: 10px;
   background-color: white;
   height: 20px;
+  margin-bottom: 10px;
+  ${GlobalStyle.para_sm};
+  &:hover{
+    cursor: pointer;
+    box-shadow: 0 6px 10px 0 rgba(0,0,0,0.24), 0 7px 10px 0 rgba(0,0,0,0.19)
+  }
+  `;
+const SmButton = styled.button`
+  box-shadow: 2px 0px 1px 0px #8888;
+  width: 130px;
+  margin-left: 10px;
+  background-color: white;
+  height: 20px;
+  margin-bottom: 10px;
   ${GlobalStyle.para_sm};
   &:hover{
     cursor: pointer;
@@ -310,6 +325,13 @@ const SpinnerContainer = styled.div`
 
 const ModalTextarea = styled.textarea`
   resize: none;
-  width: 90%;
-  height: 90%;
+  width: 400px;
+  height: 200px;
 `;
+
+// min-height: 50%;
+const ModalContainer = styled.div`
+`;
+// height: 75%;
+// width: fit-content;
+// min-width: 50%;
