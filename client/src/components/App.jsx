@@ -70,7 +70,7 @@ const Container = styled.div`
   display: grid;
   margin: 0 auto;
   margin-bottom: 2%;
-  grid-template-columns: 60%;
+  grid-template-columns: 1200px;
   justify-content: center;
 `;
 

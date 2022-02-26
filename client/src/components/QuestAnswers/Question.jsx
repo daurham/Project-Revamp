@@ -144,6 +144,7 @@ function Question({ currentQuestion }) {
             <HelpfulButton tabIndex={0} onClick={() => { upvoteUser(); }}>
               Yes
             </HelpfulButton>
+            {' '}
             {question_helpfulness}
             {' | '}
             <HelpfulButton tabIndex={0} onClick={() => { reportUser(); }}>
@@ -244,7 +245,8 @@ const HelpfulButton = styled.button`
   }
 `;
 const QSmButton = styled.button`
-  box-shadow: 2px 0px 1px 0px #8888;
+  box-shadow: 2px 2px 1px 2px #8888;
+  border: 2px solid black;
   width: 130px;
   background-color: white;
   height: 20px;
@@ -256,8 +258,9 @@ const QSmButton = styled.button`
   }
 `;
 const SmButton = styled.button`
-  box-shadow: 2px 0px 1px 0px #8888;
   width: auto;
+  border: 2px solid black;
+  box-shadow: 2px 2px 1px 2px #8888;
   background-color: white;
   height: 20px;
   margin: 10px;

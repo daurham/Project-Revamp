@@ -29,10 +29,11 @@ function Reviews() {
       <SortDiv>
         <span>
           {reviews.count}
+          {' '}
           reviews
         </span>
         <SortedBy>Sort By</SortedBy>
-        <select onClick={handleSortClick}>
+        <select onClick={handleSortClick} style={{ border: '2px solid black' }}>
           <option value="newest">Newest</option>
           <option value="helpful">Helpful</option>
           <option value="relevant">Relevant</option>
@@ -56,8 +57,7 @@ function Reviews() {
 const Container = styled.div`
   display: grid;
   overflow-y: scroll;
-  max-height: 800px;
-
+  max-height: 500px;
 `;
 const ReviewStyled = styled.div`
   margin: 0;

@@ -43,7 +43,7 @@ function SearchBar() {
           type="text"
           value={input}
           placeholder="Search for a question"
-          onChange={() => { handleInput(); }}
+          onChange={handleInput}
         />
       </SearchBarContainer>
       <br />
@@ -58,6 +58,7 @@ const SearchBarContainer = styled.div`
 `;
 
 const InputSearchBar = styled.input`
+  border: 2px solid black;
   width: 100%;
   min-width: 20%;
   margin-left: 60%;

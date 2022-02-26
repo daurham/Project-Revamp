@@ -119,7 +119,7 @@ function QuestionList() {
         >
           {!post
             ? (
-              <div>
+              <ModalContainer>
                 <LModalHeader>Ask A Question</LModalHeader>
 
                 <form>
@@ -140,13 +140,12 @@ function QuestionList() {
                     />
                   </LModalBottomSpan>
                 </form>
-                <SmButton
-                  onClick={handleSubmit}
+                <Button
+                  handleClick={() => { handleSubmit(); }}
                   type="button"
-                >
-                  Submit
-                </SmButton>
-              </div>
+                  label="Submit"
+                />
+              </ModalContainer>
             )
             : (
               <div>
@@ -164,11 +163,12 @@ export default QuestionList;
 // Styles:
 
 const SmButton = styled.button`
-  box-shadow: 2px 0px 1px 0px #8888;
+  border: 2px solid black;
+  box-shadow: 2px 2px 1px 2px #8888;
   margin: 10px 0;
   background-color: white;
   height: 20px;
-  ${GlobalStyle.para_md};
+  ${GlobalStyle.para_sm};
   &:hover{
     cursor: pointer;
     box-shadow: 0 6px 8px 0 rgba(0,0,0,0.24), 0 10px 25px 0 rgba(0,0,0,0.19)
@@ -189,19 +189,16 @@ const NoQuestions = styled.h1`
   margin-left: 5%;
 `;
 const ModalTextarea = styled.textarea`
-  resize: none;
-  width: 90%;
-  height: 90%;
-  min-height: 75px
+resize: none;
+width: 400px;
+height: 200px;
 `;
 const LModalHeader = styled.h2`
-  margin: 0px;
 `;
 const LModalBottomSpan = styled.span`
-  display: flex;
-  justify-content: space-evenly;
-  margin: 0px;
 `;
 const LModalBottomInput = styled.input`
   border: light-grey;
+`;
+const ModalContainer = styled.div`
 `;

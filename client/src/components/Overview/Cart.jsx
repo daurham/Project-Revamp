@@ -91,6 +91,7 @@ const ButtonStyled = styled.button`
 `;
 
 const Dropdown = styled.select`
+  border: 2px solid black;
   margin: 0 10px 10px 10px;
   min-width: 140px;
   height: 40px;

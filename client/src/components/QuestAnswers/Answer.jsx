@@ -72,6 +72,7 @@ function Answer({ currentAnswer, setAnswers, questionId }) {
               <HelpfulButton onClick={() => { upvoteUser(); }}>
                 Yes
               </HelpfulButton>
+              {' '}
               {helpfulness}
               {' | '}
               <HelpfulButton onClick={() => { reportUser(); }}>
