@@ -13,7 +13,7 @@ import Spinner from './SharedComponents/Spinner';
 
 function App() {
   const { productId } = useData();
-  console.log('going rogue!')
+  console.log('going rogue!');
   return (
     <>
       {productId ? (
@@ -69,7 +69,7 @@ const Header = styled.h1`
 const Container = styled.div`
   display: grid;
   margin: 0 auto;
-  margin-bottom: 100px;
+  margin-bottom: 2%;
   grid-template-columns: 1200px;
   justify-content: center;
 `;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { addReviews, useRatingData } from '../SharedContexts/RatingProvider';
+import { useRatingData } from '../SharedContexts/RatingProvider';
 import { useOverview } from '../SharedContexts/OverviewProvider';
 import Characteristics from './Characteristics';
 import StarClick from './StarClick';
@@ -107,7 +107,6 @@ function Form() {
                 placeholder="“Example: Best purchase ever!”"
                 onChange={handleChange}
                 maxLength={60}
-
                 required
               />
             </Label>

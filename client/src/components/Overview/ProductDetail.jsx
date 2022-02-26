@@ -1,7 +1,4 @@
-import React, {
-  useState, useMemo, useContext, useEffect,
-} from 'react';
-// import custom hook created on line 9 of DataProvider
+import React from 'react';
 import styled from 'styled-components';
 import GlobalStyle from '../GlobalStyle';
 import StarRating from '../SharedComponents/StarRating';
@@ -11,7 +8,6 @@ import RatingProvider from '../SharedContexts/RatingProvider';
 function ProductDetail() {
   const { prodDetails } = useOverview();
   const { currentStyle } = useOverview();
-
 
   return (
     <div className="ProductDetails">

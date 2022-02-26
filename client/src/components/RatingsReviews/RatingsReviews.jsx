@@ -1,29 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import styled from 'styled-components';
 import StarRating from '../SharedComponents/StarRating';
 import ProgressBar from './ProgressBar';
 import RatingProvider from '../SharedContexts/RatingProvider';
 import Reviews from './Reviews';
-import styled from 'styled-components';
 import GlobalStyle from '../GlobalStyle';
-import { useData } from '../SharedContexts/DataProvider';
 import OverviewProvider from '../SharedContexts/OverviewProvider';
 
 function RatingsReviews() {
-  const { productId } = useData();
   return (
     <RatingProvider>
       <Title>Reviews and Ratings</Title>
-        <Container>
-          <BoxOne>
-            <StarRating showAverage currentProduct />
-            <ProgressBar />
-          </BoxOne>
-          <BoxTwo>
-            <OverviewProvider>
-              <Reviews />
-            </OverviewProvider>
-          </BoxTwo>
-        </Container>
+      <Container>
+        <BoxOne>
+          <StarRating showAverage currentProduct />
+          <ProgressBar />
+        </BoxOne>
+        <BoxTwo>
+          <OverviewProvider>
+            <Reviews />
+          </OverviewProvider>
+        </BoxTwo>
+      </Container>
     </RatingProvider>
   );
 }

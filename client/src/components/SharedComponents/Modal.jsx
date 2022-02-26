@@ -38,7 +38,6 @@ width: 100%;
 height: 100%;
 z-index: 990;
 `;
-
 const ModalOverlay = styled.div`
 position: absolute;
 left: 0;
@@ -48,7 +47,6 @@ height: 100%;
 z-index: 995;
 background: rgba(0,0,0,0.85);
 `;
-
 const ModalContent = styled.div`
 z-index: 999;
 position: absolute;
@@ -69,7 +67,6 @@ margin: 20px 0 40px;
 text-align: center;
 padding: 20px;
 `;
-
 const ModalCloseButton = styled.button`
 position: absolute;
 right: 10px;

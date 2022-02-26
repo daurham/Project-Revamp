@@ -1,5 +1,5 @@
 import React, {
-  useState, useMemo, useContext, useEffect,
+  useState, useEffect,
 } from 'react';
 import styled from 'styled-components';
 import GlobalStyle from '../GlobalStyle';
@@ -8,10 +8,7 @@ import Button from '../SharedComponents/Button';
 
 function Cart() {
   const { currentStyle } = useOverview();
-  const { currentStyleId } = useOverview();
   const [sizes, setSizes] = useState([]);
-  const [sizeSelected, setSizeSelected] = useState(false);
-  const [quantities, setQuantities] = useState([]);
   const quantitiesArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
   const uniqueArray = [];
 
@@ -19,18 +16,12 @@ function Cart() {
     event.preventDefault();
   }
 
-  // function handleSizeButton(event) {
-  //   event.preventDefault();
-  //   setSizes
-  // }
-
   function updateSKU() {
     if (currentStyle) {
       for (const keys in currentStyle) {
         if (keys === 'skus') {
           for (const sku in currentStyle.skus) {
             uniqueArray.push(currentStyle.skus[sku].size);
-            setQuantities((prev) => ([...prev, currentStyle.skus[sku].quantity]));
           }
         }
       }
@@ -55,15 +46,13 @@ function Cart() {
     <div className="Cart">
       <div id="size">
         <Title>Size</Title>
-        {/* <select>
-          {sizes.length > 0 ? sizes.map((size, index) => <option>{size}</option>) : 'Out Of Stock'}
-        </select> */}
         {sizes && sizes.length > 0 ? sizes.map((size, index) => <ButtonStyled key={index}>{size}</ButtonStyled>) : 'Out Of Stock'}
       </div>
       <div id="quantity">
         <Dropdown>
-          {/* {quantities.length > 0 ? quantities.map((quantity, index) => <option>{quantity}</option>) : 'Out Of Stock'} */}
-          {quantitiesArray.map((quantity, index) => <FancyOption key={index}>{quantity}</FancyOption>)}
+          {quantitiesArray.map(
+            (quantity, index) => <FancyOption key={index}>{quantity}</FancyOption>,
+          )}
         </Dropdown>
       </div>
       <Button label="Add To Cart" handleClick={() => handleClick} />
@@ -90,13 +79,19 @@ const ButtonStyled = styled.button`
   box-shadow: 2px 2px 1px 2px #8888;
   width: 50px;
   height: 40px;
+  transition: 0.3s;
   &:hover{
     cursor: pointer;
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19)
   }
+  &:focus{
+    background-color: black;
+    color: white;
+  }
 `;
 
 const Dropdown = styled.select`
+  border: 2px solid black;
   margin: 0 10px 10px 10px;
   min-width: 140px;
   height: 40px;

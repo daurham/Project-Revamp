@@ -7,20 +7,11 @@ import GlobalStyle from '../GlobalStyle';
 import ImageGallery from './ImageGallery/ImageGallery';
 import ProductDetail from './ProductDetail';
 import StyleSelector from './StyleSelector/StyleSelector';
-// import Test from './Test';
 import Cart from './Cart';
 import OverviewProvider, { useOverview } from '../SharedContexts/OverviewProvider';
 
 function Overview() {
   const { prodDetails } = useOverview();
-  // const { prodStyles } = useOverview();
-  // const { currentStyleId } = useOverview();
-  // const { currentStyle } = useOverview();
-
-  // console.log('prodD', prodDetails)
-  // console.log('prodS', prodStyles)
-  // console.log('ID', currentStyleId)
-  // console.log('Styles', currentStyle)
 
   if (Object.keys(prodDetails).length === 0) {
     return null;
@@ -35,15 +26,9 @@ function Overview() {
               <ImageGallery />
             </ImageGalleryContainer>
 
-            <ProductDetailsContainer>
+            <ProductInfoContainer>
               <ProductDetail />
-            {/* </ProductDetailsContainer> */}
-
-            {/* <StyleSelectorContainer> */}
               <StyleSelector />
-            {/* </StyleSelectorContainer> */}
-
-            {/* <CartContainer> */}
               <Cart />
               <a href="https://www.instagram.com">
                 <FaInstagram
@@ -71,8 +56,7 @@ function Overview() {
                 }}
                 />
               </a>
-            {/* </CartContainer> */}
-            </ProductDetailsContainer>
+            </ProductInfoContainer>
 
             <ProductDescriptionContainer>
               <DesriptionHead>Product Description</DesriptionHead>
@@ -164,62 +148,15 @@ const Container = styled.div`
   [last-line];
 `;
 
-// const Container = styled.div`
-//   display: grid;
-//   margin-top: 3%;
-//   grid-template-columns: 50% 50%;
-//   grid-template-rows: [row1-start] 20%
-//   [row1-end] 25%
-//   [third-line] 30%
-//   [fourth-line] 25%
-//   [last-line]
-// ';
-
 const ImageGalleryContainer = styled.div`
   grid-column-start: 1;
   grid-row-start: 1;
 `;
 
-// const ImageGalleryContainer = styled.div`
-//   grid-column-start: 1;
-//   grid-row-start: 1;
-//   grid-row-end: span 3;
-// `;
-
-const ProductDetailsContainer = styled.div`
+const ProductInfoContainer = styled.div`
   grid-column-start: 2;
   grid-row-start: 1;
 `;
-
-// const ProductDetailsContainer = styled.div`
-//   margin-left: 10px;
-//   grid-column-start: 2;
-//   grid-row-start: 1;
-// `;
-
-// const StyleSelectorContainer = styled.div`
-// margin-left: 10px;
-// grid-column-start: 2;
-// grid-row-start: 1;
-// `;
-
-// const StyleSelectorContainer = styled.div`
-//   margin-left: 10px;
-//   grid-column-start: 2;
-//   grid-row-start: 2;
-// `;
-
-// const CartContainer = styled.div`
-// margin-left: 10px;
-// grid-column-start: 2;
-// grid-row-start: 1;
-// `;
-
-// const CartContainer = styled.div`
-//   margin-left: 10px;
-//   grid-column-start: 2;
-//   grid-row-start: 3;
-// `;
 
 const ProductDescriptionContainer = styled.div`
   grid-column-start: 1;
@@ -227,9 +164,3 @@ const ProductDescriptionContainer = styled.div`
   grid-row-start: 2;
   margin-top: 3%;
 `;
-
-// const ProductDescriptionContainer = styled.div`
-//   grid-column-start: 1;
-//   grid-column-end: 3;
-//   grid-row-start: 4;
-// `;

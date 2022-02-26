@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import Carousel from './Carousel';
-import Modal from './Modal';
+// import Modal from './Modal';
+import Modal from '../SharedComponents/Modal';
 import { useRelated } from './RelatedProvider';
 import { useOverview } from '../SharedContexts/OverviewProvider';
 import ModalComparison from './ModalComparison';

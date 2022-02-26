@@ -7,8 +7,6 @@ import Style from './Style';
 function StyleSelector() {
   const { prodStyles } = useOverview();
   const { currentStyle } = useOverview();
-  // console.log(props)
-  // console.log('st', prodStyles)
 
   return (
     <div className="StyleSelector">
