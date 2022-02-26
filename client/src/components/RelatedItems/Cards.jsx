@@ -93,7 +93,10 @@ const ImgContainer = styled.img`
 `;
 
 const CardInfoContainer = styled.div`
-  box-shadow: rgb(0 0 0 / 12%) 4px 4px 4px 0px;
+  &:hover{
+    cursor: pointer;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19)
+  }
 `;
 
 const SalePrice = styled.div`

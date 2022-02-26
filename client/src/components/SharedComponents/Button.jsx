@@ -4,10 +4,8 @@ import GlobalStyle from '../GlobalStyle';
 
 function Button({ label, handleClick }) {
   return (
-    <>
     <ButtonStyled onClick={handleClick}>{label || 'add label'}</ButtonStyled>
-    </>
-  )
+  );
 }
 
 const ButtonStyled = styled.button`

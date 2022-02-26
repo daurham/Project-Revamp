@@ -48,30 +48,25 @@ export default ProductDetail;
 
 const Title = styled.h1`
   ${GlobalStyle.title};
-  margin-top: 0;
-  margin-bottom: 10px;
+  margin: 0 0 10px 0;
 `;
 
 const Category = styled.h2`
   ${GlobalStyle.para_sm};
-  margin-top: 0;
-  margin-bottom: 10px;
+  margin: 10px 0 10px 0;
 `;
 
 const Price = styled.div`
   ${GlobalStyle.para_title};
-  margin-top: 0;
-  margin-bottom: 10px;
+  margin: 0 0 10px 0;
 `;
 
 const P = styled.div`
   ${GlobalStyle.para_title};
-  margin-top: 0;
-  margin-bottom: 10px;
+  margin: 0 0 10px 10px;
 `;
 
 const StarContainer = styled.div`
   width: 0;
-  margin-top: 0;
-  margin-bottom: 25px;
+  margin: 0 0 25px 10px;
 `;
