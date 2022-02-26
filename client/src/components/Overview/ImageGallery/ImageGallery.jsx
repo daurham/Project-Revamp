@@ -59,7 +59,8 @@ function ImageGallery() {
       <div
         className="MainImage"
         style={{
-          maxWidth: '400px',
+          maxWidth: '80%',
+          maxHeight: '80%',
           marginLeft: 'auto',
           marginRight: 'auto',
         }}
@@ -76,7 +77,8 @@ function ImageGallery() {
         <div
           className="Thumbnail"
           style={{
-            width: '500px',
+            // maxWidth: '100%',
+            maxHeight: '20%',
             marginLeft: 'auto',
             marginRight: 'auto',
           }}
@@ -102,7 +104,7 @@ function ImageGallery() {
         <div
           className="Thumbnail"
           style={{
-            width: 'auto',
+            maxHeight: '20%',
             marginLeft: 'auto',
             marginRight: 'auto',
           }}
@@ -219,4 +221,8 @@ const Thumbnail = styled.img`
   width: 50px;
   height: 50px;
   object-fit: cover;
+  &:hover{
+    cursor: pointer;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19)
+  }
 `;
