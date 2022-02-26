@@ -4,18 +4,8 @@ import { useQAData } from './QAContext/DataProvider';
 import { useData } from '../SharedContexts/DataProvider';
 
 function SearchBar() {
-  /* TEST:
-    Describe: 'My SearchBar component should capture the user input data'
-    Test: 'input state should match the string "TesTinG"'
-  */
-
   const { productId } = useData();
-  const {
-    questions,
-    setQuestions,
-    getQuestions,
-    setSearchResults,
-  } = useQAData();
+  const { questions, setSearchResults } = useQAData();
   const [input, setInput] = useState('');
 
   function filterQuestions(query) {
@@ -53,7 +43,7 @@ function SearchBar() {
           type="text"
           value={input}
           placeholder="Search for a question"
-          onChange={handleInput}
+          onChange={() => { handleInput(); }}
         />
       </SearchBarContainer>
       <br />
@@ -65,7 +55,7 @@ export default SearchBar;
 
 const SearchBarContainer = styled.div`
   display: flex;
-  `;
+`;
 
 const InputSearchBar = styled.input`
   width: 100%;

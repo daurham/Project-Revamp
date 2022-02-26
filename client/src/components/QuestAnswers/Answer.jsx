@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import GlobalStyle from '../GlobalStyle';
-import { useData } from '../SharedContexts/DataProvider';
-import { useQAData } from './QAContext/DataProvider';
 
 function Answer({ currentAnswer, setAnswers, questionId }) {
   if (!setAnswers || !questionId) {
@@ -20,7 +18,12 @@ function Answer({ currentAnswer, setAnswers, questionId }) {
   const { answer_id } = currentAnswer;
   const [voted, hasVoted] = useState(false);
   const [reported, hasReported] = useState(false);
-  let keyVal = 0;
+  let keyVal = answer_id;
+
+  function getKey() {
+    keyVal += 1;
+    return keyVal + answer_id;
+  }
 
   function reportUser() {
     alert('Thanks for keeping the community safe');
@@ -41,7 +44,6 @@ function Answer({ currentAnswer, setAnswers, questionId }) {
         .catch((err) => console.log(err));
     }
   }
-
   const { answerer_name } = currentAnswer;
   const { body } = currentAnswer;
   const { date } = currentAnswer;
@@ -55,12 +57,10 @@ function Answer({ currentAnswer, setAnswers, questionId }) {
 
   return (
     <div>
-      <span>
-        <AnAnswer>
-          <AnswerOpener>
-            <TitleAStyle>A:</TitleAStyle>
-            <ReviewBody>{body}</ReviewBody>
-          </AnswerOpener>
+      <AnAnswer>
+        <AnswerOpener>
+          <TitleAStyle>A:</TitleAStyle>
+          <ReviewBody>{body}</ReviewBody>
           <AnswerBottom>
             <NameAndDate>
               -
@@ -69,25 +69,29 @@ function Answer({ currentAnswer, setAnswers, questionId }) {
             <Helpful>
               Helpful?
               {' '}
-              <ins onClick={upvoteUser}>Yes? ({helpfulness})</ins>
+              <HelpfulButton onClick={() => { upvoteUser(); }}>
+                Yes
+              </HelpfulButton>
+              {helpfulness}
               {' | '}
-              <ins onClick={reportUser}>{!reported ? 'Report' : 'Reported'}</ins>
+              <HelpfulButton onClick={() => { reportUser(); }}>
+                {!reported ? 'Report' : 'Reported'}
+              </HelpfulButton>
             </Helpful>
           </AnswerBottom>
-        </AnAnswer>
-      </span>
-
+        </AnswerOpener>
+      </AnAnswer>
       <ImgBlock>
         {photos.length > 0
           && (
-            <TheGallery>
+            <GalleryItem>
               {
                 photos.length > 0
                   ? (
-                    photos.map((pic) => (<Gallery><Image key={keyVal += 1} src={pic.url} alt="Shared Pic" /></Gallery>))
+                    photos.map((pic) => (<Gallery key={() => { getKey(); }}><Image key={() => { getKey(); }} src={pic.url} alt="Shared Pic" loading="lazy" /></Gallery>))
                   ) : null
               }
-            </TheGallery>
+            </GalleryItem>
           )}
       </ImgBlock>
     </div>
@@ -98,9 +102,18 @@ export default Answer;
 
 // Styles:
 
-const TitleStyle = styled.h1`
-  ${GlobalStyle.sub_title};
-  margin: 0px;
+const HelpfulButton = styled.button`
+  width: auto;
+  font-size: 10px;
+  border-radius: 50%;
+  background-color: white;
+  color: black;
+  border: 2px solid #e7e7e7;
+  transition-duration: 0.2s;
+  &:hover{
+    cursor: pointer;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19)
+  }
 `;
 const ReviewBody = styled.p`
   ${GlobalStyle.para_md};
@@ -120,18 +133,7 @@ const Helpful = styled.p`
   margin: 0px;
   margin-left: 2%;
   cursor: pointer;
-  `;
-// margin-right: 20px;
-const Recommend = styled.p`
-  ${GlobalStyle.para_sm};
 `;
-const ReviewerName = styled.p`
-  ${GlobalStyle.para_sm};
-`;
-const DateStyle = styled.p`
-  ${GlobalStyle.para_sm};
-`;
-// border-top: grey 1px solid;
 const TitleAStyle = styled.h1`
   ${GlobalStyle.para_xmd};
 `;
@@ -141,7 +143,6 @@ display: inline-block;
 const AnswerBottom = styled.span`
 display: -webkit-inline-box;
 `;
-
 const AnAnswer = styled.div`
   display: flex;
   border-bottom: light-grey 2px solid;
@@ -150,7 +151,6 @@ const AnAnswer = styled.div`
   box-shadow: 2px 0px 1px 0px #8888;
   justify-content: space-between;
 `;
-
 const Gallery = styled.div`
   display: inline-block;
   margin: 5px;
@@ -159,22 +159,17 @@ const Gallery = styled.div`
   max-height: 180px;
   max-width: 180px;
   &:hover {
-    border: 1px solid #777;
   }
-  `;
-// width: 180px;
-
+`;
 const Image = styled.img`
   width: 100%;
   height: auto;
 `;
-
-const TheGallery = styled.div`
+const GalleryItem = styled.div`
   display: inline-flex;
   max-height: 400px;
   max-width: 100%;
 `;
-
 const ImgBlock = styled.div`
   display: inline-flex;
 `;

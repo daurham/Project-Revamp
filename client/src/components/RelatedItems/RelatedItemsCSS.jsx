@@ -38,6 +38,7 @@ export const ModalColumnRight = styled.div`
   flex-direction: column;
   flex-basis: 100%;
   flex: 1;
+  text-align: left;
 `;
 
 export const ModalColumnCenter = styled.div`

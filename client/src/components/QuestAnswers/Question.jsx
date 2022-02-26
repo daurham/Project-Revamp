@@ -10,13 +10,8 @@ import { useData } from '../SharedContexts/DataProvider';
 import { useQAData } from './QAContext/DataProvider';
 
 function Question({ currentQuestion }) {
-  /* TEST:
-    Describe: 'My Question component renders all the question data'
-    Test: 'CurrentQuestion prop length should match a get request of the question'
-  */
-
   const filteredList = [];
-  const { questions, getQuestions } = useQAData();
+  const { getQuestions } = useQAData();
   const { question_id } = currentQuestion;
   const { question_body } = currentQuestion;
   const { question_helpfulness } = currentQuestion;
@@ -26,14 +21,14 @@ function Question({ currentQuestion }) {
   const [loadLimit, updateLoadLimit] = useState(2);
   const [post, postMade] = useState(false);
   const [modal, setModal] = useState(false);
-  // modal input:
-  const [input, setInput] = useState('');
-  const [userName, setUserName] = useState('');
-  const [userEmail, setUserEmail] = useState('');
-  const [attachment, setAttachment] = useState();
   const [voted, hasVoted] = useState(false);
   const [reported, hasReported] = useState(false);
   const [collapsed, setCollapsed] = useState(true);
+  const answerListLabel = (collapsed ? 'See more answers' : 'Collapse answers');
+  const noAnswers = 'No ones answered yet...';
+  let body;
+  let name;
+  let email;
 
   function getAnswers(id) {
     axios.get(`/answers/${id}`)
@@ -67,47 +62,37 @@ function Question({ currentQuestion }) {
     setCollapsed(!collapsed);
   }
 
-  const answerListLabel = (collapsed ? 'See more answers' : 'Collapse answers');
-
   function toggleModal() {
     setModal(!modal);
   }
 
   function handleSubmit() {
-    if ((userName && userEmail) && input) {
-      const body = {
-        body: input,
-        name: userName,
-        email: userEmail,
+    if ((name && email) && body) {
+      const data = {
+        body,
+        name,
+        email,
       };
-      if (attachment) {
-        body.photos = [attachment];
-      }
       postMade(true);
-      console.log(body);
-      axios.post(`/answers/${question_id}`, body)
-        .then(() => console.log('Answer posted!'))
-        .catch((err) => console.log(err));
+      axios.post(`/answers/${question_id}`, data);
     } else {
       alert('Please fill in the form to submit a post.');
     }
   }
 
   function handleInput(e) {
-    setInput(e.target.value);
+    body = e.target.value;
   }
 
   function handleUserName(e) {
-    setUserName(e.target.value);
+    name = e.target.value;
   }
 
   function handleUserEmail(e) {
-    setUserEmail(e.target.value);
+    email = e.target.value;
   }
 
   function uploadAttachment() {
-    // setAttachment(e.file?);
-    console.log('upload a pic');
     // logic
   }
 
@@ -115,9 +100,7 @@ function Question({ currentQuestion }) {
     alert('Thanks you for keeping our community safe!');
     if (!reported) {
       hasReported(true);
-      axios.put(`/questions/${questionId}/report`)
-        .then(() => console.log('reported!'))
-        .catch((err) => console.log(err));
+      axios.put(`/questions/${questionId}/report`);
     }
   }
 
@@ -125,15 +108,9 @@ function Question({ currentQuestion }) {
     if (!voted) {
       hasVoted(true);
       axios.put(`/questions/${questionId}/helpful`)
-        .then(() => console.log('upvoted!'))
-        .then(() => getQuestions())
-        .catch((err) => console.log(err));
+        .then(() => getQuestions());
     }
   }
-
-  const noAnswers = 'No ones answered yet...';
-
-  const putStyles = { cursor: 'pointer' };
 
   useEffect(() => {
     hasReported(false);
@@ -146,7 +123,7 @@ function Question({ currentQuestion }) {
       renderList();
     }
   }, [post]);
-  // console.log('am i rerendering from questions?');
+
   return !answers ? <SpinnerContainer><Spinner /></SpinnerContainer> : (
     <div>
       <AQuestion>
@@ -164,18 +141,17 @@ function Question({ currentQuestion }) {
           <Helpful>
             Helpful?
             {' '}
-            <ins style={putStyles} role="button" tabIndex={0} onKeyDown={upvoteUser} onClick={upvoteUser}>
+            <HelpfulButton tabIndex={0} onClick={() => { upvoteUser(); }}>
               Yes
-              (
-              {question_helpfulness}
-              )
-            </ins>
+            </HelpfulButton>
+            {question_helpfulness}
             {' | '}
-            <ins style={putStyles} role="button" tabIndex={0} onKeyDown={reportUser} onClick={reportUser}>{!reported ? 'Report' : 'Reported'}</ins>
+            <HelpfulButton tabIndex={0} onClick={() => { reportUser(); }}>
+              {!reported ? 'Report' : 'Reported'}
+            </HelpfulButton>
           </Helpful>
         </HelpfulBtnBlock>
       </AQuestion>
-      {/* <TitleAStyle>A:</TitleAStyle> */}
       {
         filteredList.length > 0 ? ((filteredList.map((currentAnswer) => (
           <Answer
@@ -210,7 +186,7 @@ function Question({ currentQuestion }) {
                 <form>
                   <ModalTextarea
                     placeholder="What do you want to say?"
-                    onChange={() => { handleInput(); }}
+                    onChange={handleInput}
                   />
                   <span>
                     <input
@@ -254,41 +230,47 @@ export default Question;
 
 // Styles:
 
+const HelpfulButton = styled.button`
+  width: auto;
+  font-size: 10px;
+  border-radius: 50%;
+  background-color: white;
+  color: black;
+  border: 2px solid #e7e7e7;
+  transition-duration: 0.2s;
+  &:hover{
+    cursor: pointer;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19)
+  }
+`;
 const QSmButton = styled.button`
   box-shadow: 2px 0px 1px 0px #8888;
   width: 130px;
-  margin-left: 10px;
   background-color: white;
   height: 20px;
-  margin-bottom: 10px;
+  margin: 5px 0;
   ${GlobalStyle.para_sm};
   &:hover{
     cursor: pointer;
     box-shadow: 0 6px 10px 0 rgba(0,0,0,0.24), 0 7px 10px 0 rgba(0,0,0,0.19)
   }
-  `;
+`;
 const SmButton = styled.button`
   box-shadow: 2px 0px 1px 0px #8888;
-  width: 130px;
-  margin-left: 10px;
+  width: auto;
   background-color: white;
   height: 20px;
-  margin-bottom: 10px;
+  margin: 10px;
   ${GlobalStyle.para_sm};
   &:hover{
     cursor: pointer;
     box-shadow: 0 6px 10px 0 rgba(0,0,0,0.24), 0 7px 10px 0 rgba(0,0,0,0.19)
   }
-  `;
+`;
 const TitleStyle = styled.h1`
   ${GlobalStyle.para_xmd};
   display: inline;
   margin: 0px;
-`;
-const TitleAStyle = styled.h1`
-  ${GlobalStyle.para_xmd};
-  margin: 0px;
-  padding: 0% 2%;
 `;
 const Helpful = styled.p`
   ${GlobalStyle.para_sm};
@@ -306,32 +288,22 @@ const AQuestion = styled.div`
   min-width: 50%;
   display: flex;
   justify-content: space-between;
-  `;
-
+`;
 const HelpfulBtnBlock = styled.span`
   float: right;
   display: flex;
-  `;
-  // display: inline-grid;
-
+`;
 const NoAnswer = styled.div`
   margin-left: 5%;
 `;
-
 const SpinnerContainer = styled.div`
   display: flex;
   justify-content: center;
 `;
-
 const ModalTextarea = styled.textarea`
   resize: none;
   width: 400px;
   height: 200px;
 `;
-
-// min-height: 50%;
 const ModalContainer = styled.div`
 `;
-// height: 75%;
-// width: fit-content;
-// min-width: 50%;
