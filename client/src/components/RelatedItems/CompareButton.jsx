@@ -24,7 +24,7 @@ function CompareButton(props) {
 export default CompareButton;
 
 const CompareButtonPadding = styled.div`
-padding-left: 79%;
+  padding-left: 79%;
 `;
 
 const CompareButtonStyle = styled.button`

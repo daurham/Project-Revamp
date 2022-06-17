@@ -19,6 +19,7 @@ function ProgressBar(props) {
     filterRatingFunc(filterRatingNum);
   };
 
+  console.log(meta);
   if (meta) {
     recommended = calcPercent(meta, meta.recommended, 'recommended');
     calcPercent(meta, meta.ratings);

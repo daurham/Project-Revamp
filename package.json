@@ -1,7 +1,8 @@
 {
   "scripts": {
-    "start": "webpack -w",
-    "server": "nodemon server/server.js -w",
+    "build": "webpack",
+    "webpack": "webpack -w",
+    "start": "nodemon server/server.js -w",
     "test": "jest -c jest.config.js --watch"
   },
   "dependencies": {

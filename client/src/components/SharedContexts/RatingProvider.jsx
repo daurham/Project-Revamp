@@ -22,7 +22,7 @@ function RatingProvider({ children }) {
   function getReviews() {
     const query_params = { product_id: productId, count: 100, sort: 'newest' };
     axios.get('/reviews', { params: query_params })
-      .then((response) => setReviews(response.data))
+      .then((response) => {setReviews(response.data)})
       .catch((error) => { console.log('get error', error); });
   }
   function sortReviews(sortParam) {

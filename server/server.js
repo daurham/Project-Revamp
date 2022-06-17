@@ -1,37 +1,31 @@
 const express = require('express');
 const path = require('path');
 const axios = require('axios');
-const { Authorization } = require('../apikey');
+const { Authorization } = require('../config');
 
 const app = express();
 const PORT = 3000;
 const DIST_DIR = path.join(__dirname, '../client/dist');
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-
 app.use(express.static(DIST_DIR));
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 const headers = { Authorization };
 const config = { headers };
 
-// returns all products
 app.get('/products', (req, res) => {
   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products', config)
-    .then((result) => { res.send(result.data); })
-    .catch(() => { res.sendStatus(500); });
-});
-
-// returns product level information for a specific product id
-app.get('/products/:id', (req, res) => {
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products/${req.params.id}`, config)
-    .then((result) => { res.send(result.data); })
+    .then((result) => res.send(result.data))
     .catch(() => res.sendStatus(500));
 });
 
-// --- For Related Items ---
+app.get('/products/:id', (req, res) => {
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products/${req.params.id}`, config)
+    .then((result) => res.send(result.data))
+    .catch(() => res.sendStatus(500));
+});
+
 app.get('/products/:id/related', (req, res) => {
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products/${req.params.id}/related`, config)
     .then((result) => res.send(result.data))
@@ -57,11 +51,10 @@ app.get('/products/:id/relatedinfo', (req, res) => {
     .catch(() => res.sendStatus(500));
 });
 
-// returns all the styles available for the given product
 app.get('/products/:id/styles', (req, res) => {
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products/${req.params.id}/styles`, config)
-    .then((result) => { res.send(result.data); })
-    .catch(() => { res.sendStatus(500); });
+    .then((result) => res.send(result.data))
+    .catch(() => res.sendStatus(500));
 });
 
 app.get('/reviews', (req, res) => {
@@ -70,8 +63,8 @@ app.get('/reviews', (req, res) => {
     headers,
   };
   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews', reviewConfig)
-    .then((result) => { res.send(result.data); })
-    .catch(() => { res.sendStatus(500); });
+    .then((result) => res.send(result.data))
+    .catch(() => res.sendStatus(500));
 });
 
 app.get('/reviews/meta/ratings', (req, res) => {
@@ -80,8 +73,8 @@ app.get('/reviews/meta/ratings', (req, res) => {
     headers,
   };
   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/meta', reviewConfig)
-    .then((result) => { res.send(result.data.ratings); })
-    .catch(() => { res.sendStatus(500); });
+    .then((result) => res.send(result.data.ratings))
+    .catch(() => res.sendStatus(500));
 });
 
 app.get('/reviews/meta', (req, res) => {
@@ -90,8 +83,8 @@ app.get('/reviews/meta', (req, res) => {
     headers,
   };
   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/meta', reviewConfig)
-    .then((result) => { res.send(result.data); })
-    .catch(() => { res.sendStatus(500); });
+    .then((result) => res.send(result.data))
+    .catch(() => res.sendStatus(500));
 });
 
 app.post('/reviews', (req, res) => {
@@ -102,21 +95,16 @@ app.post('/reviews', (req, res) => {
     },
   };
   axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews', JSON.stringify(req.body), postConfig)
-    .then((result) => {
-      res.send(result.data);
-    })
+    .then((result) => res.send(result.data))
     .catch((error) => res.status(error).send(500));
 });
 
 app.put('/reviews/:review_id/helpful', (req, res) => {
   axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/${req.params.review_id}/helpful`, null, config)
-    .then((result) => {
-      res.send(result.data);
-    })
+    .then((result) => res.send(result.data))
     .catch((error) => res.status(500).send(error));
 });
 
-// Questions / Answers
 app.get('/questions/:id', (req, res) => {
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions?product_id=${req.params.id}&page=1&count=40`, config)
     .then((result) => res.status(200).send(result.data))
@@ -202,4 +190,4 @@ app.put('/answers/:id/report', (req, res) => {
     .catch((err) => res.status(500).send(err));
 });
 
-app.listen(PORT, () => { console.log(`Listening to port ${PORT}`); });
+app.listen(PORT, () => console.log(`Listening to port ${PORT}`));

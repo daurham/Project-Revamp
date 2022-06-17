@@ -100,7 +100,8 @@ function Question({ currentQuestion }) {
     alert('Thanks you for keeping our community safe!');
     if (!reported) {
       hasReported(true);
-      axios.put(`/questions/${questionId}/report`);
+      axios.put(`/questions/${questionId}/report`)
+        .catch(console.error);
     }
   }
 
@@ -108,7 +109,8 @@ function Question({ currentQuestion }) {
     if (!voted) {
       hasVoted(true);
       axios.put(`/questions/${questionId}/helpful`)
-        .then(() => getQuestions());
+        .then(() => getQuestions())
+        .catch(console.error);
     }
   }
 
@@ -134,20 +136,20 @@ function Question({ currentQuestion }) {
         <HelpfulBtnBlock>
           <QSmButton
             type="button"
-            onClick={() => { toggleModal(); }}
+            onClick={() => toggleModal()}
           >
             Add Answer
           </QSmButton>
           <Helpful>
             Helpful?
             {' '}
-            <HelpfulButton tabIndex={0} onClick={() => { upvoteUser(); }}>
+            <HelpfulButton tabIndex={0} onClick={() => upvoteUser()}>
               Yes
             </HelpfulButton>
             {' '}
             {question_helpfulness}
             {' | '}
-            <HelpfulButton tabIndex={0} onClick={() => { reportUser(); }}>
+            <HelpfulButton tabIndex={0} onClick={() => reportUser()}>
               {!reported ? 'Report' : 'Reported'}
             </HelpfulButton>
           </Helpful>
@@ -168,7 +170,7 @@ function Question({ currentQuestion }) {
         answers.length > 2 ? (
           <SmButton
             type="button"
-            onClick={() => { toggleAnswerAccordian(); }}
+            onClick={() => toggleAnswerAccordian()}
           >
             {answerListLabel}
           </SmButton>
@@ -177,7 +179,7 @@ function Question({ currentQuestion }) {
       <span>
         <Modal
           show={modal}
-          closeCallback={() => { toggleModal(); }}
+          closeCallback={() => toggleModal()}
         >
           {!post
             ? (
@@ -204,12 +206,12 @@ function Question({ currentQuestion }) {
                 </form>
                 <span>
                   <Button
-                    handleClick={() => { handleSubmit(); }}
+                    handleClick={() => handleSubmit()}
                     type="button"
                     label="Submit"
                   />
                   <Button
-                    handleClick={() => { uploadAttachment(); }}
+                    handleClick={() => uploadAttachment()}
                     type="button"
                     label="Upload an Image"
                   />
@@ -228,8 +230,6 @@ function Question({ currentQuestion }) {
 }
 
 export default Question;
-
-// Styles:
 
 const HelpfulButton = styled.button`
   width: auto;

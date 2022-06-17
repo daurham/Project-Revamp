@@ -24,8 +24,7 @@ function QuestAnswers() {
 
 export default QuestAnswers;
 
-const QAHeader = styled.div`
-`;
+const QAHeader = styled.div``;
 
 const TitleStyle = styled.h1`
   ${GlobalStyle.sub_title2};
@@ -39,8 +38,8 @@ const QAFlexContainer = styled.div`
 `;
 
 const QASection = styled.div`
-justify-content: center;
-min-width: 100%;
+  justify-content: center;
+  min-width: 100%;
 `;
 
 const SpinnerContainer = styled.div`
