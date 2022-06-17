@@ -160,8 +160,6 @@ function QuestionList() {
 
 export default QuestionList;
 
-// Styles:
-
 const SmButton = styled.button`
   border: 2px solid black;
   box-shadow: 2px 2px 1px 2px #8888;
@@ -189,16 +187,13 @@ const NoQuestions = styled.h1`
   margin-left: 5%;
 `;
 const ModalTextarea = styled.textarea`
-resize: none;
-width: 400px;
-height: 200px;
+  resize: none;
+  width: 400px;
+  height: 200px;
 `;
-const LModalHeader = styled.h2`
-`;
-const LModalBottomSpan = styled.span`
-`;
+const LModalHeader = styled.h2``;
+const LModalBottomSpan = styled.span``;
 const LModalBottomInput = styled.input`
   border: light-grey;
 `;
-const ModalContainer = styled.div`
-`;
+const ModalContainer = styled.div``;

@@ -31,7 +31,7 @@ function Answer({ currentAnswer, setAnswers, questionId }) {
       hasReported(true);
       axios.put(`/answers/${answer_id}/report`)
         .then(() => console.log('reported!'))
-        .catch((err) => console.log(err));
+        .catch(console.log);
     }
   }
 
@@ -41,7 +41,7 @@ function Answer({ currentAnswer, setAnswers, questionId }) {
       axios.put(`/answers/${answer_id}/helpful`)
         .then(() => console.log('upvoted!'))
         .then(() => getAnswers(questionId))
-        .catch((err) => console.log(err));
+        .catch(console.log);
     }
   }
   const { answerer_name } = currentAnswer;
@@ -64,18 +64,20 @@ function Answer({ currentAnswer, setAnswers, questionId }) {
           <AnswerBottom>
             <NameAndDate>
               -
-              {answerer_name === 'Seller' ? <b>{answerer_name}</b> : answerer_name}, {newDate}
+              {answerer_name === 'Seller' ? <b>{answerer_name}</b> : answerer_name}
+              ,
+              {newDate}
             </NameAndDate>
             <Helpful>
               Helpful?
               {' '}
-              <HelpfulButton onClick={() => { upvoteUser(); }}>
+              <HelpfulButton onClick={() => upvoteUser()}>
                 Yes
               </HelpfulButton>
               {' '}
               {helpfulness}
               {' | '}
-              <HelpfulButton onClick={() => { reportUser(); }}>
+              <HelpfulButton onClick={() => reportUser()}>
                 {!reported ? 'Report' : 'Reported'}
               </HelpfulButton>
             </Helpful>
@@ -89,7 +91,7 @@ function Answer({ currentAnswer, setAnswers, questionId }) {
               {
                 photos.length > 0
                   ? (
-                    photos.map((pic) => (<Gallery key={() => { getKey(); }}><Image key={() => { getKey(); }} src={pic.url} alt="Shared Pic" loading="lazy" /></Gallery>))
+                    photos.map((pic) => (<Gallery key={() => getKey()}><Image key={() => getKey()} src={pic.url} alt="Shared Pic" loading="lazy" /></Gallery>))
                   ) : null
               }
             </GalleryItem>
@@ -139,10 +141,10 @@ const TitleAStyle = styled.h1`
   ${GlobalStyle.para_xmd};
 `;
 const AnswerOpener = styled.span`
-display: inline-block;
+  display: inline-block;
 `;
 const AnswerBottom = styled.span`
-display: -webkit-inline-box;
+  display: -webkit-inline-box;
 `;
 const AnAnswer = styled.div`
   display: flex;
