@@ -1,7 +1,7 @@
 # Project-Revamp
 This is the front end of a retail website
 
-## Building Client
+## Set up the Client
 
 First install dependencies:
 
@@ -15,25 +15,18 @@ To create a production build:
 npm run build
 ```
 
-To create a development build:
-
-```sh
-npm run build-dev
-```
-
-## Running
+Run server:
 
 ```sh
 npm start
 ```
 
-## Testing
-
-To run unit tests:
+Type in browser:
 
 ```sh
-npm test
+http://localhost:3000
 ```
+
 
 Members
 - Alvina Kwon
