@@ -29,7 +29,7 @@ http://localhost:3000
 ```
 ---
 # Revamp Overview
-[gif scrolling over the whole project]
+![gif scrolling over the whole project](<iframe src="https://giphy.com/embed/9X0UXKVyT2urewwiku" width="480" height="362" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/fec-rouges-project-revamp-9X0UXKVyT2urewwiku">via GIPHY</a></p>)
 
 ## Our Widgets:
 - Prodect Overview
