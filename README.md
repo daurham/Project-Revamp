@@ -29,7 +29,7 @@ http://localhost:3000
 ```
 ---
 # Revamp Overview
-![](<iframe src="https://giphy.com/embed/9X0UXKVyT2urewwiku" width="480" height="362" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/fec-rouges-project-revamp-9X0UXKVyT2urewwiku">)
+![](https://media.giphy.com/media/9X0UXKVyT2urewwiku/giphy.gif)
 
 ## Our Widgets:
 - Prodect Overview
