@@ -2,6 +2,7 @@
 A user-facing product page to a retail's front end, using the Atelier API.
 
 ---
+---
 # Revamp
 ![](https://media.giphy.com/media/v539ZAsX5oaSayLCyd/giphy.gif)
 
@@ -10,17 +11,17 @@ A user-facing product page to a retail's front end, using the Atelier API.
 
 ![](https://media.giphy.com/media/Rcdj7oqQXVvRpzJH7t/giphy.gif)
 - Alvina Kwon
-
+---
 ### Related Items:
 
 ![](https://media.giphy.com/media/ez4FbcNZqziPvoBqWy/giphy.gif)
 - Austin Wang
-
+---
 ### Questions and Answers
 
 ![](https://media.giphy.com/media/nFWo43b3ndVPoyEdZ7/giphy.gif)
 - Jake Daurham
-
+---
 ### Ratings and Reviews
 
 ![](https://media.giphy.com/media/26oVdC9leaaHD3pJEw/giphy.gif)
