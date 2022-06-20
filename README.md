@@ -8,19 +8,22 @@ A user-facing product page to a retail's front end, using the Atelier API.
 ## Our Widgets:
 - Product Overview
 
-[gif scrolling over widget]
+![]()
+Alvina Kwon
 
 - Related Items
 
-[gif scrolling over widget]
-
+![]()
+Austin Wang
 - Questions and Answers
 
-[gif scrolling over widget]
-
+![]()
+Jake Daurham
 - Ratings and Reviews
 
-[gif scrolling over widget]
+![]()
+Bulgan Erdenebaatar
+
 ---
 ## Set up the Client:
 
