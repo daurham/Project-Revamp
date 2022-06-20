@@ -8,7 +8,7 @@ A user-facing product page to a retail's front end, using the Atelier API.
 ## Our Widgets:
 - Product Overview
 
-![]()
+![](https://media.giphy.com/media/Rcdj7oqQXVvRpzJH7t/giphy.gif)
 -Alvina Kwon
 
 - Related Items
