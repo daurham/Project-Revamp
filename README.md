@@ -29,7 +29,7 @@ http://localhost:3000
 ```
 ---
 # Revamp Overview
-![](https://media.giphy.com/media/9X0UXKVyT2urewwiku/giphy.gif)
+![](https://media.giphy.com/media/v539ZAsX5oaSayLCyd/giphy.gif)
 
 ## Our Widgets:
 - Prodect Overview
