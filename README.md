@@ -2,7 +2,6 @@
 A user-facing product page to a retail's front end, using the Atelier API.
 
 ---
----
 # Revamp
 ![](https://media.giphy.com/media/v539ZAsX5oaSayLCyd/giphy.gif)
 
