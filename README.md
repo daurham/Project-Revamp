@@ -37,7 +37,7 @@ Install dependencies:
 npm install
 ```
 
-To create a production build:
+Create a production build:
 ```sh
 npm run build
 ```
