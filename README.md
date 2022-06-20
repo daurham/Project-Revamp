@@ -1,11 +1,12 @@
 # Project-Revamp
-Project Revamp is a user facing product page to a retail's front end, using the Atelier API.
+A user-facing product page to a retail's front end, using the Atelier API.
+
 ---
-# Revamp Overview
+# Revamp
 ![](https://media.giphy.com/media/v539ZAsX5oaSayLCyd/giphy.gif)
 
 ## Our Widgets:
-- Prodect Overview
+- Product Overview
 
 [gif scrolling over widget]
 
