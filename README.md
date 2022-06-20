@@ -9,20 +9,20 @@ A user-facing product page to a retail's front end, using the Atelier API.
 - Product Overview
 
 ![]()
-Alvina Kwon
+-Alvina Kwon
 
 - Related Items
 
 ![]()
-Austin Wang
+-Austin Wang
 - Questions and Answers
 
 ![]()
-Jake Daurham
+-Jake Daurham
 - Ratings and Reviews
 
 ![]()
-Bulgan Erdenebaatar
+-Bulgan Erdenebaatar
 
 ---
 ## Set up the Client:
