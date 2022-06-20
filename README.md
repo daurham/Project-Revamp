@@ -6,10 +6,10 @@ A user-facing product page to a retail's front end, using the Atelier API.
 ![](https://media.giphy.com/media/v539ZAsX5oaSayLCyd/giphy.gif)
 
 ## Our Widgets:
-- Product Overview
+### Product Overview
 
 ![](https://media.giphy.com/media/Rcdj7oqQXVvRpzJH7t/giphy.gif)
-### Alvina Kwon
+- Alvina Kwon
 
 - Related Items
 
